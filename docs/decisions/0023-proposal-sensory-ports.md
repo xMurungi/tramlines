@@ -23,6 +23,16 @@ Each stimulus at 150 Hz for 1 s, mean of 3 seeds, spikes per second in candidate
 
 **The most important finding: with no input the whole brain is silent.** The model has no spontaneous activity, so the fly will not walk unless something drives it. That makes a fifth "port" necessary, and it is the most consequential choice here.
 
+!!! note "Update, 2026-10-22: sugar + bitter check"
+    Sugar GRNs held at 150 Hz while all 42 bitter GRNs are swept (`scripts/sugar_bitter.py`, 5 seeds, `docs/assets/sugar_bitter.csv`). MN9 right / left:
+
+    | Bitter | 0 Hz | 50 Hz | 100 Hz | 150 Hz | 200 Hz |
+    |---|---|---|---|---|---|
+    | MN9 right (reference) | 84.6 | 53.4 | 10.8 | 0.2 | 0.2 |
+    | MN9 left | 56.2 | 33.0 | 7.2 | 0.0 | 0.0 |
+
+    Bitter suppresses sugar-evoked feeding, dose-dependently, and abolishes it at equal rates. This matches the qualitative result in Shiu et al. 2024 and confirms port 2's role.
+
 ## Options and recommendation, port by port
 
 **1. Food → sugar GRNs.** *Recommended:* the 21 reference GRNs at 150 Hz while the fly stands on food (drives MN9 strongly, as in Phase 1). *Alternative:* all 67 `sugar/water` GRNs on that side (stronger, but includes water cells), or both sides' 131.
