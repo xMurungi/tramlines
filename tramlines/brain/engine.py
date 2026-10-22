@@ -101,28 +101,35 @@ class Brain:
         return twin
 
     def save(self, path: Path) -> None:
-        self.state.save(path, self._context())
+        self.state.save(path, self.context())
 
     @classmethod
     def load(cls, path: Path, connectome: Connectome, params: LIFParams = PARAMS) -> Brain:
         """Rebuild a brain from a saved state; refuses a state from different wiring."""
         state, context = BrainState.load(path)
-        if context["connectome"] != connectome.fingerprint:
-            raise ValueError(f"{path} was saved from a different connectome")
-        if context["params"] != repr(asdict(params)):
-            raise ValueError(f"{path} was saved with different model parameters")
         input_neurons = context["input_neurons"]
         assert isinstance(input_neurons, torch.Tensor)
         brain = cls(connectome, input_neurons, seed=0, params=params)
+        brain.check_context(context, source=str(path))
         brain.state = state
         return brain
 
-    def _context(self) -> dict[str, torch.Tensor | int | str]:
+    def context(self) -> dict[str, torch.Tensor | int | str]:
+        """What a saved state must be loaded against: wiring, parameters, inputs."""
         return {
             "connectome": self.connectome.fingerprint,
             "params": repr(asdict(self.params)),
             "input_neurons": self.input_neurons,
         }
+
+    def check_context(self, saved: dict[str, object], source: str) -> None:
+        if saved["connectome"] != self.connectome.fingerprint:
+            raise ValueError(f"{source} was saved from a different connectome")
+        if saved["params"] != repr(asdict(self.params)):
+            raise ValueError(f"{source} was saved with different model parameters")
+        inputs = saved["input_neurons"]
+        if not (isinstance(inputs, torch.Tensor) and torch.equal(inputs, self.input_neurons)):
+            raise ValueError(f"{source} was saved with different input neurons")
 
     def step(self) -> torch.Tensor:
         """Advance 0.1 ms. Returns the indices of the neurons that fired."""

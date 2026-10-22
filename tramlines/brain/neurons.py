@@ -25,6 +25,7 @@ ANNOTATION_COLUMNS = [
     "cell_class",
     "cell_sub_class",
     "cell_type",
+    "hemibrain_type",  # names from the hemibrain era, e.g. DNp09 (P9), MDN, Giant Fiber
     "side",
     "nerve",
     "top_nt",

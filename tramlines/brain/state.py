@@ -68,28 +68,37 @@ class BrainState:
             "generator_state": self.generator.get_state(),
         }
 
+    def to_dict(self) -> dict[str, torch.Tensor | int]:
+        """Plain data (tensors and ints), safe to write with `torch.save`."""
+        return {"format": STATE_FORMAT, "step": self.step, **self._tensors()}
+
+    @staticmethod
+    def from_dict(saved: dict[str, object]) -> BrainState:
+        """Inverse of `to_dict`. Consumes the keys it uses."""
+        if saved.pop("format") != STATE_FORMAT:
+            raise ValueError("state was saved in a different format")
+        tensors = {key: saved.pop(key) for key in (*_TENSOR_FIELDS, "generator_state")}
+        for key, value in tensors.items():
+            if not isinstance(value, torch.Tensor):
+                raise ValueError(f"saved state field {key} is not a tensor")
+        generator = torch.Generator(device="cpu")
+        generator.set_state(tensors.pop("generator_state"))  # type: ignore[arg-type]
+        step = saved.pop("step")
+        assert isinstance(step, int)
+        return BrainState(step=step, generator=generator, **tensors)  # type: ignore[arg-type]
+
     def save(self, path: Path, context: dict[str, torch.Tensor | int | str]) -> None:
         """Write the state plus `context` (what it must be loaded against) to disk."""
-        torch.save({"format": STATE_FORMAT, "step": self.step, **self._tensors(), **context}, path)
+        torch.save({**self.to_dict(), **context}, path)
 
     @staticmethod
     def load(path: Path) -> tuple[BrainState, dict[str, object]]:
         """Read a saved state. Uses `weights_only=True`: plain data only, no code."""
         saved = torch.load(path, weights_only=True)
-        if saved.pop("format") != STATE_FORMAT:
-            raise ValueError(f"{path} was saved in a different state format")
-        generator = torch.Generator(device="cpu")
-        generator.set_state(saved.pop("generator_state"))
-        state = BrainState(
-            step=int(saved.pop("step")),
-            v_mV=saved.pop("v_mV"),
-            g_mV=saved.pop("g_mV"),
-            last_spike_step=saved.pop("last_spike_step"),
-            in_flight=saved.pop("in_flight"),
-            input_rates_hz=saved.pop("input_rates_hz"),
-            generator=generator,
-        )
-        return state, saved
+        return BrainState.from_dict(saved), saved
+
+
+_TENSOR_FIELDS = ("v_mV", "g_mV", "last_spike_step", "in_flight", "input_rates_hz")
 
 
 def initial_state(n_neurons: int, n_inputs: int, seed: int, params: LIFParams) -> BrainState:
