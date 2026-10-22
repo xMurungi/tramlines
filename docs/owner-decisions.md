@@ -2,7 +2,7 @@
 
 This page lists every decision only the owner can make, so it can be picked up at any time. Each item has a recommendation and says what it blocks. Answer in any session ("decision 3: yes") and the builder records the answer in the linked ADR and moves the item to *Answered*.
 
-Last updated: 2026-10-22 (session 3).
+Last updated: 2026-10-22 (session 4). The owner has deferred all decisions for now; work continues on unblocked paths.
 
 ## Waiting
 
@@ -15,7 +15,8 @@ Last updated: 2026-10-22 (session 3).
 | 5 | **Data file names.** CLAUDE.md 7.1 expects Eon's `2025_…` names; we keep the original `Completeness_783.csv` / `Connectivity_783.parquet` (same content). | Keep upstream names. | Nothing. | [ADR-0013](decisions/0013-data-files-and-source.md) |
 | 6 | **Project name.** "Tramlines" is a working title. | (Yours.) | Phase 8. | CLAUDE.md 17.1 |
 | 7 | **Code licence** (MIT / Apache-2.0 / GPL-3.0). Note: Eon's code is GPL-2.0-or-later, so we do not copy from it until this is decided. Shiu's code is MIT. | (Yours.) | Phase 8; also whether we may reuse Eon code. | CLAUDE.md 17.2 |
-| 8 | **Go for Phase 3, and approve the sensory ports (8.1) and motor decoder (8.2).** Phase 2 is done; Phase 3 cannot start building the world's senses or movement without these. | Say "go"; the builder then writes the two proposal ADRs and stops for your approval before implementing them. | **Phase 3 (next).** | CLAUDE.md 8, 10 |
+| 8 | **Approve the sensory ports.** Proposal written, with a survey of what each candidate drives. Key choice: the brain is silent without input, so the fly needs a *walking drive* (recommended: tonic input to the P9 walking-command neurons). | See the ADR's recommendation for each of 5 ports. | **Phase 3 gate**: the fly cannot sense or move until approved. | [ADR-0023](decisions/0023-proposal-sensory-ports.md) |
+| 11 | **Approve the motor decoder**, and answer its 4 questions (BPN missing, keep MDN?, jump behaviour, P9-only forward). | Linear rates + thresholds, readouts as tabled. | **Phase 3 gate.** | [ADR-0024](decisions/0024-proposal-motor-decoder.md) |
 | 9 | **Default prediction horizon (3 s) and branch count (8).** | Keep the defaults until the performance numbers for Phase 4 exist. | Phase 4–5. | CLAUDE.md 17.4 |
 | 10 | **Launch channels and timing.** | (Yours.) | Phase 8. | CLAUDE.md 17.5 |
 
@@ -25,6 +26,8 @@ Last updated: 2026-10-22 (session 3).
 |---|---|---|---|
 | — | Go for Phase 1 | Go. | 2026-10-22 |
 | — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |
+| — | Go for Phase 3 | Go; decisions deferred. | 2026-10-22 |
+| — | Privacy | Only the GitHub handle `xMurungi` appears anywhere public; no name, device or local paths. History rewritten accordingly. | 2026-10-22 |
 | — | Git remote | Push to `github.com/xMurungi/tramlines`, branch `develop`. | 2026-10-22 |
 | — | Machine for the performance budget (CLAUDE.md 17.6) | The machine used in these sessions (specs kept private, not in the repository). | 2026-10-22 |
 
@@ -41,5 +44,6 @@ These were in the builder's remit and are recorded as ADRs. Listed here so nothi
 - [ADR-0020](decisions/0020-sugar-mn9-regression-bands.md): tolerance bands for the sugar → MN9 regression test.
 - [ADR-0021](decisions/0021-brain-state-fork-save.md): what the brain state contains, how forks and saved files work.
 - [ADR-0022](decisions/0022-determinism-test-protocol.md): how the sacred tests define and prove "identical".
+- [ADR-0025](decisions/0025-world-and-timeline.md): the arena, the fly's body, the 1 ms world step and the timeline loop.
 
 Everything the builder installed, downloaded or contacted is listed on [sources and access](sources-and-access.md).

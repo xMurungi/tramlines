@@ -41,6 +41,7 @@ nav:
       - "19. State": book/ch19-state.md
       - "20. Forking": book/ch20-forking.md
       - "21. The sacred tests": book/ch21-the-sacred-tests.md
+      - "25. A 2D world and the game loop": book/ch25-a-world-and-the-game-loop.md
       - Glossary: book/glossary.md
   - Decisions:
       - decisions/index.md
@@ -66,11 +67,15 @@ nav:
       - decisions/0020-sugar-mn9-regression-bands.md
       - decisions/0021-brain-state-fork-save.md
       - decisions/0022-determinism-test-protocol.md
+      - decisions/0023-proposal-sensory-ports.md
+      - decisions/0024-proposal-motor-decoder.md
+      - decisions/0025-world-and-timeline.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
   - Architecture: architecture/index.md
   - Journal:
+      - journal/2026-10-22-session-4.md
       - journal/2026-10-22-session-3.md
       - journal/2026-10-22-session-2.md
       - journal/2026-10-22-session-1.md

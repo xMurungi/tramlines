@@ -26,3 +26,6 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0020](0020-sugar-mn9-regression-bands.md) | Sugar → MN9: the acceptance result and its regression bands | Accepted (delegated) | 1 |
 | [0021](0021-brain-state-fork-save.md) | Brain state, forking, and saving to disk | Accepted (delegated) | 2 |
 | [0022](0022-determinism-test-protocol.md) | The sacred tests: what "identical" means and how it is proved | Accepted (delegated) | 2 |
+| [0023](0023-proposal-sensory-ports.md) | Proposal: which neurons are the fly's senses | **Proposed — awaiting owner** | 3 |
+| [0024](0024-proposal-motor-decoder.md) | Proposal: how brain activity becomes movement | **Proposed — awaiting owner** | 3 |
+| [0025](0025-world-and-timeline.md) | The world, the fly's body, and the timeline loop | Accepted (delegated) | 3 |
