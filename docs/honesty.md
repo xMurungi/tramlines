@@ -20,6 +20,17 @@ A computer simulation driven by the measured wiring of a real adult fruit fly br
 
 FlyWire is a brain only. It does not include the nerve cord that drives the legs, nor the body. The 2D world, the fly's body, which neurons count as its senses, and how brain activity becomes walking and turning are **design decisions made by this project**, each recorded in a [decision record](decisions/index.md). Much of the fly's "behaviour" on screen depends on those choices.
 
+## What the fly senses, and how it moves
+
+Every link between the brain and the 2D world is listed in [ADR-0028](decisions/0028-senses-and-decoder-chosen.md), with the history of how it was chosen ([decision history](decisions/history.md)). In short:
+
+- **Senses.** Standing on food forces 21 sugar-sensing neurons to fire; standing on a bitter patch forces 42 bitter-sensing neurons to fire; a looming shadow forces looming-detector neurons (LPLC2) on that side to fire.
+- **Walking is commanded by us.** The simulated brain is completely silent without input, so we continuously drive four "walking command" neurons (P9). The fly walks because we tell it to. Its brain then adjusts where it goes.
+- **Movement is our translation.** We read a handful of descending neurons and turn their firing into speed, turning, an escape jump and feeding, using constants we chose.
+- **It cannot find food.** This model has no smell or sight of food, so the fly only finds food by walking onto it. In our demonstration runs we chose a starting point whose path crosses the food.
+
+What *does* come from the measured wiring: sugar driving the feeding motor neuron, bitter suppressing it, a looming shadow driving the escape neuron on the correct side, and the small turning biases of the walk.
+
 ## Determinism belongs to the simulation
 
 The ghost is always right because the simulation is deterministic: the same starting state, with the same random seed, always produces the same result, bit for bit. That is a property of this computer program. It is **not** a claim about real flies, and it is not evidence for or against free will. Tramlines is a thought experiment you can touch, not an argument.

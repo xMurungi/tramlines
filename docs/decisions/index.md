@@ -1,6 +1,6 @@
 # Decisions
 
-Every decision in Tramlines is written down as an Architecture Decision Record (ADR). They are numbered from 0001, never renumbered and never deleted. Each one ends with a section *For learners*. Decisions waiting for the owner are collected on [one page](../owner-decisions.md).
+Every decision in Tramlines is written down as an Architecture Decision Record (ADR). They are numbered from 0001, never renumbered and never deleted. Each one ends with a section *For learners*. Decisions waiting for the owner are collected on [one page](../owner-decisions.md). Every choice, in order and with who made it: [decision history](history.md).
 
 | # | Title | Status | Phase |
 |---|---|---|---|
@@ -26,8 +26,9 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0020](0020-sugar-mn9-regression-bands.md) | Sugar → MN9: the acceptance result and its regression bands | Accepted (delegated) | 1 |
 | [0021](0021-brain-state-fork-save.md) | Brain state, forking, and saving to disk | Accepted (delegated) | 2 |
 | [0022](0022-determinism-test-protocol.md) | The sacred tests: what "identical" means and how it is proved | Accepted (delegated) | 2 |
-| [0023](0023-proposal-sensory-ports.md) | Proposal: which neurons are the fly's senses | **Proposed — awaiting owner** | 3 |
-| [0024](0024-proposal-motor-decoder.md) | Proposal: how brain activity becomes movement | **Proposed — awaiting owner** | 3 |
+| [0023](0023-proposal-sensory-ports.md) | Proposal: which neurons are the fly's senses | Superseded by 0028 | 3 |
+| [0024](0024-proposal-motor-decoder.md) | Proposal: how brain activity becomes movement | Superseded by 0028 | 3 |
 | [0025](0025-world-and-timeline.md) | The world, the fly's body, and the timeline loop | Accepted (delegated) | 3 |
 | [0026](0026-branches-and-pull-requests.md) | Every change arrives through a pull request into `develop` | Accepted (owner request) | 3 |
 | [0027](0027-awake-set-engine.md) | Speed: compute only the awake neurons, bit for bit | Accepted (delegated) | 3 |
+| [0028](0028-senses-and-decoder-chosen.md) | The fly's senses and motor decoder, as chosen | Accepted (owner delegated) | 3 |
