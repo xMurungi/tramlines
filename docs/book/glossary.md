@@ -24,6 +24,8 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **Ghost.** A fork run ahead in time to predict the live fly's future.
 
+**Game loop.** The sense–decide–act cycle a simulation repeats; ours runs once per millisecond of simulated time. [[Chapter 25](ch25-a-world-and-the-game-loop.md)]
+
 **GRN (gustatory receptor neuron).** A taste-sensing neuron.
 
 **Hash (SHA-256).** A short fingerprint computed from a file's bytes. Change one byte and the fingerprint changes completely. [[Chapter 17](ch17-loading-flywire.md)]
@@ -53,5 +55,7 @@ Every term is defined in plain words first. The chapter that introduces it is in
 **Synaptic delay.** The time a spike takes to reach the next neuron (1.8 ms here). [[Chapter 18](ch18-the-brain-wakes-up.md)]
 
 **Terminal.** A window where you type commands to your computer as text. [[Chapter 2](ch02-hello-world.md)]
+
+**Timeline.** One brain, one body and one clock, copied as a single thing when forked. [[Chapter 25](ch25-a-world-and-the-game-loop.md)]
 
 **uv.** A tool that installs Python and the packages a project needs, and runs programs with them. [[Chapter 2](ch02-hello-world.md)]
