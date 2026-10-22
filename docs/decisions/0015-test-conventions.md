@@ -19,6 +19,7 @@ Option 1. `tests/test_data.py` skips if the data is missing; `tests/test_book.py
 - A fresh clone passes `uv run pytest` before downloading data, with data tests shown as skipped (never silently).
 - `uv run pytest -m data` runs only the data tests.
 - Programs whose output is random or timing-dependent must print something stable (or set a seed), which is good teaching anyway.
+- *Added in Phase 1:* programs that need the FlyWire files start with the line `# book: needs-data`, read them through `book/data` (a link to `data/`), and are skipped visibly when the data is missing. That marker line is the only difference between a chapter's code block and its file.
 
 ## For learners
 A test is a small program that checks another program. Here the rule is easy to remember: next to every Book program there is a text file with what it should print. If they ever stop matching, the build turns red.

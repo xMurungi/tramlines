@@ -2,7 +2,7 @@
 
 *A real fly's brain, copied synapse by synapse, running in a machine that can see its future.*
 
-A whole-brain simulation of the adult fruit fly, built from the FlyWire v783 connectome, with a ghost copy that runs ahead and predicts the fly's path, and a "free will" button that splits the future. **Work in progress: Phase 0 (foundations).** See [ROADMAP.md](ROADMAP.md).
+A whole-brain simulation of the adult fruit fly, built from the FlyWire v783 connectome, with a ghost copy that runs ahead and predicts the fly's path, and a "free will" button that splits the future. **Work in progress: Phase 1 done (the brain runs and reproduces the sugar → MN9 result); Phase 2 next.** See [ROADMAP.md](ROADMAP.md).
 
 Please read [docs/honesty.md](docs/honesty.md) before drawing conclusions from anything this project shows.
 
@@ -12,9 +12,11 @@ Requires [uv](https://docs.astral.sh/uv/) and, for the viewer, Node.js 22+.
 
 ```bash
 uv sync                                  # install Python 3.12 deps
-uv run python scripts/fetch_data.py      # download + verify FlyWire v783 (~104 MB)
+uv run python scripts/fetch_data.py      # download + verify FlyWire v783 + annotations (~130 MB)
 uv run python -m tramlines.brain.data    # neurons: 138,639, connections: 15,091,983
-uv run pytest                            # tests
+uv run python book/ch18/wake_up.py       # sugar on the tongue: MN9 fires 98 times in 1 s
+uv run python scripts/sugar_mn9.py       # the full sugar → MN9 experiment (~5 min)
+uv run pytest                            # tests (add `-m slow` for the long ones)
 uv run mkdocs serve                      # docs and The Book at http://127.0.0.1:8000
 cd web && npm install && npm run dev     # viewer skeleton
 ```

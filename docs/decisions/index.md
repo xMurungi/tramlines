@@ -1,6 +1,6 @@
 # Decisions
 
-Every decision in Tramlines is written down as an Architecture Decision Record (ADR). They are numbered from 0001, never renumbered and never deleted. Each one ends with a section *For learners*.
+Every decision in Tramlines is written down as an Architecture Decision Record (ADR). They are numbered from 0001, never renumbered and never deleted. Each one ends with a section *For learners*. Decisions waiting for the owner are collected on [one page](../owner-decisions.md).
 
 | # | Title | Status | Phase |
 |---|---|---|---|
@@ -19,3 +19,8 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0013](0013-data-files-and-source.md) | The v783 files are fetched from the Shiu repository at a pinned commit | Accepted (delegated) | 0 |
 | [0014](0014-challenge-reference-model-details.md) | Challenge: the reference code differs from CLAUDE.md 7.2 in five details | Challenge | 0 |
 | [0015](0015-test-conventions.md) | Test conventions: data-gated tests and Book output files | Accepted (delegated) | 0 |
+| [0016](0016-verified-neuron-model.md) | The neuron model, verified against Brian2 spike for spike | Accepted (delegated) | 1 |
+| [0017](0017-annotations-and-neuron-sets.md) | Annotation release v2.1.0, and the neurons of the sugar → MN9 test | Accepted (delegated) | 1 |
+| [0018](0018-event-driven-engine.md) | Engine design: event-driven spike delivery | Accepted (delegated) | 1 |
+| [0019](0019-plotting.md) | matplotlib for figures, in an optional dependency group | Accepted (delegated) | 1 |
+| [0020](0020-sugar-mn9-regression-bands.md) | Sugar → MN9: the acceptance result and its regression bands | Accepted (delegated) | 1 |

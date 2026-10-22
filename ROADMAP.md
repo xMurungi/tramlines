@@ -2,8 +2,8 @@
 
 ## Status
 
-**Current phase: 0, Foundations.** Gate checks passed on 2026-10-22; waiting for the owner's "go" for Phase 1.
-Waiting on owner: acknowledge ADR-0014 (Challenge); see `docs/journal/2026-10-22-session-1.md`.
+**Current phase: 1, Hello, brain.** Gate checks passed on 2026-10-22; waiting for the owner's "go" for Phase 2.
+Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-22-session-2.md`.
 
 ## Phase 0: Foundations
 - [x] Repo structure, `pyproject.toml` (uv), ruff, mypy, pytest
@@ -13,14 +13,17 @@ Waiting on owner: acknowledge ADR-0014 (Challenge); see `docs/journal/2026-10-22
 - [x] `scripts/fetch_data.py` downloads FlyWire v783 and verifies SHA-256
 - [x] Study Eon and Shiu reference code → `docs/science/reference-model-notes.md`
 - [x] **Gate:** `uv run pytest` passes; `uv run mkdocs serve` shows the site; data loads: `neurons: 138,639, connections: 15,091,983`
-- [ ] Owner says "go"
+- [x] Owner says "go" (2026-10-22)
 
 ## Phase 1: Hello, brain
-- [ ] Choose and pin the cell type annotation source
-- [ ] Verified parameter table ADR + `tramlines/brain/params.py`
-- [ ] LIF engine in PyTorch: CSR weights, ring-buffer delay, Poisson input, spike recording
-- [ ] Sugar → MN9 reproduction; plot in `docs/assets/`
-- [ ] **Gate:** MN9 plot matches the published qualitative result; 1 s simulated, wall-clock time recorded
+- [x] Choose and pin the cell type annotation source (ADR-0017)
+- [x] Verified parameter table ADR + `tramlines/brain/params.py` (ADR-0016)
+- [x] LIF engine in PyTorch: CSR weights, ring-buffer delay, Poisson input, spike recording (ADR-0018)
+- [x] Engine matches Brian2 spike for spike on golden networks
+- [x] Sugar → MN9 reproduction; plot in `docs/assets/` (ADR-0020); cross-checked against Brian2 on v783
+- [x] Book chapters 17 and 18
+- [x] **Gate:** MN9 plot matches the published qualitative result; 1 s simulated in 10.4 s wall-clock on the owner's machine
+- [ ] Owner says "go"
 
 ## Phase 2: The fork (determinism)
 - [ ] `BrainState`, `Brain.fork()`, save/load

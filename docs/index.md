@@ -7,7 +7,7 @@ Tramlines is a whole-brain simulation of the adult fruit fly, *Drosophila melano
 Then you press **free will**. One extra spike goes into one neuron, and the future splits into a fan of timelines.
 
 !!! info "Status"
-    Phase 0, Foundations. The brain does not run yet. See the [journal](journal/2026-10-22-session-1.md) for where things stand.
+    Phase 1, Hello, brain: the whole brain runs and reproduces the published sugar → MN9 result. See the [journal](journal/2026-10-22-session-2.md) for where things stand, and [owner decisions](owner-decisions.md) for what is waiting.
 
 ## Read this first
 

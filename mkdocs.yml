@@ -30,10 +30,13 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Owner decisions: owner-decisions.md
   - Honesty: honesty.md
   - The Book:
       - book/index.md
       - "2. Hello, world": book/ch02-hello-world.md
+      - "17. Loading FlyWire v783": book/ch17-loading-flywire.md
+      - "18. The brain wakes up": book/ch18-the-brain-wakes-up.md
       - Glossary: book/glossary.md
   - Decisions:
       - decisions/index.md
@@ -52,10 +55,16 @@ nav:
       - decisions/0013-data-files-and-source.md
       - decisions/0014-challenge-reference-model-details.md
       - decisions/0015-test-conventions.md
+      - decisions/0016-verified-neuron-model.md
+      - decisions/0017-annotations-and-neuron-sets.md
+      - decisions/0018-event-driven-engine.md
+      - decisions/0019-plotting.md
+      - decisions/0020-sugar-mn9-regression-bands.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
   - Architecture: architecture/index.md
   - Journal:
+      - journal/2026-10-22-session-2.md
       - journal/2026-10-22-session-1.md
   - Launch: launch/index.md

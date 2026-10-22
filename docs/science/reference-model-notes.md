@@ -66,10 +66,10 @@ integration: Brian2 method='linear' (exact for these linear equations), dt = 0.1
 
 The parameter **values** all match. Five **structural details** differ from CLAUDE.md 7.2. They are recorded in [ADR-0014 (Challenge)](../decisions/0014-challenge-reference-model-details.md). The most important one: **Poisson input goes into `v`, not `g`**, with a weight of 0.275 × 250 = 68.75 mV per event, enough to make the target fire on every event.
 
-Each item below is a claim to confirm by running Brian2 itself in Phase 1, not from reading alone:
+Two questions from Phase 0 were settled in Phase 1 by running Brian2 2.10.1 itself ([ADR-0016](../decisions/0016-verified-neuron-model.md)):
 
-- Brian2 applies `on_pre` (`g += w`) even while the target is refractory; only the differential equation is paused. We believe this is Brian2's documented behaviour, but it should be confirmed.
-- `eq_rst` contains `w = 0`, and `w` is not a neuron variable. Find out what Brian2 does with it (most likely it resolves to nothing harmful, but it should not be guessed).
+- **Refractory neurons ignore input.** We had expected `on_pre` (`g += w`) to keep adding to a refractory neuron's g. Running Brian2 showed the opposite: arrivals during refractoriness are discarded. Our Phase 0 reading was wrong.
+- **`w = 0` in `eq_rst`** assigns to a throwaway local variable and has no effect.
 
 ## 4. Stimulation (Poisson input)
 
@@ -91,7 +91,7 @@ Worth knowing, so we do not copy a port's quirks by accident:
 
 1. **Euler, not exact integration.** `v += dt/τ_m × (g − (v − V_rest))`, `g ← g × (1 − dt/τ_syn)`. Brian2 `linear` uses the exact exponential solution. With dt = 0.1 ms the difference is small but real.
 2. **float32**, on GPU when available.
-3. **Arrivals during refractory are dropped.** The delayed input is multiplied by a "not refractory" mask before being added to g. In Brian2 they are added to g (which is then frozen until refractory ends).
+3. **Arrivals during refractory are dropped**, by multiplying the delayed input by a "not refractory" mask. *Phase 1 update:* this matches Brian2 (we had first thought it differed).
 4. **v is not explicitly frozen** during refractory. In practice it stays at rest, because g was reset to 0 and arrivals are masked.
 5. Delay is a rolling buffer of `int(1.8 / 0.1) + 1 = 19` slots, rolled with `torch.roll` every step. A ring-buffer index is cheaper and is planned for Tramlines.
 
@@ -107,8 +107,8 @@ Per CLAUDE.md 7.1, **none of these hand-written IDs will be used.** Phase 1 look
 
 ## 8. Open items for Phase 1
 
-- [ ] Choose and record the annotation source (FlyWire Codex export or the Schlegel et al. `flywire_annotations` release) and pin it.
-- [ ] Decide exact vs Euler integration and record it, with the measured effect on the sugar → MN9 curve.
-- [ ] Confirm the two Brian2 behaviours listed in section 3 by running Brian2 directly.
-- [ ] Owner acknowledgement of [ADR-0014](../decisions/0014-challenge-reference-model-details.md).
-- [ ] Write the verified parameter table ADR next to `tramlines/brain/params.py`.
+- [x] Annotation source: `flywire_annotations` v2.1.0 ([ADR-0017](../decisions/0017-annotations-and-neuron-sets.md)).
+- [x] Integration: exact, as Brian2 `linear` does ([ADR-0016](../decisions/0016-verified-neuron-model.md)). Euler was not adopted, since exact integration is what the reference runs and lets us match it spike for spike.
+- [x] Brian2 behaviours from section 3 confirmed by running Brian2 (one corrected).
+- [ ] Owner acknowledgement of [ADR-0014](../decisions/0014-challenge-reference-model-details.md) ([owner decisions](../owner-decisions.md), item 1).
+- [x] Verified parameter table: [ADR-0016](../decisions/0016-verified-neuron-model.md) and `tramlines/brain/params.py`.

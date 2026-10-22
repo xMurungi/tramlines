@@ -21,6 +21,9 @@ Two smaller notes, not disagreements:
 - The reference integrates with Brian2's `method='linear'` (exact solution of the linear equations over each step). Eon's PyTorch port uses a forward-Euler step. Which update rule we use is a Phase 1 question (see the [reference model notes](../science/reference-model-notes.md)).
 - `model.py` defaults to 150 Hz stimulation; the example notebook text and Eon's sugar experiment use 200 Hz. Both are inside the 150–200 Hz range in section 7.2.
 
+!!! note "Update, 2026-10-22 (Phase 1)"
+    Running Brian2 itself showed that **detail 4 was wrong as written**. A refractory neuron does not store arrivals in g; Brian2 *discards* them. Details 1, 2, 3 and 5 were confirmed. The engine follows the measured behaviour and is checked spike for spike against Brian2 ([ADR-0016](0016-verified-neuron-model.md)). The Challenge stays open until the owner acknowledges it.
+
 ## Options considered
 1. **Follow the reference code exactly** (as section 7.2 instructs). Reproduces the validated model; the sugar → MN9 test (section 7.3) becomes a fair test of our engine.
 2. **Follow CLAUDE.md section 7.2 as written.** Poisson input into g at 0.275 mV per event would barely move the target, so sugar stimulation would likely fail to drive MN9, and we would not be running the published model.

@@ -5,7 +5,8 @@ The FlyWire data is licensed CC BY 4.0, which requires attribution. Every entry 
 | Work | Citation (as currently known) | Verified |
 |---|---|---|
 | FlyWire connectome | Dorkenwald, S. et al. "Neuronal wiring diagram of an adult brain." *Nature* 634, 124–138 (2024). | not yet |
-| FlyWire annotations | Schlegel, P. et al. "Whole-brain annotation and multi-connectome cell typing of *Drosophila*." *Nature* 634, 139–152 (2024). | not yet |
+| FlyWire annotations | Schlegel, P. et al. "Whole-brain annotation and multi-connectome cell typing of *Drosophila*." *Nature* 634, 139–152 (2024). Data: [flyconnectome/flywire_annotations](https://github.com/flyconnectome/flywire_annotations), tag v2.1.0. | not yet |
+| Brian2 | Stimberg, M., Brette, R. & Goodman, D. F. M. "Brian 2, an intuitive and efficient neural simulator." *eLife* 8, e47314 (2019). Used (not bundled) to verify our engine. | not yet |
 | Whole-brain LIF model | Shiu, P. K. et al. "A *Drosophila* computational brain model reveals sensorimotor processing." *Nature* 634, 210–219 (2024). Code: [philshiu/Drosophila_brain_model](https://github.com/philshiu/Drosophila_brain_model) (MIT). | not yet |
 | MaleCNS | Janelia / Google and collaborators, 2026 release and *Cell* paper. Details to be filled in. | not yet |
 | Eon Systems fly-brain | [eonsystemspbc/fly-brain](https://github.com/eonsystemspbc/fly-brain) (GPL-2.0-or-later). | not yet |
