@@ -21,7 +21,7 @@ from typing import Protocol
 import torch
 
 from tramlines.brain.connectome import Connectome
-from tramlines.brain.engine import Brain
+from tramlines.brain.engine import Brain, SpikeRecord
 from tramlines.brain.params import PARAMS
 from tramlines.brain.state import BrainState
 from tramlines.world.arena import Arena
@@ -87,12 +87,16 @@ class Timeline:
         # Spike counts per readout for each of the last `window_ms` milliseconds (state).
         self.window = torch.zeros((decoder.window_ms, len(readouts)), dtype=torch.int64)
 
-    def step(self) -> Pose:
-        """Advance one millisecond of the closed loop."""
+    def step(self, spikes: list[tuple[int, torch.Tensor]] | None = None) -> Pose:
+        """Advance one millisecond of the closed loop; optionally collect (step, fired)."""
         self.brain.set_input_rates(self.senses.rates_hz(self.fly, self.arena))
         counts = torch.zeros(self.window.shape[1], dtype=torch.int64)
         for _ in range(BRAIN_STEPS_PER_WORLD_STEP):
-            slots = self._slot_of[self.brain.step()]
+            step = self.brain.state.step
+            fired = self.brain.step()
+            if spikes is not None and fired.numel():
+                spikes.append((step, fired))
+            slots = self._slot_of[fired]
             counts.index_add_(0, slots[slots >= 0], torch.ones_like(slots[slots >= 0]))
         self.window[self.fly.time_ms % self.decoder.window_ms] = counts
         rates_hz = self.window.sum(0).to(torch.float64) * (1000.0 / self.decoder.window_ms)
@@ -100,6 +104,16 @@ class Timeline:
         f = self.fly
         jumped = f.jump_cooldown_ms == JUMP_COOLDOWN_MS
         return Pose(f.time_ms, f.x_mm, f.y_mm, f.heading_rad, f.feeding, jumped)
+
+    def run_recording(self, duration_ms: int) -> tuple[list[Pose], SpikeRecord]:
+        """Like `run`, also returning every spike of the brain."""
+        spikes: list[tuple[int, torch.Tensor]] = []
+        poses = [self.step(spikes) for _ in range(duration_ms)]
+        if not spikes:
+            empty = torch.zeros(0, dtype=torch.int64)
+            return poses, SpikeRecord(steps=empty, neurons=empty.clone())
+        steps = torch.cat([torch.full_like(fired, step) for step, fired in spikes])
+        return poses, SpikeRecord(steps=steps, neurons=torch.cat([f for _, f in spikes]))
 
     def run(self, duration_ms: int) -> list[Pose]:
         return [self.step() for _ in range(duration_ms)]

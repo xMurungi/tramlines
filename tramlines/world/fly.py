@@ -45,6 +45,10 @@ class FlyState:
         return hashlib.sha256(struct.pack("<qddd?q", *astuple(self))).hexdigest()
 
 
+# Where headless runs start, chosen so the path crosses DEFAULT_ARENA's food (ADR-0028).
+DEFAULT_START = FlyState(x_mm=-2.0, y_mm=14.0, heading_rad=0.0)
+
+
 def step_fly(fly: FlyState, command: MotorCommand, arena: Arena) -> None:
     """Move the fly by one world step. Pure arithmetic: same inputs, same result."""
     dt_s = WORLD_STEP_MS / 1000.0

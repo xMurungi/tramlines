@@ -67,3 +67,13 @@ def test_same_seed_same_spikes() -> None:
         record = brain.run(3000)
         runs.append((record.steps.tolist(), record.neurons.tolist()))
     assert runs[0] == runs[1]
+
+
+def test_injected_spike_behaves_like_a_natural_one() -> None:
+    natural, injected = chain(), chain()
+    natural.state.v_mV[0] = -40.0  # fires naturally at step 0
+    natural.run(1)
+    injected.run(1)
+    injected.inject_spike(0)  # the same spike, put in by hand
+    assert natural.state.fingerprint() == injected.state.fingerprint()
+    assert natural.run(100).fingerprint() == injected.run(100).fingerprint()
