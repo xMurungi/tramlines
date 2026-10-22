@@ -2,7 +2,7 @@
 
 This page lists every decision only the owner can make, so it can be picked up at any time. Each item has a recommendation and says what it blocks. Answer in any session ("decision 3: yes") and the builder records the answer in the linked ADR and moves the item to *Answered*.
 
-Last updated: 2026-10-22 (session 2).
+Last updated: 2026-10-22 (session 3).
 
 ## Waiting
 
@@ -15,7 +15,7 @@ Last updated: 2026-10-22 (session 2).
 | 5 | **Data file names.** CLAUDE.md 7.1 expects Eon's `2025_…` names; we keep the original `Completeness_783.csv` / `Connectivity_783.parquet` (same content). | Keep upstream names. | Nothing. | [ADR-0013](decisions/0013-data-files-and-source.md) |
 | 6 | **Project name.** "Tramlines" is a working title. | (Yours.) | Phase 8. | CLAUDE.md 17.1 |
 | 7 | **Code licence** (MIT / Apache-2.0 / GPL-3.0). Note: Eon's code is GPL-2.0-or-later, so we do not copy from it until this is decided. Shiu's code is MIT. | (Yours.) | Phase 8; also whether we may reuse Eon code. | CLAUDE.md 17.2 |
-| 8 | **Sensory ports (8.1) and motor decoder (8.2).** | Proposal ADRs will be written at the start of Phase 3. | Phase 3. | CLAUDE.md 8 |
+| 8 | **Go for Phase 3, and approve the sensory ports (8.1) and motor decoder (8.2).** Phase 2 is done; Phase 3 cannot start building the world's senses or movement without these. | Say "go"; the builder then writes the two proposal ADRs and stops for your approval before implementing them. | **Phase 3 (next).** | CLAUDE.md 8, 10 |
 | 9 | **Default prediction horizon (3 s) and branch count (8).** | Keep the defaults until the performance numbers for Phase 4 exist. | Phase 4–5. | CLAUDE.md 17.4 |
 | 10 | **Launch channels and timing.** | (Yours.) | Phase 8. | CLAUDE.md 17.5 |
 
@@ -24,6 +24,8 @@ Last updated: 2026-10-22 (session 2).
 | # | Decision | Answer | Date |
 |---|---|---|---|
 | — | Go for Phase 1 | Go. | 2026-10-22 |
+| — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |
+| — | Git remote | Push to `github.com/xMurungi/tramlines`, branch `develop`. | 2026-10-22 |
 | — | Machine for the performance budget (CLAUDE.md 17.6) | The machine used in these sessions (specs kept private, not in the repository). | 2026-10-22 |
 
 ## Decided by the builder (delegated; you may overrule any)
@@ -37,3 +39,7 @@ These were in the builder's remit and are recorded as ADRs. Listed here so nothi
 - [ADR-0018](decisions/0018-event-driven-engine.md): engine design (event-driven spike delivery).
 - [ADR-0019](decisions/0019-plotting.md): matplotlib for figures, in an optional `analysis` dependency group.
 - [ADR-0020](decisions/0020-sugar-mn9-regression-bands.md): tolerance bands for the sugar → MN9 regression test.
+- [ADR-0021](decisions/0021-brain-state-fork-save.md): what the brain state contains, how forks and saved files work.
+- [ADR-0022](decisions/0022-determinism-test-protocol.md): how the sacred tests define and prove "identical".
+
+Everything the builder installed, downloaded or contacted is listed on [sources and access](sources-and-access.md).

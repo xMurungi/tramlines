@@ -24,3 +24,5 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0018](0018-event-driven-engine.md) | Engine design: event-driven spike delivery | Accepted (delegated) | 1 |
 | [0019](0019-plotting.md) | matplotlib for figures, in an optional dependency group | Accepted (delegated) | 1 |
 | [0020](0020-sugar-mn9-regression-bands.md) | Sugar → MN9: the acceptance result and its regression bands | Accepted (delegated) | 1 |
+| [0021](0021-brain-state-fork-save.md) | Brain state, forking, and saving to disk | Accepted (delegated) | 2 |
+| [0022](0022-determinism-test-protocol.md) | The sacred tests: what "identical" means and how it is proved | Accepted (delegated) | 2 |

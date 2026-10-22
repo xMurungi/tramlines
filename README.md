@@ -2,7 +2,7 @@
 
 *A real fly's brain, copied synapse by synapse, running in a machine that can see its future.*
 
-A whole-brain simulation of the adult fruit fly, built from the FlyWire v783 connectome, with a ghost copy that runs ahead and predicts the fly's path, and a "free will" button that splits the future. **Work in progress: Phase 1 done (the brain runs and reproduces the sugar → MN9 result); Phase 2 next.** See [ROADMAP.md](ROADMAP.md).
+A whole-brain simulation of the adult fruit fly, built from the FlyWire v783 connectome, with a ghost copy that runs ahead and predicts the fly's path, and a "free will" button that splits the future. **Work in progress: Phase 2 done (the brain runs, reproduces sugar → MN9, and forks with bit-exact futures); Phase 3 next.** See [ROADMAP.md](ROADMAP.md).
 
 Please read [docs/honesty.md](docs/honesty.md) before drawing conclusions from anything this project shows.
 
@@ -17,6 +17,7 @@ uv run python -m tramlines.brain.data    # neurons: 138,639, connections: 15,091
 uv run python book/ch18/wake_up.py       # sugar on the tongue: MN9 fires 98 times in 1 s
 uv run python scripts/sugar_mn9.py       # the full sugar → MN9 experiment (~5 min)
 uv run pytest                            # tests (add `-m slow` for the long ones)
+TRAMLINES_DETERMINISM_REPEATS=10 uv run pytest tests/test_determinism.py   # the 100/100 determinism gate
 uv run mkdocs serve                      # docs and The Book at http://127.0.0.1:8000
 cd web && npm install && npm run dev     # viewer skeleton
 ```

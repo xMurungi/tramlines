@@ -31,12 +31,16 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Owner decisions: owner-decisions.md
+  - Sources and access: sources-and-access.md
   - Honesty: honesty.md
   - The Book:
       - book/index.md
       - "2. Hello, world": book/ch02-hello-world.md
       - "17. Loading FlyWire v783": book/ch17-loading-flywire.md
       - "18. The brain wakes up": book/ch18-the-brain-wakes-up.md
+      - "19. State": book/ch19-state.md
+      - "20. Forking": book/ch20-forking.md
+      - "21. The sacred tests": book/ch21-the-sacred-tests.md
       - Glossary: book/glossary.md
   - Decisions:
       - decisions/index.md
@@ -60,11 +64,14 @@ nav:
       - decisions/0018-event-driven-engine.md
       - decisions/0019-plotting.md
       - decisions/0020-sugar-mn9-regression-bands.md
+      - decisions/0021-brain-state-fork-save.md
+      - decisions/0022-determinism-test-protocol.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
   - Architecture: architecture/index.md
   - Journal:
+      - journal/2026-10-22-session-3.md
       - journal/2026-10-22-session-2.md
       - journal/2026-10-22-session-1.md
   - Launch: launch/index.md
