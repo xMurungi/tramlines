@@ -28,6 +28,7 @@ from tramlines.brain.params import PARAMS, LIFParams
 from tramlines.brain.state import BrainState, initial_state
 
 DETERMINISM_THREADS = 1
+SLEEP_EVERY_STEPS = 10  # how often settled neurons leave the awake set; speed only
 
 
 def enable_determinism(threads: int = DETERMINISM_THREADS) -> None:
@@ -83,9 +84,17 @@ class Brain:
             (connectome.n_neurons,), params.refractory_steps, dtype=torch.int64
         )
         self.refractory_steps[self.input_neurons] = 0
+        self._is_input = torch.zeros(connectome.n_neurons, dtype=torch.bool)
+        self._is_input[self.input_neurons] = True
         self.state = initial_state(
             connectome.n_neurons, len(self.input_neurons), seed=seed, params=params
         )
+        # Speed caches (ADR-0027), built from the state on the first step.
+        self._awake = torch.zeros(0, dtype=torch.int64)
+        self._is_awake = torch.zeros(0, dtype=torch.bool)
+        self._awake_refractory = torch.zeros(0, dtype=torch.int64)
+        self._in_flight: list[torch.Tensor] = []
+        self._cache_key: tuple[int, ...] = ()
 
     def set_input_rates(self, rates_hz: float | torch.Tensor) -> None:
         self.state.input_rates_hz[:] = rates_hz
@@ -96,8 +105,12 @@ class Brain:
         From this instant the two run independently; given the same inputs they
         produce the same future, bit for bit.
         """
+        self._ensure_caches()
         twin = copy.copy(self)  # shares connectome, params, input_neurons, refractory_steps
         twin.state = self.state.clone()
+        twin._is_awake = self._is_awake.clone()  # speed caches: copied, not rebuilt
+        twin._in_flight = list(self._in_flight)  # (entries are replaced, never edited)
+        twin._cache_key = twin._key()
         return twin
 
     def save(self, path: Path) -> None:
@@ -132,42 +145,108 @@ class Brain:
             raise ValueError(f"{source} was saved with different input neurons")
 
     def step(self) -> torch.Tensor:
-        """Advance 0.1 ms. Returns the indices of the neurons that fired."""
+        """Advance 0.1 ms. Returns the indices of the neurons that fired, ascending.
+
+        Only *awake* neurons are computed (ADR-0027). A neuron exactly at rest with
+        zero synaptic input is left exactly unchanged by the update below, so
+        skipping it gives the same bits as computing it. Most of the brain is asleep.
+        """
+        self._ensure_caches()
         s, p = self.state, self.params
+        awake = self._awake
 
         # 1. Integrate, except refractory neurons, which stay frozen.
-        active = (s.step - s.last_spike_step) >= self.refractory_steps
-        v_next = (s.v_mV - p.v_rest_mV) * p.decay_v + s.g_mV * p.g_to_v + p.v_rest_mV
-        s.v_mV = torch.where(active, v_next, s.v_mV)
-        s.g_mV = torch.where(active, s.g_mV * p.decay_g, s.g_mV)
+        # (index_select / index_copy_ only move data: same bits as plain indexing, faster.)
+        active = (s.step - s.last_spike_step.index_select(0, awake)) >= self._awake_refractory
+        v, g = s.v_mV.index_select(0, awake), s.g_mV.index_select(0, awake)
+        v_next = (v - p.v_rest_mV) * p.decay_v + g * p.g_to_v + p.v_rest_mV
+        v = torch.where(active, v_next, v)
+        g = torch.where(active, g * p.decay_g, g)
+        s.v_mV.index_copy_(0, awake, v)
+        s.g_mV.index_copy_(0, awake, g)
 
         # 2. Threshold.
-        fired = (s.v_mV > p.v_threshold_mV) & active
-        fired_idx = torch.nonzero(fired).squeeze(1)
-        s.last_spike_step[fired_idx] = s.step
-        receptive = active & ~fired
+        fired_idx = torch.sort(awake[(v > p.v_threshold_mV) & active]).values
+        s.last_spike_step.index_fill_(0, fired_idx, s.step)
 
         # 3a. Spikes that left `delay_steps` ago arrive now. Their slot is reused for today's.
         slot = s.step % p.delay_steps
-        arriving = torch.nonzero(s.in_flight[slot]).squeeze(1)
-        s.in_flight[slot] = fired
+        arriving = self._in_flight[slot]
+        self._in_flight[slot] = fired_idx
+        s.in_flight[slot].index_fill_(0, arriving, False)
+        s.in_flight[slot].index_fill_(0, fired_idx, True)
         if arriving.numel():
             post, weight = self.connectome.outgoing(arriving)
-            s.g_mV.index_add_(0, post, weight * receptive[post])
+            s.g_mV.index_add_(0, post, weight * self._receptive(post))
+            self._wake(post)
 
         # 3b. Poisson input: one draw per input neuron per step, always, so the random
         # stream stays aligned whatever the rates are.
         draws = torch.rand(len(self.input_neurons), generator=s.generator, dtype=torch.float64)
         hits = draws < s.input_rates_hz * (p.dt_ms / 1000.0)
-        hits &= receptive[self.input_neurons]
+        hits &= self._receptive(self.input_neurons)
         s.v_mV.index_add_(0, self.input_neurons, hits.to(torch.float64) * p.poisson_kick_mV)
 
         # 4. Reset.
-        s.v_mV[fired_idx] = p.v_reset_mV
-        s.g_mV[fired_idx] = 0.0
+        s.v_mV.index_fill_(0, fired_idx, p.v_reset_mV)
+        s.g_mV.index_fill_(0, fired_idx, 0.0)
 
         s.step += 1
+        if s.step % SLEEP_EVERY_STEPS == 0:
+            self._sleep()
+        self._cache_key = self._key()
         return fired_idx
+
+    # --- Speed caches (ADR-0027). Derived from the state, never part of it. ---
+
+    def _receptive(self, neurons: torch.Tensor) -> torch.Tensor:
+        """Not refractory, and did not fire this step (a refractory neuron ignores input)."""
+        neurons = neurons.to(torch.int64)
+        last = self.state.last_spike_step.index_select(0, neurons)
+        step = self.state.step
+        return ((step - last) >= self.refractory_steps.index_select(0, neurons)) & (last != step)
+
+    def _wake(self, neurons: torch.Tensor) -> None:
+        new = neurons[~self._is_awake[neurons]]
+        if new.numel():
+            new = torch.unique(new.to(torch.int64))
+            self._is_awake[new] = True
+            self._awake = torch.cat([self._awake, new])
+            self._awake_refractory = self.refractory_steps.index_select(0, self._awake)
+
+    def _sleep(self) -> None:
+        """Drop neurons that are exactly back at rest; they cannot change until woken."""
+        s, awake = self.state, self._awake
+        keep = (s.v_mV[awake] != self.params.v_rest_mV) | (s.g_mV[awake] != 0.0)
+        keep |= self._is_input[awake]
+        self._is_awake[awake[~keep]] = False
+        self._awake = awake[keep]
+        self._awake_refractory = self.refractory_steps.index_select(0, self._awake)
+
+    def _key(self) -> tuple[int, ...]:
+        """Changes whenever anything outside the engine replaces or edits the state."""
+        s = self.state
+        return (
+            id(s),
+            s.step,
+            id(s.v_mV),
+            s.v_mV._version,
+            id(s.g_mV),
+            s.g_mV._version,
+            id(s.in_flight),
+            s.in_flight._version,
+        )
+
+    def _ensure_caches(self) -> None:
+        if self._cache_key == self._key():
+            return
+        s = self.state
+        at_rest = (s.v_mV == self.params.v_rest_mV) & (s.g_mV == 0.0)
+        self._is_awake = ~at_rest | self._is_input
+        self._awake = torch.nonzero(self._is_awake).squeeze(1)
+        self._awake_refractory = self.refractory_steps.index_select(0, self._awake)
+        self._in_flight = [torch.nonzero(row).squeeze(1) for row in s.in_flight]
+        self._cache_key = self._key()
 
     def run(self, n_steps: int) -> SpikeRecord:
         steps: list[torch.Tensor] = []
