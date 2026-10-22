@@ -18,7 +18,7 @@ from tramlines.brain.connectome import load_connectome
 from tramlines.brain.engine import enable_determinism
 from tramlines.brain.neurons import load_catalog
 from tramlines.timeline.timeline import Pose, Timeline
-from tramlines.world.arena import DEFAULT_ARENA, Arena
+from tramlines.world.arena import DECISION_ARENA, DEFAULT_ARENA, Arena
 from tramlines.world.decoder import FlyDecoder
 from tramlines.world.fly import DEFAULT_START
 from tramlines.world.senses import FlySenses
@@ -94,13 +94,15 @@ def main() -> None:
     parser.add_argument("--seconds", type=float, default=10.0)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--tag", default="seed0")
+    parser.add_argument("--arena", choices=["default", "decision"], default="default")
     args = parser.parse_args()
+    arena = DECISION_ARENA if args.arena == "decision" else DEFAULT_ARENA
 
     enable_determinism()
     catalog = load_catalog()
     timeline = Timeline(
         load_connectome(),
-        DEFAULT_ARENA,
+        arena,
         FlySenses.from_catalog(catalog),
         FlyDecoder.from_catalog(catalog),
         seed=args.seed,
@@ -109,13 +111,13 @@ def main() -> None:
     start = time.perf_counter()
     poses = timeline.run(round(args.seconds * 1000))
     wall = time.perf_counter() - start
-    for line in events(poses, DEFAULT_ARENA):
+    for line in events(poses, arena):
         print(line)
     print(f"simulated {args.seconds:g} s in {wall:.1f} s ({args.seconds / wall:.2f}x real time)")
     print(f"fingerprint {timeline.fingerprint()[:16]}")
     ASSETS.mkdir(parents=True, exist_ok=True)
     title = f"Headless run: seed {args.seed}, {args.seconds:g} s (the path is the brain's)"
-    plot(poses, DEFAULT_ARENA, ASSETS / f"headless_{args.tag}.png", title)
+    plot(poses, arena, ASSETS / f"headless_{args.tag}.png", title)
 
 
 if __name__ == "__main__":

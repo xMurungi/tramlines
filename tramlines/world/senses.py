@@ -55,7 +55,10 @@ class FlySenses:
         return torch.cat(self._ports())
 
     def rates_hz(self, fly: FlyState, arena: Arena) -> torch.Tensor:
-        under = {patch.kind for patch in arena.patches_under(fly.x_mm, fly.y_mm)}
+        # Overlapping patches of one kind: the strongest counts.
+        taste = {"food": 0.0, "bitter": 0.0}
+        for patch in arena.patches_under(fly.x_mm, fly.y_mm):
+            taste[patch.kind] = max(taste[patch.kind], patch.strength)
         loom_left = loom_right = 0.0
         active = arena.active_loom(fly.time_ms)
         if active is not None:
@@ -63,13 +66,14 @@ class FlySenses:
             # Where the shadow comes from, relative to where the fly faces:
             # positive = on its left (angles grow anticlockwise).
             relative = math.remainder(loom.direction_rad - fly.heading_rad, math.tau)
+            drive = LOOM_MAX_HZ * progress * loom.strength
             if relative >= 0:
-                loom_left = LOOM_MAX_HZ * progress
+                loom_left = drive
             else:
-                loom_right = LOOM_MAX_HZ * progress
+                loom_right = drive
         per_port = (
-            SUGAR_HZ if "food" in under else 0.0,
-            BITTER_HZ if "bitter" in under else 0.0,
+            SUGAR_HZ * taste["food"],
+            BITTER_HZ * taste["bitter"],
             loom_left,
             loom_right,
             WALK_DRIVE_HZ,
