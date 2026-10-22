@@ -2,7 +2,9 @@
 
 A record, for the owner's review, of every outside resource the builder touched: what was installed on this machine, what was downloaded, which websites and services were contacted, and what was written outside the repository. Kept current every session.
 
-Last updated: 2026-10-22 (session 3).
+Last updated: 2026-10-22 (session 4).
+
+Personal details (the owner's name, machine, username, local paths) are deliberately left out of this page and the whole repository. Paths below are written relative to the home folder or as placeholders.
 
 ## 1. Software installed on this machine
 
@@ -29,7 +31,7 @@ Already present and used, not installed: git (`/usr/bin/git`), Node.js 22.22.3 (
 
 ### Into the session scratchpad (temporary, outside the project, never committed)
 
-Scratchpad: `/private/tmp/claude-501/<project>/c2b31f1e-b3e8-413b-87f6-4c6f6cc32b41/scratchpad/` (temporary system folder; macOS clears it, or delete it by hand).
+Scratchpad: a session-specific temporary folder under `/private/tmp/` (macOS clears it, or delete it by hand).
 
 | What | Size | Why |
 |---|---|---|
@@ -51,15 +53,18 @@ Also: `uv run --with brian2` built a throwaway Brian2 environment (in the uv cac
 | api.github.com (unauthenticated REST) | Latest commit, tags, releases and file listing of `flyconnectome/flywire_annotations` | None beyond the request. |
 | raw.githubusercontent.com | Downloading the data files above | None. |
 | codex.flywire.ai | One request to `/api/download?data_product=classification&data_version=783` | None (no login). |
-| PyPI, npm registry, Homebrew, python-build-standalone (via uv) | Installing the software above | None. |
+| PyPI, npm registry, Homebrew, python-build-standalone (via uv) | Installing the software above, and running `git-filter-repo` once via `uvx` (session 4) | None. |
 
 No accounts were created, no credentials were used except git's existing GitHub login for the push, and nothing was posted anywhere else.
+
+In session 4, at the owner's request, `develop`'s history was rewritten with `git-filter-repo` to remove personal details that had been written into earlier commits, and force-pushed. Commit authors were already the GitHub handle with GitHub's private noreply email.
 
 ## 4. Written outside the repository
 
 | Path | What |
 |---|---|
-| `~/.claude/projects/<project>/memory/` | The builder's notes between sessions: one note saying pending owner decisions belong in `docs/owner-decisions.md`, plus its index. |
+| Claude Code's per-project memory folder under `~/.claude/projects/` | The builder's notes between sessions: pending owner decisions belong in `docs/owner-decisions.md`; never write the owner's personal details into the repository. Plus an index. |
+| `.private/machine.md` in the project (git-ignored, never pushed) | The reference machine's specs for the performance budget, kept off GitHub. |
 | The scratchpad above | Temporary files listed in section 2. |
 
 ## 5. Third-party material inside the repository

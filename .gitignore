@@ -24,3 +24,6 @@ web/dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Private notes (machine specs etc.): never committed
+.private/
