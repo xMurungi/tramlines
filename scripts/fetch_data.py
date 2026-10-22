@@ -1,11 +1,12 @@
-"""Download the FlyWire v783 brain files and verify their SHA-256 checksums.
+"""Download the FlyWire v783 brain files and annotations, and verify their SHA-256 checksums.
 
 Usage:
     uv run python scripts/fetch_data.py          # download what is missing, verify all
     uv run python scripts/fetch_data.py --check  # verify only, never download
 
-The files come from the Shiu et al. reference repository, pinned to one commit,
-so the bytes can never change under us (ADR-0013). The data is FlyWire v783,
+The brain files come from the Shiu et al. reference repository and the cell type
+annotations from the FlyWire annotation release v2.1.0, each pinned to one commit,
+so the bytes can never change under us (ADR-0013, ADR-0017). The data is FlyWire v783,
 licensed CC BY 4.0 (see docs/science/citations.md). Data files are never
 committed to git (CLAUDE.md section 7.1).
 """
@@ -24,6 +25,13 @@ DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 # Pinned upstream commit of github.com/philshiu/Drosophila_brain_model (ADR-0013).
 SHIU_COMMIT = "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960"
 SHIU_RAW = f"https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/{SHIU_COMMIT}"
+
+# Tag v2.1.0 of github.com/flyconnectome/flywire_annotations: the release matched to v783
+# (ADR-0017).
+ANNOTATIONS_COMMIT = "ebd66db2596fcc39c6950fb54ea3efa00f7fe8a0"
+ANNOTATIONS_RAW = (
+    f"https://raw.githubusercontent.com/flyconnectome/flywire_annotations/{ANNOTATIONS_COMMIT}"
+)
 
 
 @dataclass(frozen=True)
@@ -46,6 +54,12 @@ FILES = (
         url=f"{SHIU_RAW}/Connectivity_783.parquet",
         sha256="efeb23fb99098e9c390f6869969b2a121a2ee92c833cfc45ecb2c1d8e1af0347",
         size=100_804_642,
+    ),
+    DataFile(
+        name="neuron_annotations_v2.1.0.tsv",
+        url=f"{ANNOTATIONS_RAW}/supplemental_files/Supplemental_file1_neuron_annotations.tsv",
+        sha256="30be6c73975a70c56d930e27911f36455d3886e15abf383b78edd2a5d679e0b6",
+        size=27_015_208,
     ),
 )
 

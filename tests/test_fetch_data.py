@@ -21,7 +21,7 @@ def load_script() -> ModuleType:
 def test_every_file_is_pinned_to_a_commit_and_hash() -> None:
     fetch = load_script()
     for entry in fetch.FILES:
-        assert fetch.SHIU_COMMIT in entry.url
+        assert fetch.SHIU_COMMIT in entry.url or fetch.ANNOTATIONS_COMMIT in entry.url
         assert len(entry.sha256) == 64
 
 
