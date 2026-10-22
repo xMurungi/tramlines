@@ -1,0 +1,61 @@
+site_name: Tramlines
+site_description: A real fly's brain, copied synapse by synapse, running in a machine that can see its future.
+docs_dir: docs
+strict: true
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+    primary: black
+    accent: amber
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+nav:
+  - Home: index.md
+  - Honesty: honesty.md
+  - The Book:
+      - book/index.md
+      - "2. Hello, world": book/ch02-hello-world.md
+      - Glossary: book/glossary.md
+  - Decisions:
+      - decisions/index.md
+      - decisions/0001-concept-prediction-machine.md
+      - decisions/0002-dataset-flywire-v783.md
+      - decisions/0003-neuron-model-shiu-lif.md
+      - decisions/0004-python-and-pytorch.md
+      - decisions/0005-typescript-viewer-fastapi-websockets.md
+      - decisions/0006-2d-arena-no-physics-body.md
+      - decisions/0007-determinism-first.md
+      - decisions/0008-fork-shares-weights.md
+      - decisions/0009-browser-target-phase-2.md
+      - decisions/0010-honesty-is-a-feature.md
+      - decisions/0011-the-book.md
+      - decisions/0012-development-tooling.md
+      - decisions/0013-data-files-and-source.md
+      - decisions/0014-challenge-reference-model-details.md
+      - decisions/0015-test-conventions.md
+  - Science:
+      - science/reference-model-notes.md
+      - science/citations.md
+  - Architecture: architecture/index.md
+  - Journal:
+      - journal/2026-10-22-session-1.md
+  - Launch: launch/index.md
