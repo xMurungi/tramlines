@@ -1,0 +1,7 @@
+shares the wiring: True
+has its own voltages: True
+original: 1277 spikes, twin: 1277 spikes
+identical spikes: True
+identical final state: True
+after one extra spike: 1229 spikes vs 1199 spikes
+identical spikes: False

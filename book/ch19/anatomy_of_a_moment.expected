@@ -1,0 +1,10 @@
+the brain after 500 steps (50 ms):
+  voltage           [138639]          1.11 MB
+  synaptic input    [138639]          1.11 MB
+  last spike        [138639]          1.11 MB
+  spikes in flight  [18, 138639]      2.50 MB
+  input rates       [21]              0.00 MB
+  random generator  5,056 bytes of hidden state
+state in total:  5.83 MB
+wiring in total: 182.21 MB (never changes)
+right now: 27 neurons recovering, 30 spikes travelling

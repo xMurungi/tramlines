@@ -18,7 +18,9 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **FlyWire.** The consortium, and the dataset it produced, that reconstructed the whole adult female fruit fly brain from electron-microscope images.
 
-**Fork.** An independent copy of a timeline's state, continuing on its own.
+**Fingerprint.** A hash of every byte of a spike record or a brain state. Equal fingerprints mean identical, bit for bit. [[Chapter 21](ch21-the-sacred-tests.md)]
+
+**Fork.** An independent copy of a timeline's state, continuing on its own; it shares the wiring. [[Chapter 20](ch20-forking.md)]
 
 **Ghost.** A fork run ahead in time to predict the live fly's future.
 
@@ -43,6 +45,8 @@ Every term is defined in plain words first. The chapter that introduces it is in
 **Root ID.** FlyWire's unique number for one neuron in one version of the data.
 
 **Spike.** A neuron firing; the brain's unit of signal.
+
+**State.** Everything about a brain that changes over time: voltages, synaptic inputs, spike timers, spikes in flight, input rates and the random generator's position. [[Chapter 19](ch19-state.md)]
 
 **Synapse.** A contact point where one neuron passes a signal to another.
 
