@@ -4,6 +4,8 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **ADR (Architecture Decision Record).** A short document explaining one decision: what we chose, what else we considered, and why. See [Decisions](../decisions/index.md).
 
+**Annotation.** A label scientists attach to a neuron: its class, type, side of the brain. [[Chapter 17](ch17-loading-flywire.md)]
+
 **Branch.** A fork that received one extra "free will" spike, and so may grow a different future.
 
 **Connectome.** The complete wiring diagram of a nervous system: every neuron, and which neurons connect to which.
@@ -22,7 +24,9 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **GRN (gustatory receptor neuron).** A taste-sensing neuron.
 
-**Hash (SHA-256).** A short fingerprint computed from a file's bytes. Change one byte and the fingerprint changes completely. [Chapter 17]
+**Hash (SHA-256).** A short fingerprint computed from a file's bytes. Change one byte and the fingerprint changes completely. [[Chapter 17](ch17-loading-flywire.md)]
+
+**Index (of a neuron).** A neuron's row number in the neuron list, which is its address inside the simulation. Compare *root ID*. [[Chapter 17](ch17-loading-flywire.md)]
 
 **LIF (leaky integrate-and-fire).** A simple neuron model. Voltage leaks back towards rest, rises with input, and the neuron fires when it crosses a threshold.
 
@@ -34,11 +38,15 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **Program.** A list of instructions written in a language a computer can follow. [[Chapter 2](ch02-hello-world.md)]
 
+**Refractory period.** A short time after a spike (2.2 ms here) when a neuron cannot fire and ignores all input. [[Chapter 18](ch18-the-brain-wakes-up.md)]
+
 **Root ID.** FlyWire's unique number for one neuron in one version of the data.
 
 **Spike.** A neuron firing; the brain's unit of signal.
 
 **Synapse.** A contact point where one neuron passes a signal to another.
+
+**Synaptic delay.** The time a spike takes to reach the next neuron (1.8 ms here). [[Chapter 18](ch18-the-brain-wakes-up.md)]
 
 **Terminal.** A window where you type commands to your computer as text. [[Chapter 2](ch02-hello-world.md)]
 

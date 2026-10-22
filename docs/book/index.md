@@ -6,7 +6,7 @@ The project is not simplified for you. The path is made gentle. Every chapter en
 
 ## Contents
 
-Chapters are written alongside the code that they teach. A chapter that is not linked yet has not been written.
+Chapters are written alongside the code that they teach. A chapter that is not linked yet has not been written. Chapters 17 and 18 were written first because Phase 1 built their code; the earlier chapters they rely on are coming.
 
 **Part 0: The Door**
 
@@ -36,8 +36,8 @@ Chapters are written alongside the code that they teach. A chapter that is not l
 - 14. NumPy: a thousand neurons at once
 - 15. Sparse matrices
 - 16. PyTorch
-- 17. Loading FlyWire v783
-- 18. The brain wakes up
+- [17. Loading FlyWire v783](ch17-loading-flywire.md)
+- [18. The brain wakes up](ch18-the-brain-wakes-up.md)
 
 **Part IV: The Machine**
 

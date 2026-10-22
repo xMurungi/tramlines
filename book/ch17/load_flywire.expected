@@ -1,0 +1,8 @@
+neurons:     138,639
+connections: 15,091,983
+synapses:    54,492,922
+excitatory connections: 9,059,302
+inhibitory connections: 6,032,681
+MN9 is a motor neuron of type CB0701, right side
+MN9 is neuron number 138332 in the simulation
+MN9 listens to 227 neurons through 5,579 synapses
