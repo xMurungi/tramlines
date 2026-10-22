@@ -20,11 +20,11 @@ from tramlines.brain.neurons import load_catalog
 from tramlines.timeline.timeline import Pose, Timeline
 from tramlines.world.arena import DEFAULT_ARENA, Arena
 from tramlines.world.decoder import FlyDecoder
-from tramlines.world.fly import FlyState
+from tramlines.world.fly import DEFAULT_START
 from tramlines.world.senses import FlySenses
 
 ASSETS = Path(__file__).resolve().parent.parent / "docs" / "assets"
-START = FlyState(x_mm=-2.0, y_mm=14.0, heading_rad=0.0)  # presentation choice (ADR-0028)
+START = DEFAULT_START
 
 
 def events(poses: list[Pose], arena: Arena) -> list[str]:
