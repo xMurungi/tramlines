@@ -1,9 +1,9 @@
 # 0031 — Proposal: aim the free-will spike where it can matter
 
-- Status: Proposed — awaiting owner (changes the concept's central button; needed by Phase 5)
+- Status: Accepted — owner approved option 2 (aimed spike at decision moments), 2026-10-23
 - Date: 2026-10-22
 - Phase: 3 (for Phase 5)
-- Decider: Owner
+- Decider: Owner (approved 2026-10-23)
 
 ## Context
 CLAUDE.md Phase 5: "each branch gets one extra spike in a randomly chosen neuron". The divergence study ([ADR-0029](0029-divergence-batching-monitoring.md)) shows this model is strongly stable: a uniformly random extra spike changed nothing else in the brain in 30 of 32 trials, and never changed the path visibly while the fly was walking. Spikes into **sensory input neurons during strong drive** (feeding) diverged in 4 of 16 trials, the first from 235 ms.

@@ -2,7 +2,7 @@
 
 This page lists every decision only the owner can make, so it can be picked up at any time. Each item has a recommendation and says what it blocks. Answer in any session ("decision 3: yes") and the builder records the answer in the linked ADR and moves the item to *Answered*.
 
-Last updated: 2026-10-22 (session 6). Every choice made so far, in order: [decision history](decisions/history.md).
+Last updated: 2026-10-23 (session 7). Every choice made so far, in order: [decision history](decisions/history.md).
 
 ## Waiting
 
@@ -17,8 +17,6 @@ Last updated: 2026-10-22 (session 6). Every choice made so far, in order: [decis
 | 7 | **Code licence** (MIT / Apache-2.0 / GPL-3.0). Note: Eon's code is GPL-2.0-or-later, so we do not copy from it until this is decided. Shiu's code is MIT. | (Yours.) | Phase 8; also whether we may reuse Eon code. | CLAUDE.md 17.2 |
 | 9 | **Default prediction horizon (3 s) and branch count (8).** | Keep the defaults until the performance numbers for Phase 4 exist. | Phase 4–5. | CLAUDE.md 17.4 |
 | 10 | **Launch channels and timing.** | (Yours.) | Phase 8. | CLAUDE.md 17.5 |
-| 13 | **Free will: aim the extra spike** at neurons currently receiving input, offered at decision moments, instead of any random neuron (which almost never changes anything, measured). | Approve option 2; keep "chance" branches as a possible second button. | Phase 5. | [ADR-0031](decisions/0031-proposal-aimed-free-will.md), [ADR-0029](decisions/0029-divergence-batching-monitoring.md) |
-| 14 | **Projection, not live** was decided on your delegation; it changes CLAUDE.md Phase 4's "≥ 1× real time" wording. Reverse it, or let the builder propose the CLAUDE.md wording? | Keep; update CLAUDE.md's Phase 4 text. | Phase 4 design. | [ADR-0030](decisions/0030-projection-not-live.md) |
 | 12 | **Continuous integration on GitHub** (GitHub Actions running the tests on every PR). Today checks run locally and are recorded in each PR. | Add it: tests, lint, types and docs on every PR; data-dependent tests skip on GitHub unless the data is cached there. | Nothing; makes PR checks visible. | [ADR-0026](decisions/0026-branches-and-pull-requests.md) |
 
 ## Answered
@@ -29,6 +27,8 @@ Last updated: 2026-10-22 (session 6). Every choice made so far, in order: [decis
 | — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |
 | — | Go for Phase 3 | Go; decisions deferred. | 2026-10-22 |
 | — | Workflow | Pull requests, merged into `develop` ([ADR-0026](decisions/0026-branches-and-pull-requests.md)). | 2026-10-22 |
+| 13 | Free will: aim the extra spike | Approved: option 2, aimed at driven inputs, at decision moments ([ADR-0031](decisions/0031-proposal-aimed-free-will.md)). | 2026-10-23 |
+| 14 | Projection, not live; amend CLAUDE.md | Approved ([ADR-0030](decisions/0030-projection-not-live.md)); CLAUDE.md Phases 4, 5 and 13.3 amended. | 2026-10-23 |
 | 8, 11 | Sensory ports and motor decoder | Delegated: "choose what's best and let's see how it goes; keep a history". Chosen in [ADR-0028](decisions/0028-senses-and-decoder-chosen.md); history in [decision history](decisions/history.md). You can still change any of it. | 2026-10-22 |
 | — | Privacy | Only the GitHub handle `xMurungi` appears anywhere public; no name, device or local paths. History rewritten accordingly. | 2026-10-22 |
 | — | Git remote | Push to `github.com/xMurungi/tramlines`, branch `develop`. | 2026-10-22 |

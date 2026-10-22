@@ -369,13 +369,13 @@ Never start phase N+1 until phase N's gate passes and the owner has said "go" in
 
 ### Phase 4 — The ghost and the viewer
 - `tramlines/server/`: FastAPI app streaming over WebSocket: fly pose, recent spikes (compressed), ghost path, prediction metadata.
-- Prediction loop: every P seconds of sim time (default 1 s), fork live → ghost, run ghost H seconds ahead (default 3 s) in a worker process, send the ghost path. If the ghost can't finish in time, shorten the horizon automatically and show it on screen.
+- Projection, not live (ADR-0030, owner-approved 2026-10-23): a compute worker keeps the timeline several seconds ahead of the screen; the screen plays it at real speed (the live fly), and the ghost is the same timeline drawn further ahead. In a deterministic simulation this is identical to simulating live. Show the compute lead on screen; if it runs short, pause honestly rather than fake.
 - `web/`: Vite + TS viewer. Canvas 2D first for the arena; neuron view as a 2D projection of soma positions (from annotation coordinates) or a raster. Three.js only if an ADR justifies it.
 - Live "match %" meter comparing the live path to the ghost's prediction for the same time window. It must read 100.000% in determinism mode.
 - **Gate:** owner watches the ghost lead and the fly follow, perfectly, for 60 s.
 
 ### Phase 5 — Free will
-- Button: fork N branches (default 8); each gets one extra spike in a randomly chosen neuron, a different one per branch, logged; run all ahead H seconds.
+- Button: fork N branches (default 8); each gets one extra spike, a different neuron per branch, logged and shown on screen; run all ahead H seconds. **Aimed (ADR-0031, owner-approved 2026-10-23):** the spike goes into a neuron currently receiving input, and the button is offered at decision moments; a uniformly random neuron almost never changes the future in this model (ADR-0029).
 - Divergence metrics: (a) arena path distance over time; (b) spike-raster Hamming distance over time; (c) "time to divergence" (first step where behavior differs by > ε).
 - Visualize the fan. Highlight branches that re-converge versus those that never do.
 - "Replay" mode (White Bear): rerun from a saved state and show the identical loop.
@@ -604,7 +604,7 @@ One sentence pulling the reader forward.
 ### 13.3 Performance budget (measure, don't guess)
 
 - Record on the owner's machine: wall-clock seconds per simulated second, RAM peak, ghost compute time for H = 3 s.
-- Live must run at ≥ 1× real time in Phase 4. If not, an ADR proposes options (reduce stimulated rates, event-driven step, batching, Numba/C++ kernel). Changing language is Reserved.
+- Under projection (ADR-0030) the engine must compute faster than the screen plays *on average*, using at most 3 parallel brain processes on the owner's machine (ADR-0029). Faster engines (batching, Numba/C++ kernel) shorten preparation and branch waits; changing language is Reserved.
 - Expected memory: weights ~100–200 MB shared; ~2–5 MB per timeline state.
 
 ### 13.4 Session ritual
