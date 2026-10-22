@@ -9,6 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from functools import cache
+from pathlib import Path
 
 import numpy as np
 import torch
@@ -17,6 +18,9 @@ from tramlines.brain.connectome import Connectome, from_arrays
 from tramlines.brain.data import DATA_DIR
 from tramlines.brain.engine import Brain, SpikeRecord
 from tramlines.brain.neurons import ANNOTATIONS_FILE, REFERENCE_SUGAR_GRNS, load_catalog
+from tramlines.timeline.timeline import Timeline
+from tramlines.world.arena import Arena, Loom, Patch
+from tramlines.world.fly import FlyState, MotorCommand
 
 SCHEDULE_HZ = (200.0, 0.0, 80.0, 150.0, 30.0)  # cycled, one entry per 10 ms
 SCHEDULE_STEPS = 100
@@ -77,3 +81,81 @@ def full() -> Scenario:
 
 def by_name(name: str) -> Scenario:
     return small() if name == "small" else full()
+
+
+# --- Timelines: brain + body + world, with TEST-ONLY senses and decoder ---
+# These probes are not the fly's senses or motor decoder (those await the owner,
+# ADR-0023/0024). They exist so the sacred tests can drive a closed loop in which
+# the world changes the brain's input and the brain moves the body.
+
+
+@dataclass(frozen=True)
+class ProbeSenses:
+    input_neurons: torch.Tensor
+
+    def rates_hz(self, fly: FlyState, arena: Arena) -> torch.Tensor:
+        rate = 200.0 if arena.patches_under(fly.x_mm, fly.y_mm) else 140.0
+        loom = arena.active_loom(fly.time_ms)
+        if loom is not None:
+            rate += 100.0 * loom[1]
+        return torch.full((len(self.input_neurons),), rate, dtype=torch.float64)
+
+
+@dataclass(frozen=True)
+class ProbeDecoder:
+    readout_neurons: torch.Tensor  # two neurons: "left" and "right"
+    window_ms: int = 50
+
+    def command(self, rates_hz: torch.Tensor, fly: FlyState) -> MotorCommand:
+        left, right = float(rates_hz[0]), float(rates_hz[1])
+        return MotorCommand(forward_mm_s=0.15 * (left + right), turn_rad_s=0.05 * (left - right))
+
+
+PROBE_ARENA = Arena(
+    radius_mm=60.0,  # large enough that the probe fly never reaches the wall
+    patches=(Patch(0.0, 0.0, 0.3, "food"),),
+    looms=(Loom(start_ms=40, duration_ms=30, direction_rad=0.0),),
+)
+
+
+@dataclass(frozen=True)
+class TimelineScenario:
+    name: str
+    connectome: Connectome
+    senses: ProbeSenses
+    decoder: ProbeDecoder
+    total_ms: int
+
+    def fork_ms(self, seed: int) -> int:
+        return self.total_ms // 3 + 7 * seed
+
+    def timeline(self, seed: int) -> Timeline:
+        return Timeline(self.connectome, PROBE_ARENA, self.senses, self.decoder, seed=seed)
+
+    def load(self, path: Path) -> Timeline:
+        return Timeline.load(path, self.connectome, PROBE_ARENA, self.senses, self.decoder)
+
+
+@cache
+def timeline_small() -> TimelineScenario:
+    s = small()
+    # Readouts: the two most-connected neurons that are not inputs, so they fire often.
+    inputs = set(s.inputs.tolist())
+    by_degree = torch.argsort(s.connectome.row_start.diff(), descending=True, stable=True)
+    readouts = torch.tensor([int(n) for n in by_degree if int(n) not in inputs][:2])
+    return TimelineScenario(
+        "timeline-small", s.connectome, ProbeSenses(s.inputs), ProbeDecoder(readouts), 300
+    )
+
+
+@cache
+def timeline_full() -> TimelineScenario:
+    s = full()
+    readouts = load_catalog().index_of(load_catalog().find(cell_type="CB0701"))  # MN9 L, R
+    return TimelineScenario(
+        "timeline-full", s.connectome, ProbeSenses(s.inputs), ProbeDecoder(readouts), 100
+    )
+
+
+def timeline_by_name(name: str) -> TimelineScenario:
+    return timeline_small() if name == "timeline-small" else timeline_full()
