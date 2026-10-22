@@ -144,6 +144,29 @@ class Brain:
         if not (isinstance(inputs, torch.Tensor) and torch.equal(inputs, self.input_neurons)):
             raise ValueError(f"{source} was saved with different input neurons")
 
+    def awake_neurons(self) -> torch.Tensor:
+        """Neurons not exactly at rest right now (plus the input neurons), ascending."""
+        self._ensure_caches()
+        return torch.sort(self._awake).values
+
+    def inject_spike(self, neuron: int) -> None:
+        """One extra spike: neuron `neuron` fires at the step that just ended (free will).
+
+        Exactly what a natural spike leaves behind: it is reset, it starts its
+        refractory period, and its spike travels to its targets after the usual delay.
+        Refuses a neuron that is already refractory, which could not have fired.
+        """
+        s, p = self.state, self.params
+        if s.step == 0:
+            raise ValueError("run at least one step before injecting a spike")
+        just_now = s.step - 1
+        if just_now - int(s.last_spike_step[neuron]) < int(self.refractory_steps[neuron]):
+            raise ValueError(f"neuron {neuron} is refractory and cannot fire")
+        s.v_mV[neuron] = p.v_reset_mV
+        s.g_mV[neuron] = 0.0
+        s.last_spike_step[neuron] = just_now
+        s.in_flight[just_now % p.delay_steps, neuron] = True
+
     def step(self) -> torch.Tensor:
         """Advance 0.1 ms. Returns the indices of the neurons that fired, ascending.
 

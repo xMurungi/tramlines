@@ -59,6 +59,7 @@ class Arena:
 
 
 # A first layout for headless runs and the Phase 3 gate; a presentation choice (ADR-0025).
+# With DEFAULT_START (fly.py) the fly's path crosses the food (ADR-0028).
 DEFAULT_ARENA = Arena(
     radius_mm=40.0,
     patches=(

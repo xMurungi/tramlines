@@ -2,7 +2,7 @@
 
 This page lists every decision only the owner can make, so it can be picked up at any time. Each item has a recommendation and says what it blocks. Answer in any session ("decision 3: yes") and the builder records the answer in the linked ADR and moves the item to *Answered*.
 
-Last updated: 2026-10-22 (session 5). Every choice made so far, in order: [decision history](decisions/history.md).
+Last updated: 2026-10-22 (session 6). Every choice made so far, in order: [decision history](decisions/history.md).
 
 ## Waiting
 
@@ -11,12 +11,14 @@ Last updated: 2026-10-22 (session 5). Every choice made so far, in order: [decis
 | 1 | **Acknowledge the model details where the reference code differs from CLAUDE.md 7.2**, and say whether CLAUDE.md 7.2 should be rewritten to match. | Acknowledge, and update 7.2 to the verified model in ADR-0016. The engine already follows the reference code, as 7.2 instructs. | Nothing today. A wrong 7.2 will mislead future sessions and Book readers. | [ADR-0014](decisions/0014-challenge-reference-model-details.md), [ADR-0016](decisions/0016-verified-neuron-model.md) |
 | 2 | **Which sugar neurons count as "the fly tasting sugar"** in the world (Phase 3 sensory port). Options: the 21 used by the reference experiment, or all 67 `sugar/water` neurons on that side (which include water-sensing cells). | Keep the reference 21 for the scientific test (already done). Decide the Phase 3 port once the Phase 3 proposal is written. | Phase 3 only. | [ADR-0017](decisions/0017-annotations-and-neuron-sets.md) |
 | 3 | **Annotation source.** CLAUDE.md 7.1 says annotations come from FlyWire Codex. Codex downloads need a login, so we use the published release behind Codex: `flywire_annotations` v2.1.0 (2024), the release that matches v783 exactly. | Accept v2.1.0. | Nothing; reversible. | [ADR-0017](decisions/0017-annotations-and-neuron-sets.md) |
-| 4 | **Speed.** After [ADR-0027](decisions/0027-awake-set-engine.md) (bit-identical, 4.5× faster): 1.9× real time when the brain is quiet, 0.45× under strong sugar input. Phase 4 needs ≥ 1× for the live fly. The ghost can use several parallel worker processes, so it does not need more than 1× itself. | If the closed-loop fly is still below 1×, the next step is a compiled kernel (C++ via PyTorch's extension mechanism, or Numba): a language/dependency addition, so yours to approve. | Phase 4. | [ADR-0027](decisions/0027-awake-set-engine.md) |
+| 4 | **Speed.** Closed-loop fly at 0.12× real time. With projection-not-live ([ADR-0030](decisions/0030-projection-not-live.md)) a compiled kernel is no longer needed for Phase 4; it would only shorten preparation and branch waits. | Defer. | Nothing now. | [ADR-0027](decisions/0027-awake-set-engine.md), [ADR-0030](decisions/0030-projection-not-live.md) |
 | 5 | **Data file names.** CLAUDE.md 7.1 expects Eon's `2025_…` names; we keep the original `Completeness_783.csv` / `Connectivity_783.parquet` (same content). | Keep upstream names. | Nothing. | [ADR-0013](decisions/0013-data-files-and-source.md) |
 | 6 | **Project name.** "Tramlines" is a working title. | (Yours.) | Phase 8. | CLAUDE.md 17.1 |
 | 7 | **Code licence** (MIT / Apache-2.0 / GPL-3.0). Note: Eon's code is GPL-2.0-or-later, so we do not copy from it until this is decided. Shiu's code is MIT. | (Yours.) | Phase 8; also whether we may reuse Eon code. | CLAUDE.md 17.2 |
 | 9 | **Default prediction horizon (3 s) and branch count (8).** | Keep the defaults until the performance numbers for Phase 4 exist. | Phase 4–5. | CLAUDE.md 17.4 |
 | 10 | **Launch channels and timing.** | (Yours.) | Phase 8. | CLAUDE.md 17.5 |
+| 13 | **Free will: aim the extra spike** at neurons currently receiving input, offered at decision moments, instead of any random neuron (which almost never changes anything, measured). | Approve option 2; keep "chance" branches as a possible second button. | Phase 5. | [ADR-0031](decisions/0031-proposal-aimed-free-will.md), [ADR-0029](decisions/0029-divergence-batching-monitoring.md) |
+| 14 | **Projection, not live** was decided on your delegation; it changes CLAUDE.md Phase 4's "≥ 1× real time" wording. Reverse it, or let the builder propose the CLAUDE.md wording? | Keep; update CLAUDE.md's Phase 4 text. | Phase 4 design. | [ADR-0030](decisions/0030-projection-not-live.md) |
 | 12 | **Continuous integration on GitHub** (GitHub Actions running the tests on every PR). Today checks run locally and are recorded in each PR. | Add it: tests, lint, types and docs on every PR; data-dependent tests skip on GitHub unless the data is cached there. | Nothing; makes PR checks visible. | [ADR-0026](decisions/0026-branches-and-pull-requests.md) |
 
 ## Answered
