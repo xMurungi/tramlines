@@ -16,19 +16,30 @@ it directly rather than assume it (ADR-0016).
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import copy
+import hashlib
+from dataclasses import asdict, dataclass
+from pathlib import Path
 
 import torch
 
 from tramlines.brain.connectome import Connectome
 from tramlines.brain.params import PARAMS, LIFParams
-from tramlines.brain.state import initial_state
+from tramlines.brain.state import BrainState, initial_state
+
+DETERMINISM_THREADS = 1
 
 
-def enable_determinism(threads: int = 1) -> None:
+def enable_determinism(threads: int = DETERMINISM_THREADS) -> None:
     """CPU, fixed thread count, deterministic kernels (ADR-0007)."""
     torch.use_deterministic_algorithms(True)
     torch.set_num_threads(threads)
+
+
+def _require_determinism() -> None:
+    """A brain refuses to exist outside determinism mode (ADR-0021)."""
+    if not torch.are_deterministic_algorithms_enabled():
+        raise RuntimeError("call tramlines.brain.engine.enable_determinism() first (ADR-0007)")
 
 
 @dataclass(frozen=True)
@@ -40,6 +51,12 @@ class SpikeRecord:
 
     def count(self, neuron: int) -> int:
         return int((self.neurons == neuron).sum())
+
+    def fingerprint(self) -> str:
+        """SHA-256 of the whole spike raster: equal fingerprints, identical spikes."""
+        digest = hashlib.sha256(self.steps.numpy().tobytes())
+        digest.update(self.neurons.numpy().tobytes())
+        return digest.hexdigest()
 
 
 class Brain:
@@ -53,7 +70,10 @@ class Brain:
         """`input_neurons` are the indices that can receive Poisson input.
 
         As in the reference, they have no refractory period (ADR-0014, detail 2).
+        Everything set here is fixed for the brain's life and shared by its forks;
+        everything that changes lives in `self.state` (ADR-0008, ADR-0021).
         """
+        _require_determinism()
         self.connectome = connectome
         self.params = params
         self.input_neurons = input_neurons.to(torch.int64)
@@ -69,6 +89,40 @@ class Brain:
 
     def set_input_rates(self, rates_hz: float | torch.Tensor) -> None:
         self.state.input_rates_hz[:] = rates_hz
+
+    def fork(self) -> Brain:
+        """A second brain that shares this one's wiring and copies its state (ADR-0008).
+
+        From this instant the two run independently; given the same inputs they
+        produce the same future, bit for bit.
+        """
+        twin = copy.copy(self)  # shares connectome, params, input_neurons, refractory_steps
+        twin.state = self.state.clone()
+        return twin
+
+    def save(self, path: Path) -> None:
+        self.state.save(path, self._context())
+
+    @classmethod
+    def load(cls, path: Path, connectome: Connectome, params: LIFParams = PARAMS) -> Brain:
+        """Rebuild a brain from a saved state; refuses a state from different wiring."""
+        state, context = BrainState.load(path)
+        if context["connectome"] != connectome.fingerprint:
+            raise ValueError(f"{path} was saved from a different connectome")
+        if context["params"] != repr(asdict(params)):
+            raise ValueError(f"{path} was saved with different model parameters")
+        input_neurons = context["input_neurons"]
+        assert isinstance(input_neurons, torch.Tensor)
+        brain = cls(connectome, input_neurons, seed=0, params=params)
+        brain.state = state
+        return brain
+
+    def _context(self) -> dict[str, torch.Tensor | int | str]:
+        return {
+            "connectome": self.connectome.fingerprint,
+            "params": repr(asdict(self.params)),
+            "input_neurons": self.input_neurons,
+        }
 
     def step(self) -> torch.Tensor:
         """Advance 0.1 ms. Returns the indices of the neurons that fired."""

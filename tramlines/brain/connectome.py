@@ -11,7 +11,9 @@ same one (ADR-0008). Event-driven delivery is ADR-0018.
 
 from __future__ import annotations
 
+import hashlib
 from dataclasses import dataclass
+from functools import cached_property
 from pathlib import Path
 
 import numpy as np
@@ -34,6 +36,14 @@ class Connectome:
     @property
     def n_connections(self) -> int:
         return int(self.post.shape[0])
+
+    @cached_property
+    def fingerprint(self) -> str:
+        """SHA-256 of the wiring, so a saved state is never loaded into a different brain."""
+        digest = hashlib.sha256(self.n_neurons.to_bytes(8, "little"))
+        for tensor in (self.row_start, self.post, self.weight_mV):
+            digest.update(tensor.numpy().tobytes())
+        return digest.hexdigest()
 
     def outgoing(self, pre: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
         """Receivers and weights of every connection leaving the neurons in `pre`.

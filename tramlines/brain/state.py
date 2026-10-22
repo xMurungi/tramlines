@@ -1,18 +1,23 @@
 """Everything a brain *is* at one instant, apart from its wiring.
 
-Phase 1 keeps this as a plain container. Phase 2 adds forking and save/load, and
-the sacred tests will prove that nothing mutable lives anywhere else (ADR-0008).
+A fork copies exactly this and nothing else (ADR-0008, ADR-0021). If any mutable
+piece of a running brain lived outside `BrainState`, two forks would secretly share
+it and their futures would leak into each other; `tests/test_determinism.py` exists
+to prove that never happens.
 """
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+import hashlib
+from dataclasses import dataclass, field
+from pathlib import Path
 
 import torch
 
 from tramlines.brain.params import LIFParams
 
 NEVER_SPIKED = -(10**9)  # a step far enough in the past that no neuron starts refractory
+STATE_FORMAT = 1  # bump when the saved layout changes
 
 
 @dataclass
@@ -23,7 +28,68 @@ class BrainState:
     last_spike_step: torch.Tensor  # int64 [n]: when each neuron last fired
     in_flight: torch.Tensor  # bool [delay_steps, n]: spikes still travelling, by departure step
     input_rates_hz: torch.Tensor  # float64 [k]: current rate of each Poisson input
-    generator: torch.Generator  # this timeline's own random numbers (ADR-0007)
+    generator: torch.Generator = field(repr=False)  # this timeline's own randomness (ADR-0007)
+
+    def clone(self) -> BrainState:
+        """An independent copy: changing one never changes the other."""
+        generator = torch.Generator(device="cpu")
+        generator.set_state(self.generator.get_state())
+        return BrainState(
+            step=self.step,
+            v_mV=self.v_mV.clone(),
+            g_mV=self.g_mV.clone(),
+            last_spike_step=self.last_spike_step.clone(),
+            in_flight=self.in_flight.clone(),
+            input_rates_hz=self.input_rates_hz.clone(),
+            generator=generator,
+        )
+
+    def fingerprint(self) -> str:
+        """SHA-256 of every bit of the state, including the random generator.
+
+        Two states with the same fingerprint will produce the same future, bit for bit.
+        Comparing raw bytes (not values) also tells -0.0 from 0.0.
+        """
+        digest = hashlib.sha256(self.step.to_bytes(8, "little", signed=True))
+        for tensor in self._tensors().values():
+            digest.update(tensor.contiguous().numpy().tobytes())
+        return digest.hexdigest()
+
+    def nbytes(self) -> int:
+        return sum(t.numel() * t.element_size() for t in self._tensors().values())
+
+    def _tensors(self) -> dict[str, torch.Tensor]:
+        return {
+            "v_mV": self.v_mV,
+            "g_mV": self.g_mV,
+            "last_spike_step": self.last_spike_step,
+            "in_flight": self.in_flight,
+            "input_rates_hz": self.input_rates_hz,
+            "generator_state": self.generator.get_state(),
+        }
+
+    def save(self, path: Path, context: dict[str, torch.Tensor | int | str]) -> None:
+        """Write the state plus `context` (what it must be loaded against) to disk."""
+        torch.save({"format": STATE_FORMAT, "step": self.step, **self._tensors(), **context}, path)
+
+    @staticmethod
+    def load(path: Path) -> tuple[BrainState, dict[str, object]]:
+        """Read a saved state. Uses `weights_only=True`: plain data only, no code."""
+        saved = torch.load(path, weights_only=True)
+        if saved.pop("format") != STATE_FORMAT:
+            raise ValueError(f"{path} was saved in a different state format")
+        generator = torch.Generator(device="cpu")
+        generator.set_state(saved.pop("generator_state"))
+        state = BrainState(
+            step=int(saved.pop("step")),
+            v_mV=saved.pop("v_mV"),
+            g_mV=saved.pop("g_mV"),
+            last_spike_step=saved.pop("last_spike_step"),
+            in_flight=saved.pop("in_flight"),
+            input_rates_hz=saved.pop("input_rates_hz"),
+            generator=generator,
+        )
+        return state, saved
 
 
 def initial_state(n_neurons: int, n_inputs: int, seed: int, params: LIFParams) -> BrainState:
