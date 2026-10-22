@@ -6,7 +6,7 @@ The project is not simplified for you. The path is made gentle. Every chapter en
 
 ## Contents
 
-Chapters are written alongside the code that they teach. A chapter that is not linked yet has not been written. Chapters 17–21 and 25 were written first because Phases 1–3 built their code; the earlier chapters they rely on are coming.
+Chapters are written alongside the code that they teach. A chapter that is not linked yet has not been written. Chapters 17–21, 25 and 26 were written first because Phases 1–3 built their code; the earlier chapters they rely on are coming.
 
 **Part 0: The Door**
 
@@ -51,7 +51,7 @@ Chapters are written alongside the code that they teach. A chapter that is not l
 **Part V: A Body and a World**
 
 - [25. A 2D world and the game loop](ch25-a-world-and-the-game-loop.md)
-- 26. Senses in, movement out
+- [26. Senses in, movement out](ch26-senses-in-movement-out.md)
 
 **Part VI: Showing It**
 
