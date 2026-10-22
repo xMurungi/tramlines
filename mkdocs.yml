@@ -42,9 +42,11 @@ nav:
       - "20. Forking": book/ch20-forking.md
       - "21. The sacred tests": book/ch21-the-sacred-tests.md
       - "25. A 2D world and the game loop": book/ch25-a-world-and-the-game-loop.md
+      - "26. Senses in, movement out": book/ch26-senses-in-movement-out.md
       - Glossary: book/glossary.md
   - Decisions:
       - decisions/index.md
+      - Decision history: decisions/history.md
       - decisions/0001-concept-prediction-machine.md
       - decisions/0002-dataset-flywire-v783.md
       - decisions/0003-neuron-model-shiu-lif.md
@@ -72,11 +74,13 @@ nav:
       - decisions/0025-world-and-timeline.md
       - decisions/0026-branches-and-pull-requests.md
       - decisions/0027-awake-set-engine.md
+      - decisions/0028-senses-and-decoder-chosen.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
   - Architecture: architecture/index.md
   - Journal:
+      - journal/2026-10-22-session-5.md
       - journal/2026-10-22-session-4.md
       - journal/2026-10-22-session-3.md
       - journal/2026-10-22-session-2.md

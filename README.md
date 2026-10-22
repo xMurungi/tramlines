@@ -2,7 +2,7 @@
 
 *A real fly's brain, copied synapse by synapse, running in a machine that can see its future.*
 
-A whole-brain simulation of the adult fruit fly, built from the FlyWire v783 connectome, with a ghost copy that runs ahead and predicts the fly's path, and a "free will" button that splits the future. **Work in progress: Phase 3 under way (world and timeline built; the fly's senses and motor decoder await approval).** See [ROADMAP.md](ROADMAP.md).
+A whole-brain simulation of the adult fruit fly, built from the FlyWire v783 connectome, with a ghost copy that runs ahead and predicts the fly's path, and a "free will" button that splits the future. **Work in progress: Phase 3 gate run done (the fly walks, feeds and escapes, driven by the simulated brain); Phase 4 next.** See [ROADMAP.md](ROADMAP.md).
 
 Please read [docs/honesty.md](docs/honesty.md) before drawing conclusions from anything this project shows.
 

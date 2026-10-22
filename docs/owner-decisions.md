@@ -2,7 +2,7 @@
 
 This page lists every decision only the owner can make, so it can be picked up at any time. Each item has a recommendation and says what it blocks. Answer in any session ("decision 3: yes") and the builder records the answer in the linked ADR and moves the item to *Answered*.
 
-Last updated: 2026-10-22 (session 4). The owner has deferred all decisions for now; work continues on unblocked paths.
+Last updated: 2026-10-22 (session 5). Every choice made so far, in order: [decision history](decisions/history.md).
 
 ## Waiting
 
@@ -15,8 +15,6 @@ Last updated: 2026-10-22 (session 4). The owner has deferred all decisions for n
 | 5 | **Data file names.** CLAUDE.md 7.1 expects Eon's `2025_…` names; we keep the original `Completeness_783.csv` / `Connectivity_783.parquet` (same content). | Keep upstream names. | Nothing. | [ADR-0013](decisions/0013-data-files-and-source.md) |
 | 6 | **Project name.** "Tramlines" is a working title. | (Yours.) | Phase 8. | CLAUDE.md 17.1 |
 | 7 | **Code licence** (MIT / Apache-2.0 / GPL-3.0). Note: Eon's code is GPL-2.0-or-later, so we do not copy from it until this is decided. Shiu's code is MIT. | (Yours.) | Phase 8; also whether we may reuse Eon code. | CLAUDE.md 17.2 |
-| 8 | **Approve the sensory ports.** Proposal written, with a survey of what each candidate drives. Key choice: the brain is silent without input, so the fly needs a *walking drive* (recommended: tonic input to the P9 walking-command neurons). | See the ADR's recommendation for each of 5 ports. | **Phase 3 gate**: the fly cannot sense or move until approved. | [ADR-0023](decisions/0023-proposal-sensory-ports.md) |
-| 11 | **Approve the motor decoder**, and answer its 4 questions (BPN missing, keep MDN?, jump behaviour, P9-only forward). | Linear rates + thresholds, readouts as tabled. | **Phase 3 gate.** | [ADR-0024](decisions/0024-proposal-motor-decoder.md) |
 | 9 | **Default prediction horizon (3 s) and branch count (8).** | Keep the defaults until the performance numbers for Phase 4 exist. | Phase 4–5. | CLAUDE.md 17.4 |
 | 10 | **Launch channels and timing.** | (Yours.) | Phase 8. | CLAUDE.md 17.5 |
 | 12 | **Continuous integration on GitHub** (GitHub Actions running the tests on every PR). Today checks run locally and are recorded in each PR. | Add it: tests, lint, types and docs on every PR; data-dependent tests skip on GitHub unless the data is cached there. | Nothing; makes PR checks visible. | [ADR-0026](decisions/0026-branches-and-pull-requests.md) |
@@ -29,6 +27,7 @@ Last updated: 2026-10-22 (session 4). The owner has deferred all decisions for n
 | — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |
 | — | Go for Phase 3 | Go; decisions deferred. | 2026-10-22 |
 | — | Workflow | Pull requests, merged into `develop` ([ADR-0026](decisions/0026-branches-and-pull-requests.md)). | 2026-10-22 |
+| 8, 11 | Sensory ports and motor decoder | Delegated: "choose what's best and let's see how it goes; keep a history". Chosen in [ADR-0028](decisions/0028-senses-and-decoder-chosen.md); history in [decision history](decisions/history.md). You can still change any of it. | 2026-10-22 |
 | — | Privacy | Only the GitHub handle `xMurungi` appears anywhere public; no name, device or local paths. History rewritten accordingly. | 2026-10-22 |
 | — | Git remote | Push to `github.com/xMurungi/tramlines`, branch `develop`. | 2026-10-22 |
 | — | Machine for the performance budget (CLAUDE.md 17.6) | The machine used in these sessions (specs kept private, not in the repository). | 2026-10-22 |

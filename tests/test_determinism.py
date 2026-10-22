@@ -27,6 +27,7 @@ import pytest
 import torch
 from _scenarios import (
     HAVE_DATA,
+    FlyScenario,
     Scenario,
     TimelineScenario,
     by_name,
@@ -156,10 +157,16 @@ TIMELINES = [
         "timeline-full",
         marks=pytest.mark.skipif(not HAVE_DATA, reason="full brain needs fetch_data.py"),
     ),
+    pytest.param(  # the real fly: ADR-0028's senses and decoder
+        "timeline-fly",
+        marks=pytest.mark.skipif(not HAVE_DATA, reason="full brain needs fetch_data.py"),
+    ),
 ]
 
 
-def timeline_fingerprints(timeline: Timeline, scenario: TimelineScenario) -> tuple[str, str]:
+def timeline_fingerprints(
+    timeline: Timeline, scenario: TimelineScenario | FlyScenario
+) -> tuple[str, str]:
     poses = timeline.run(scenario.total_ms - timeline.fly.time_ms)
     path = hashlib.sha256(repr(poses).encode()).hexdigest()
     moves = {(p.x_mm, p.y_mm, p.heading_rad) for p in poses}

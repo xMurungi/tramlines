@@ -1,6 +1,6 @@
 # 0023 — Proposal: which neurons are the fly's senses
 
-- Status: Proposed — awaiting owner
+- Status: Superseded by [0028](0028-senses-and-decoder-chosen.md) (owner delegated the choice, 2026-10-22). Kept unchanged below as the record of the options.
 - Date: 2026-10-22
 - Phase: 3
 - Decider: Owner (CLAUDE.md 2.2: choosing sensory neurons is Reserved)

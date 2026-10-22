@@ -2,8 +2,8 @@
 
 ## Status
 
-**Current phase: 3, A body and a world.** World, body and timeline built and under the sacred tests. **Blocked** on the owner's approval of the sensory ports (ADR-0023) and motor decoder (ADR-0024) for the Phase 3 gate.
-Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-22-session-4.md`.
+**Current phase: 3, A body and a world.** Gate run done (see journal 5): the fly walks, feeds on food and escapes a looming shadow; determinism 100%. Waiting for the owner's verdict on the gate and "go" for Phase 4. **Speed (0.12× real time in the closed loop) is the main open problem for Phase 4.**
+Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-22-session-5.md`.
 
 ## Phase 0: Foundations
 - [x] Repo structure, `pyproject.toml` (uv), ruff, mypy, pytest
@@ -33,12 +33,14 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 
 ## Phase 3: A body and a world
 - [x] Proposal ADRs for sensory ports (0023) and motor decoder (0024), with a measured survey
-- [ ] Owner approves sensory ports (8.1) and motor decoder (8.2)
+- [x] Sensory ports (8.1) and motor decoder (8.2): delegated by the owner, chosen in ADR-0028
 - [x] Arena, fly kinematics, timeline loop (ADR-0025)
 - [x] Determinism tests include world state (timeline fork / fresh process / save-load)
 - [x] Book chapter 25
-- [ ] `tramlines/world/senses.py` and `decoder.py` (after approval); Book chapter 26
-- [ ] **Gate:** headless trajectory PNG showing purposeful behaviour; determinism still 100%
+- [x] `tramlines/world/senses.py` and `decoder.py`; Book chapter 26; honesty page updated
+- [x] Engine speed-up, bit-identical (ADR-0027)
+- [x] **Gate run:** `docs/assets/headless_seed0.png`: walks, feeds on food, escapes the shadow (it does not *approach* food: no distant food sense in the model); determinism 100%
+- [ ] Owner's verdict on the gate; "go" for Phase 4
 
 ## Phase 4: The ghost and the viewer
 ## Phase 5: Free will

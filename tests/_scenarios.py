@@ -19,8 +19,10 @@ from tramlines.brain.data import DATA_DIR
 from tramlines.brain.engine import Brain, SpikeRecord
 from tramlines.brain.neurons import ANNOTATIONS_FILE, REFERENCE_SUGAR_GRNS, load_catalog
 from tramlines.timeline.timeline import Timeline
-from tramlines.world.arena import Arena, Loom, Patch
+from tramlines.world.arena import DEFAULT_ARENA, Arena, Loom, Patch
+from tramlines.world.decoder import FlyDecoder
 from tramlines.world.fly import FlyState, MotorCommand
+from tramlines.world.senses import FlySenses
 
 SCHEDULE_HZ = (200.0, 0.0, 80.0, 150.0, 30.0)  # cycled, one entry per 10 ms
 SCHEDULE_STEPS = 100
@@ -157,5 +159,46 @@ def timeline_full() -> TimelineScenario:
     )
 
 
-def timeline_by_name(name: str) -> TimelineScenario:
+def timeline_by_name(name: str) -> TimelineScenario | FlyScenario:
+    if name == "timeline-fly":
+        return timeline_fly()
     return timeline_small() if name == "timeline-small" else timeline_full()
+
+
+# --- The real fly: senses and decoder chosen in ADR-0028, on the full brain ---
+
+
+@dataclass(frozen=True)
+class FlyScenario:
+    name: str
+    connectome: Connectome
+    senses: FlySenses
+    decoder: FlyDecoder
+    total_ms: int
+    start: FlyState
+
+    def fork_ms(self, seed: int) -> int:
+        return self.total_ms // 3 + 7 * seed
+
+    def timeline(self, seed: int) -> Timeline:
+        return Timeline(
+            self.connectome, DEFAULT_ARENA, self.senses, self.decoder, seed=seed, start=self.start
+        )
+
+    def load(self, path: Path) -> Timeline:
+        return Timeline.load(path, self.connectome, DEFAULT_ARENA, self.senses, self.decoder)
+
+
+@cache
+def timeline_fly() -> FlyScenario:
+    catalog = load_catalog()
+    # Start just outside the food, walking onto it: walking, sugar and feeding all happen.
+    start = FlyState(x_mm=12.0, y_mm=6.0, heading_rad=0.0)
+    return FlyScenario(
+        "timeline-fly",
+        full().connectome,
+        FlySenses.from_catalog(catalog),
+        FlyDecoder.from_catalog(catalog),
+        total_ms=150,
+        start=start,
+    )

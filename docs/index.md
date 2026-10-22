@@ -7,7 +7,7 @@ Tramlines is a whole-brain simulation of the adult fruit fly, *Drosophila melano
 Then you press **free will**. One extra spike goes into one neuron, and the future splits into a fan of timelines.
 
 !!! info "Status"
-    Phase 3, A body and a world: the brain, a fly body and a 2D world fork together bit for bit; the fly's senses and motor decoder await the owner's approval. See the [journal](journal/2026-10-22-session-4.md) for where things stand, and [owner decisions](owner-decisions.md) for what is waiting.
+    Phase 3, A body and a world: the brain drives a fly in a 2D world (it walks, feeds, escapes), and the whole thing forks bit for bit. See the [journal](journal/2026-10-22-session-5.md) for where things stand, and [owner decisions](owner-decisions.md) for what is waiting.
 
 ## Read this first
 

@@ -10,6 +10,8 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **Connectome.** The complete wiring diagram of a nervous system: every neuron, and which neurons connect to which.
 
+**Decoder.** Our rules that turn the firing of a few descending neurons into movement of the fly's body. [[Chapter 26](ch26-senses-in-movement-out.md)]
+
 **Descending neuron.** A neuron that carries commands from the brain down to the body.
 
 **Determinism.** Same starting state plus same inputs gives the same result, every time.
@@ -40,6 +42,8 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **Poisson input.** Random spikes at a set average rate, used to stand in for a sensory stimulus.
 
+**Port.** A group of identified neurons that the world drives, e.g. sugar-tasting neurons when the fly stands on food. [[Chapter 26](ch26-senses-in-movement-out.md)]
+
 **Program.** A list of instructions written in a language a computer can follow. [[Chapter 2](ch02-hello-world.md)]
 
 **Refractory period.** A short time after a spike (2.2 ms here) when a neuron cannot fire and ignores all input. [[Chapter 18](ch18-the-brain-wakes-up.md)]
@@ -57,5 +61,7 @@ Every term is defined in plain words first. The chapter that introduces it is in
 **Terminal.** A window where you type commands to your computer as text. [[Chapter 2](ch02-hello-world.md)]
 
 **Timeline.** One brain, one body and one clock, copied as a single thing when forked. [[Chapter 25](ch25-a-world-and-the-game-loop.md)]
+
+**Walking drive.** Constant input to the P9 walking-command neurons; without it the simulated brain is silent and the fly never moves. [[Chapter 26](ch26-senses-in-movement-out.md)]
 
 **uv.** A tool that installs Python and the packages a project needs, and runs programs with them. [[Chapter 2](ch02-hello-world.md)]

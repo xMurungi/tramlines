@@ -25,7 +25,13 @@ from tramlines.brain.engine import Brain
 from tramlines.brain.params import PARAMS
 from tramlines.brain.state import BrainState
 from tramlines.world.arena import Arena
-from tramlines.world.fly import WORLD_STEP_MS, FlyState, MotorCommand, step_fly
+from tramlines.world.fly import (
+    JUMP_COOLDOWN_MS,
+    WORLD_STEP_MS,
+    FlyState,
+    MotorCommand,
+    step_fly,
+)
 
 BRAIN_STEPS_PER_WORLD_STEP = PARAMS.steps(WORLD_STEP_MS)  # 10
 
@@ -58,6 +64,7 @@ class Pose:
     y_mm: float
     heading_rad: float
     feeding: bool
+    jumped: bool  # a jump happened in this millisecond
 
 
 class Timeline:
@@ -90,7 +97,9 @@ class Timeline:
         self.window[self.fly.time_ms % self.decoder.window_ms] = counts
         rates_hz = self.window.sum(0).to(torch.float64) * (1000.0 / self.decoder.window_ms)
         step_fly(self.fly, self.decoder.command(rates_hz, self.fly), self.arena)
-        return Pose(*astuple(self.fly))
+        f = self.fly
+        jumped = f.jump_cooldown_ms == JUMP_COOLDOWN_MS
+        return Pose(f.time_ms, f.x_mm, f.y_mm, f.heading_rad, f.feeding, jumped)
 
     def run(self, duration_ms: int) -> list[Pose]:
         return [self.step() for _ in range(duration_ms)]
