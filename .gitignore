@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+
+# Data: downloaded by scripts/fetch_data.py, never committed (CLAUDE.md §7.1)
+data/*
+!data/MANIFEST.md
+
+# Docs build
+site/
+
+# Web
+web/node_modules/
+web/dist/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
