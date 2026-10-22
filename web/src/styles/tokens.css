@@ -1,0 +1,23 @@
+/* Design tokens: the one place colours live (CLAUDE.md section 9.2).
+   Fonts are chosen in a later ADR; these are system fallbacks until then. */
+:root {
+  --void: #07070a;
+  --gold: #e8b04a;
+  --gold-dim: rgb(232 176 74 / 0.6);
+  --ghost: rgb(232 176 74 / 0.28);
+  --ghost-blur: 3px;
+  --accent: #19e6ff;
+  --text: #e9e3d6;
+  --text-muted: #8a8478;
+
+  --font-display: Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--void);
+  color: var(--text);
+}
