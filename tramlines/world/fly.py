@@ -15,6 +15,7 @@ from dataclasses import astuple, dataclass, replace
 from tramlines.world.arena import Arena
 
 WORLD_STEP_MS = 1  # the world moves once per millisecond of simulated time (ADR-0025)
+JUMP_COOLDOWN_MS = 500  # after a jump the body cannot jump again for this long (ADR-0028)
 
 
 @dataclass(frozen=True)
@@ -35,12 +36,13 @@ class FlyState:
     y_mm: float = 0.0
     heading_rad: float = 0.0
     feeding: bool = False
+    jump_cooldown_ms: int = 0
 
     def clone(self) -> FlyState:
         return replace(self)
 
     def fingerprint(self) -> str:
-        return hashlib.sha256(struct.pack("<qddd?", *astuple(self))).hexdigest()
+        return hashlib.sha256(struct.pack("<qddd?q", *astuple(self))).hexdigest()
 
 
 def step_fly(fly: FlyState, command: MotorCommand, arena: Arena) -> None:
@@ -48,13 +50,15 @@ def step_fly(fly: FlyState, command: MotorCommand, arena: Arena) -> None:
     dt_s = WORLD_STEP_MS / 1000.0
     fly.time_ms += WORLD_STEP_MS
     fly.feeding = command.feed
+    fly.jump_cooldown_ms = max(0, fly.jump_cooldown_ms - WORLD_STEP_MS)
     if command.feed:
         return  # a feeding fly stands still
     fly.heading_rad = math.remainder(fly.heading_rad + command.turn_rad_s * dt_s, math.tau)
     distance = command.forward_mm_s * dt_s
     x = fly.x_mm + distance * math.cos(fly.heading_rad)
     y = fly.y_mm + distance * math.sin(fly.heading_rad)
-    if command.jump_mm:
+    if command.jump_mm and fly.jump_cooldown_ms == 0:
+        fly.jump_cooldown_ms = JUMP_COOLDOWN_MS
         direction = fly.heading_rad + command.jump_direction_rad
         x += command.jump_mm * math.cos(direction)
         y += command.jump_mm * math.sin(direction)

@@ -44,6 +44,12 @@ def test_jump_is_an_instant_hop() -> None:
     assert fly.x_mm == pytest.approx(-3.0)
 
 
+def test_jump_needs_a_cooldown() -> None:
+    fly = walk(MotorCommand(jump_mm=1.0), 300)  # asks to jump every millisecond
+    assert fly.x_mm == pytest.approx(1.0)  # but only the first one happens
+    assert fly.jump_cooldown_ms == 500 - 299
+
+
 def test_patches_and_looms() -> None:
     assert ARENA.patches_under(5.5, 0.0)[0].kind == "food"
     assert not ARENA.patches_under(0.0, 0.0)
