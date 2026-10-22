@@ -33,5 +33,5 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0027](0027-awake-set-engine.md) | Speed: compute only the awake neurons, bit for bit | Accepted (delegated) | 3 |
 | [0028](0028-senses-and-decoder-chosen.md) | The fly's senses and motor decoder, as chosen | Accepted (owner delegated) | 3 |
 | [0029](0029-divergence-batching-monitoring.md) | What one extra spike does, what batching saves, and the machine's limits | Accepted (owner delegated) | 3 |
-| [0030](0030-projection-not-live.md) | The viewer shows a projection computed ahead, not real-time simulation | Accepted (owner delegated) | 3 |
-| [0031](0031-proposal-aimed-free-will.md) | Proposal: aim the free-will spike where it can matter | **Proposed — awaiting owner** | 3 |
+| [0030](0030-projection-not-live.md) | The viewer shows a projection computed ahead, not real-time simulation | Accepted (owner approved) | 3 |
+| [0031](0031-proposal-aimed-free-will.md) | Proposal: aim the free-will spike where it can matter | Accepted (owner, 2026-10-23) | 3 |

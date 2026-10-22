@@ -50,4 +50,6 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 42 | 2026-10-22 | Batching measured: neuron-major layout, 3.6-5.7x for 8 futures (not about 2x) | Owner-delegated | [0029](0029-divergence-batching-monitoring.md) |
 | 43 | 2026-10-22 | At most 3 parallel brain processes (memory tight at 4; swap never grew) | Owner-delegated | [0029](0029-divergence-batching-monitoring.md) |
 | 44 | 2026-10-22 | Projection, not live: the viewer plays timelines computed ahead | Owner-delegated | [0030](0030-projection-not-live.md) |
-| 45 | 2026-10-22 | Proposed: aim the free-will spike at driven inputs, at decision moments | Proposed — awaiting owner | [0031](0031-proposal-aimed-free-will.md) |
+| 45 | 2026-10-22 | Proposed: aim the free-will spike at driven inputs, at decision moments | Proposed | [0031](0031-proposal-aimed-free-will.md) |
+| 46 | 2026-10-23 | Approved: aimed free will (option 2) | Owner | [0031](0031-proposal-aimed-free-will.md) |
+| 47 | 2026-10-23 | Approved: projection, not live; CLAUDE.md Phase 4, 5 and 13.3 amended to match | Owner | [0030](0030-projection-not-live.md) |

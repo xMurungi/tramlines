@@ -1,6 +1,6 @@
 # 0030 — The viewer shows a projection computed ahead, not a fly simulated in real time
 
-- Status: Accepted (owner-delegated: "do what's best for the mission", 2026-10-22). Changes CLAUDE.md Phase 4's "live must run at ≥ 1× real time"; the owner can reverse it.
+- Status: Accepted (owner-delegated 2026-10-22; owner approved 2026-10-23, and CLAUDE.md Phases 4 and 13.3 were amended to match)
 - Date: 2026-10-22
 - Phase: 3 (decides Phase 4's design)
 - Decider: Claude, on the owner's delegation
