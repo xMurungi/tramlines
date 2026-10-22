@@ -13,6 +13,9 @@ dependencies = [
 ]
 
 [dependency-groups]
+analysis = [
+    "matplotlib>=3.11.2",
+]
 dev = [
     "mypy>=1.11",
     "pandas-stubs>=2.2",
@@ -31,13 +34,14 @@ build-backend = "hatchling.build"
 packages = ["tramlines"]
 
 [tool.uv]
-default-groups = ["dev", "docs"]
+default-groups = ["dev", "docs", "analysis"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-ra --strict-markers"
+addopts = "-ra --strict-markers -m 'not slow'"
 markers = [
     "data: needs the FlyWire v783 files in data/ (run scripts/fetch_data.py first)",
+    "slow: takes minutes; run with `uv run pytest -m slow`",
 ]
 
 [tool.ruff]
