@@ -19,6 +19,7 @@ Last updated: 2026-10-22 (session 4). The owner has deferred all decisions for n
 | 11 | **Approve the motor decoder**, and answer its 4 questions (BPN missing, keep MDN?, jump behaviour, P9-only forward). | Linear rates + thresholds, readouts as tabled. | **Phase 3 gate.** | [ADR-0024](decisions/0024-proposal-motor-decoder.md) |
 | 9 | **Default prediction horizon (3 s) and branch count (8).** | Keep the defaults until the performance numbers for Phase 4 exist. | Phase 4–5. | CLAUDE.md 17.4 |
 | 10 | **Launch channels and timing.** | (Yours.) | Phase 8. | CLAUDE.md 17.5 |
+| 12 | **Continuous integration on GitHub** (GitHub Actions running the tests on every PR). Today checks run locally and are recorded in each PR. | Add it: tests, lint, types and docs on every PR; data-dependent tests skip on GitHub unless the data is cached there. | Nothing; makes PR checks visible. | [ADR-0026](decisions/0026-branches-and-pull-requests.md) |
 
 ## Answered
 
@@ -27,6 +28,7 @@ Last updated: 2026-10-22 (session 4). The owner has deferred all decisions for n
 | — | Go for Phase 1 | Go. | 2026-10-22 |
 | — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |
 | — | Go for Phase 3 | Go; decisions deferred. | 2026-10-22 |
+| — | Workflow | Pull requests, merged into `develop` ([ADR-0026](decisions/0026-branches-and-pull-requests.md)). | 2026-10-22 |
 | — | Privacy | Only the GitHub handle `xMurungi` appears anywhere public; no name, device or local paths. History rewritten accordingly. | 2026-10-22 |
 | — | Git remote | Push to `github.com/xMurungi/tramlines`, branch `develop`. | 2026-10-22 |
 | — | Machine for the performance budget (CLAUDE.md 17.6) | The machine used in these sessions (specs kept private, not in the repository). | 2026-10-22 |

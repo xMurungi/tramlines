@@ -70,6 +70,7 @@ nav:
       - decisions/0023-proposal-sensory-ports.md
       - decisions/0024-proposal-motor-decoder.md
       - decisions/0025-world-and-timeline.md
+      - decisions/0026-branches-and-pull-requests.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
