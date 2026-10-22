@@ -44,3 +44,10 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 36 | 2026-10-22 | Feeding hysteresis (start 30 Hz, stop 15 Hz) after flicker was observed | Owner-delegated | [0028, history step 3](0028-senses-and-decoder-chosen.md) |
 | 37 | 2026-10-22 | Escape hop 5 → 15 mm (the 5 mm hop stayed inside the food) | Owner-delegated | [0028, history step 3](0028-senses-and-decoder-chosen.md) |
 | 38 | 2026-10-22 | Body: 500 ms jump cooldown | Owner-delegated | [0028](0028-senses-and-decoder-chosen.md) |
+| 39 | 2026-10-22 | Vision proposal written as a shared doc (five moves) | Owner request | [vision doc](https://claude.ai/artifact/YX2bran5jpVRDVtDFxN8Lc) |
+| 40 | 2026-10-22 | Owner: "do what's best for the mission"; monitor CPU, memory, heat | Owner | [journal 6](../journal/2026-10-22-session-6.md) |
+| 41 | 2026-10-22 | Divergence study run: random extra spikes almost never change the future | Owner-delegated | [0029](0029-divergence-batching-monitoring.md) |
+| 42 | 2026-10-22 | Batching measured: neuron-major layout, 3.6-5.7x for 8 futures (not about 2x) | Owner-delegated | [0029](0029-divergence-batching-monitoring.md) |
+| 43 | 2026-10-22 | At most 3 parallel brain processes (memory tight at 4; swap never grew) | Owner-delegated | [0029](0029-divergence-batching-monitoring.md) |
+| 44 | 2026-10-22 | Projection, not live: the viewer plays timelines computed ahead | Owner-delegated | [0030](0030-projection-not-live.md) |
+| 45 | 2026-10-22 | Proposed: aim the free-will spike at driven inputs, at decision moments | Proposed — awaiting owner | [0031](0031-proposal-aimed-free-will.md) |

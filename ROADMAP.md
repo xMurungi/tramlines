@@ -3,7 +3,8 @@
 ## Status
 
 **Current phase: 3, A body and a world.** Gate run done (see journal 5): the fly walks, feeds on food and escapes a looming shadow; determinism 100%. Waiting for the owner's verdict on the gate and "go" for Phase 4. **Speed (0.12× real time in the closed loop) is the main open problem for Phase 4.**
-Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-22-session-5.md`.
+Session 6: divergence study (random extra spikes rarely matter; aimed ones can), projection-not-live adopted (ADR-0030), free-will aiming proposed (ADR-0031).
+Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-22-session-6.md`.
 
 ## Phase 0: Foundations
 - [x] Repo structure, `pyproject.toml` (uv), ruff, mypy, pytest

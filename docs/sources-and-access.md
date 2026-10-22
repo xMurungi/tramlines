@@ -2,7 +2,7 @@
 
 A record, for the owner's review, of every outside resource the builder touched: what was installed on this machine, what was downloaded, which websites and services were contacted, and what was written outside the repository. Kept current every session.
 
-Last updated: 2026-10-22 (session 4).
+Last updated: 2026-10-22 (session 6).
 
 Personal details (the owner's name, machine, username, local paths) are deliberately left out of this page and the whole repository. Paths below are written relative to the home folder or as placeholders.
 
@@ -52,6 +52,7 @@ Also: `uv run --with brian2` built a throwaway Brian2 environment (in the uv cac
 | github.com (git over HTTPS) | Cloning the two reference repositories; **pushing this project to `github.com/xMurungi/tramlines`, branch `develop`** (owner's instruction, session 3) | The project's git history (no data files). |
 | api.github.com (unauthenticated REST) | Latest commit, tags, releases and file listing of `flyconnectome/flywire_annotations` | None beyond the request. |
 | raw.githubusercontent.com | Downloading the data files above | None. |
+| Local system tools only (`top`, `ps`, `sysctl`, `pmset`, `memory_pressure`) | Monitoring the machine during experiments (session 6); no network, no admin rights | None. |
 | codex.flywire.ai | One request to `/api/download?data_product=classification&data_version=783` | None (no login). |
 | PyPI, npm registry, Homebrew, python-build-standalone (via uv) | Installing the software above, and running `git-filter-repo` once via `uvx` (session 4) | None. |
 
@@ -65,6 +66,8 @@ In session 4, at the owner's request, `develop`'s history was rewritten with `gi
 |---|---|
 | Claude Code's per-project memory folder under `~/.claude/projects/` | The builder's notes between sessions: pending owner decisions belong in `docs/owner-decisions.md`; never write the owner's personal details into the repository. Plus an index. |
 | `.private/machine.md` in the project (git-ignored, never pushed) | The reference machine's specs for the performance budget, kept off GitHub. |
+| `.private/bin/thermal_state` (+ its `.swift` source), git-ignored | A tiny helper compiled with the already-installed Xcode tools (`swiftc`) that prints macOS's thermal-pressure level for `scripts/monitor_system.py` (session 6). |
+| `.private/monitoring/*.csv`, git-ignored | CPU, memory, swap and thermal readings taken while experiments ran (session 6). Read locally only; summaries without machine details are in ADR-0029. |
 | The scratchpad above | Temporary files listed in section 2. |
 
 ## 5. Third-party material inside the repository
