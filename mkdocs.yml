@@ -71,6 +71,7 @@ nav:
       - decisions/0024-proposal-motor-decoder.md
       - decisions/0025-world-and-timeline.md
       - decisions/0026-branches-and-pull-requests.md
+      - decisions/0027-awake-set-engine.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
