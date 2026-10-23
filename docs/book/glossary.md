@@ -24,7 +24,7 @@ Every term is defined in plain words first. The chapter that introduces it is in
 
 **Fork.** An independent copy of a timeline's state, continuing on its own; it shares the wiring. [[Chapter 20](ch20-forking.md)]
 
-**Ghost.** A fork run ahead in time to predict the live fly's future.
+**Ghost.** A fork run ahead in time to predict the live fly's future; in the viewer, computed by its own process from a saved moment. [[Chapter 22](ch22-the-ghost.md)]
 
 **Game loop.** The sense–decide–act cycle a simulation repeats; ours runs once per millisecond of simulated time. [[Chapter 25](ch25-a-world-and-the-game-loop.md)]
 
