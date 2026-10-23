@@ -44,6 +44,11 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 - [x] Owner's verdict on the gate; "go" for Phase 4 ("proceed partner", 2026-10-23)
 
 ## Phase 4: The ghost and the viewer
+- [x] Architecture: projector + independent ghost + viewer (ADR-0033); look (ADR-0034)
+- [x] `tramlines/server/` (FastAPI, WebSocket, cached runs) and the `web/` viewer
+- [x] Match meter: 100.000% at first light (24,000 ms checked)
+- [ ] Book chapters 22, 27, 28, 29
+- [ ] **Gate:** owner watches the ghost lead and the fly follow, perfectly, for 60 s
 ## Phase 5: Free will
 ## Phase 6: Polish and launch prep
 ## Phase 7: Into the browser
