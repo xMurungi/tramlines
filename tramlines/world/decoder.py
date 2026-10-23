@@ -17,11 +17,12 @@ from tramlines.world.fly import FlyState, MotorCommand
 
 WINDOW_MS = 50  # rates are averaged over the last 50 ms (CLAUDE.md 8.2)
 
-# Forward speed: P9 near 100 Hz (the walking drive) → about 15 mm/s, a typical
-# walking speed for Drosophila (roughly 10-20 mm/s).
-FORWARD_MM_S_PER_HZ = 0.15
-# Backward walking from MDN, same scale. MDN barely fired in the survey.
-BACKWARD_MM_S_PER_HZ = 0.15
+# Forward speed: P9 at its typical ~28 Hz under the walking drive (ADR-0036) → about
+# 14 mm/s, a typical walking speed for Drosophila (roughly 10-20 mm/s). P9 is read, never
+# driven, so this speed is the brain's answer (ADR-0035).
+FORWARD_MM_S_PER_HZ = 0.5
+# Backward walking from MDN, same scale. MDN barely fired in the surveys.
+BACKWARD_MM_S_PER_HZ = 0.5
 SPEED_LIMITS_MM_S = (-10.0, 30.0)
 # Turning: DNa02 drives turns towards its own side (Rayshubskiy et al. 2020; to be
 # verified against the paper). A 40 Hz left-right difference → 180°/s.

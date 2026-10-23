@@ -21,7 +21,10 @@ from tramlines.world.fly import FlyState
 SUGAR_HZ = 150.0  # on food: drives MN9 strongly (Phase 1 curve saturates above 100 Hz)
 BITTER_HZ = 150.0  # on a bitter patch: abolishes sugar-driven MN9 at equal rates
 LOOM_MAX_HZ = 200.0  # a looming shadow ramps LPLC2 from 0 to this as it arrives
-WALK_DRIVE_HZ = 100.0  # tonic drive to P9: the brain is silent without input (ADR-0028)
+# Tonic walking drive, upstream of P9 (ADR-0036): the brain is silent without input. CB2777
+# (4 central neurons) excites P9 without driving escape, feeding or turning; at 150 Hz P9
+# answers at about 28 Hz, integrating its 1,841 inputs. P9 itself is only read, never driven.
+WALK_DRIVE_HZ = 150.0
 
 
 @dataclass(frozen=True)
@@ -44,7 +47,7 @@ class FlySenses:
             bitter=catalog.index_of(catalog.find(cell_class="gustatory", cell_sub_class="bitter")),
             loom_left=lplc2("left"),
             loom_right=lplc2("right"),
-            walk_drive=catalog.index_of(catalog.find(hemibrain_type="DNp09")),  # P9
+            walk_drive=catalog.index_of(catalog.find(cell_type="CB2777")),  # upstream of P9
         )
 
     def _ports(self) -> tuple[torch.Tensor, ...]:
