@@ -70,8 +70,10 @@ class FlyDecoder:
         r = rates_hz.tolist()
         p9, dna02_left, dna02_right = sum(r[0:4]) / 4, r[4], r[5]
         mdn, gf, mn9 = sum(r[6:10]) / 4, max(r[10], r[11]), max(r[12], r[13])
-        if gf > GIANT_FIBER_JUMP_HZ:
+        if gf > GIANT_FIBER_JUMP_HZ and fly.jump_cooldown_ms == 0:
             return MotorCommand(forward_mm_s=0.0, jump_mm=JUMP_MM)
+        # While the body recovers from a jump, a still-high Giant Fiber does not freeze
+        # the fly: it walks on as normal (issue #14, B6).
         if mn9 > (MN9_FEED_STOP_HZ if fly.feeding else MN9_FEED_START_HZ):
             return MotorCommand(feed=True)
         low, high = SPEED_LIMITS_MM_S
