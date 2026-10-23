@@ -6,10 +6,12 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 authors = [{ name = "xMurungi" }]
 dependencies = [
+    "fastapi>=0.161.1",
     "numpy>=2.0",
     "pandas>=2.2",
     "pyarrow>=17",
     "torch>=2.4",
+    "uvicorn[standard]>=0.54.0",
 ]
 
 [dependency-groups]
@@ -17,6 +19,7 @@ analysis = [
     "matplotlib>=3.11.2",
 ]
 dev = [
+    "httpx2>=2.16.0",
     "mypy>=1.11",
     "pandas-stubs>=2.2",
     "pytest>=8.3",
