@@ -62,9 +62,9 @@ uv run python ch22/ghost.py
 ```
 
 ```text
-now: t = 500 ms, fly at (5.42, 13.03) mm
-the ghost says: at t = 1500 ms it will be at (15.74, 5.33) mm
-the fly:        at t = 1500 ms it is at   (15.74, 5.33) mm
+now: t = 500 ms, fly at (5.02, 6.00) mm
+the ghost says: at t = 1500 ms it will be at (19.03, 6.00) mm
+the fly:        at t = 1500 ms it is at   (19.03, 6.00) mm
 milliseconds predicted: 1000, matched exactly: 1000
 brains identical at the end: True
 ```

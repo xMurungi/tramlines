@@ -7,6 +7,6 @@ SENSES (world -> brain)
   on food     -> 25 of 277 input neurons driven
   on nothing  -> 4 of 277 input neurons driven
 DECODER (brain -> body)
-  walking   speed  15.0 mm/s  turn -1.57 rad/s  jump  0.0 mm  feed False
+  walking   speed  14.0 mm/s  turn -1.57 rad/s  jump  0.0 mm  feed False
   feeding   speed   0.0 mm/s  turn +0.00 rad/s  jump  0.0 mm  feed True
   escaping  speed   0.0 mm/s  turn +0.00 rad/s  jump 15.0 mm  feed False

@@ -26,9 +26,9 @@ for label, fly in [("on food", on_food), ("on nothing", nowhere)]:
 
 print("DECODER (brain -> body)")
 #            P9 x4        DNa02 L, R  MDN x4      GF L, R   MN9 L, R
-walking = [100.0] * 4 + [10.0, 30.0] + [0.0] * 4 + [0, 0] + [0, 0]
-feeding = [100.0] * 4 + [10.0, 30.0] + [0.0] * 4 + [0, 0] + [60, 80]
-escaping = [100.0] * 4 + [10.0, 30.0] + [0.0] * 4 + [100, 160] + [60, 80]
+walking = [28.0] * 4 + [10.0, 30.0] + [0.0] * 4 + [0, 0] + [0, 0]
+feeding = [28.0] * 4 + [10.0, 30.0] + [0.0] * 4 + [0, 0] + [60, 80]
+escaping = [28.0] * 4 + [10.0, 30.0] + [0.0] * 4 + [100, 160] + [60, 80]
 for label, rates in [("walking", walking), ("feeding", feeding), ("escaping", escaping)]:
     command = decoder.command(torch.tensor(rates, dtype=torch.float64), FlyState())
     print(
