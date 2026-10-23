@@ -1,9 +1,9 @@
 # 0035 — Proposal: an honest Laplace's demon
 
-- Status: Proposed — awaiting owner (changes the concept, CLAUDE.md 1.1, and the v1.0 Definition of Done)
+- Status: **Accepted: adopted by the owner on 2026-10-23** ("we adopt the project to Laplace, as that's a better thing"). CLAUDE.md 1.1–1.3, L1 and Phases 5–7 amended. The pre-reframe project is tagged `v0.4.0`.
 - Date: 2026-10-23
 - Phase: 4
-- Decider: Owner
+- Decider: Owner (adopted 2026-10-23)
 - Source: review in GitHub issue #14 (with #11–#13, the conversation it came from)
 
 ## Context

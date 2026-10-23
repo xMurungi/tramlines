@@ -25,32 +25,44 @@ If anything in this file conflicts with a request in a session, **stop and ask t
 
 ### 1.1 What we are building
 
-**Tramlines** is a whole-brain emulation of the adult fruit fly (*Drosophila melanogaster*), built from the FlyWire connectome. It lives in a small 2D world. Next to the living fly runs a **ghost**: a forked copy of the same brain, simulated seconds ahead, which shows the fly's future before it happens. And it is always right.
+> **Reframed 2026-10-23 (ADR-0035, adopted by the owner): an honest Laplace's demon.** The original Devs-demo concept is preserved at git tag `v0.4.0`.
 
-Then the viewer presses a button marked **free will**. One extra spike is injected into one neuron. The future splits into a fan of timelines, and the viewer watches them diverge. Some collapse back together. Some never do.
+**Tramlines** is a whole-brain emulation of the adult fruit fly (*Drosophila melanogaster*), built from the FlyWire connectome. It lives in a small 2D world. Next to the living fly runs a **ghost**: a copy of the same brain that runs ahead and shows the fly's future.
+
+A ghost that knows the brain *perfectly* is always right; that is what deterministic means, and the project says so openly: the perfect ghost is the **control**. The real question is the demon's: **how much must you know about a brain to foresee it, and where does that knowledge stop mattering?** So the viewer can give the ghost *imperfect* knowledge, and watch how long it stays right before it peels away, usually at a moment where the fly is deciding something.
+
+Then **free will**: one extra spike, aimed where the brain is on an edge, and the future splits into a fan of timelines. Some collapse back together. Some never do. Many different brain futures turn out to share one behaviour.
 
 That is the whole product in one screen:
 
-1. **The live fly.** A real wiring diagram, running in real time, walking, turning, feeding and fleeing in a 2D arena.
-2. **The ghost.** A translucent copy walking ahead along the path the fly *will* take, a prediction that comes true, step for step.
-3. **The fan.** On "free will", N branched futures drawn as diverging paths, with a live divergence meter.
-4. **The brain.** A visualization of which neurons are firing, in the live fly and in each future.
+1. **The live fly.** A real wiring diagram walking, turning, feeding and fleeing in a 2D arena (computed ahead of the screen, ADR-0030).
+2. **The ghost.** The perfect ghost as the labelled control, and a **"how much does the ghost know?" slider** for the imperfect one.
+3. **The fan.** On "free will", N branched futures drawn as diverging paths, with divergence measures.
+4. **The brain.** Which neurons are firing, in the live fly and in each future.
+
+Behind the screen, three measured results are the project's substance: the **predictability horizon** against measurement precision; the **brain's contribution** (real wiring against a shuffled "null brain"); and a **perturbation atlas** (how often, and where, one spike changes behaviour).
 
 ### 1.2 Why it matters (the North Star)
 
 People have already made the fly connectome play Doom, Katamari, Clone Hero, poker and scroll videos. Those are demos of *control*. Tramlines is a demo of *meaning*. It makes visible, in a way anyone can feel in ten seconds, the oldest question the sci-fi canon keeps asking:
 
-> If a mind is a machine, and the machine is deterministic, is its future already written?
+> If a mind is a machine, and the machine is deterministic, is its future already written? And how much would you need to know to read it?
 
-The project succeeds when a stranger watches the clip for 30 seconds and *gets it*: they feel the chill of the ghost being right, and the strange relief when free will breaks the prediction.
+The project succeeds when a stranger watches the clip for 30 seconds and *gets it*: they feel the chill of the ghost being right, then see it peel away the moment it knows one spike too little, and the strange relief when free will splits the future.
 
 ### 1.3 The Definition of Done for v1.0
 
-- [ ] Full FlyWire v783 brain (~138k neurons) runs live and drives a fly in a 2D world.
-- [ ] Ghost prediction is **bit-exact**: the live fly follows the ghost's path with zero divergence, verified by automated tests.
-- [ ] Free will button produces a fan of ≥ 8 branched futures with a divergence metric.
-- [ ] A web viewer anyone can open, with the aesthetic in section 9.
-- [ ] The Book: complete, tested, readable by someone who has never written code.
+Reframed by ADR-0035 (owner-adopted 2026-10-23). The original list is preserved at tag `v0.4.0`.
+
+- [ ] Full FlyWire v783 brain (~138k neurons) drives a fly in a 2D world, with **no neuron both driven and read** (enforced by a test).
+- [ ] The perfect ghost is **bit-exact** (the sacred tests) and shown openly as the control.
+- [ ] **Result 1, predictability horizon:** how long an imperfect ghost stays right, against how precisely it knows the brain.
+- [ ] **Result 2, the brain's contribution:** behaviour on the real connectome against a degree-preserving shuffled null brain.
+- [ ] **Result 3, perturbation atlas:** the fraction of single spikes that change behaviour, where and when, and whether the tipping points survive changes to the decoder.
+- [ ] Free will produces a fan of ≥ 8 aimed futures with divergence measures.
+- [ ] A web viewer with the control ghost, the knowledge slider, the fan and the aesthetic in section 9.
+- [ ] A long-form write-up (or preprint) with the data and scripts, after a literature check.
+- [ ] The Book (scope under review: owner decision).
 - [ ] Every decision recorded as an ADR.
 - [ ] An honesty page (section 4) linked from the main screen.
 - [ ] A 30–60 second launch clip.
@@ -92,7 +104,7 @@ Each of these has an ADR in `docs/decisions/` created during Phase 0. Write them
 
 | # | Decision | Reason |
 |---|---|---|
-| L1 | The concept is the **Devs-style prediction machine** described in section 1. | Novel, buildable, concept-first. Game demos are saturated. |
+| L1 | The concept is the **Devs-style prediction machine** described in section 1, **reframed as an honest Laplace's demon** (ADR-0035, owner-adopted 2026-10-23). | Novel, buildable, concept-first. Game demos are saturated. The reframe makes the prediction an experiment instead of a tautology. |
 | L2 | Dataset: **FlyWire v783** (public release) for the brain. | It is what Shiu et al. and Eon's fly-brain use. Proven model, available data. |
 | L3 | Neuron model: **leaky integrate-and-fire** per Shiu et al. 2024 (*Nature*). | Published, validated against real fly behavior, simple enough to teach. |
 | L4 | Core language: **Python 3.12**. Simulation engine: **PyTorch**. | Reuses the existing model and data tooling. Rich ecosystem. |
@@ -374,7 +386,12 @@ Never start phase N+1 until phase N's gate passes and the owner has said "go" in
 - Live "match %" meter comparing the live path to the ghost's prediction for the same time window. It must read 100.000% in determinism mode.
 - **Gate:** owner watches the ghost lead and the fly follow, perfectly, for 60 s.
 
-### Phase 5 — Free will
+### Phase 5 — The demon's limits, and free will (reframed by ADR-0035)
+- **Disjoint inputs and readouts:** no neuron both driven and read; a test enforces it (owner decision 17).
+- **Result 1, predictability horizon:** a state-perturbation function (voltage error 10⁻¹²…10⁻³ mV, a dropped in-flight spike, float32 rounding, partial observation) and a sweep measuring how long the imperfect ghost stays right.
+- **Result 2, null brain:** a degree-preserving shuffle of the connectome under the same senses, decoder and arena; report the behavioural difference.
+- **Result 3, perturbation atlas:** single-spike sweeps across neurons and moments (screened cheaply at spike level, behaviour only for cascades), plus a decoder robustness check (100 ms window, thresholds ±20%).
+- **Viewer:** the knowledge slider, and the perfect ghost labelled as the control.
 - Button: fork N branches (default 8); each gets one extra spike, a different neuron per branch, logged and shown on screen; run all ahead H seconds. **Aimed (ADR-0031, owner-approved 2026-10-23):** the spike goes into a neuron currently receiving input, and the button is offered at decision moments; a uniformly random neuron almost never changes the future in this model (ADR-0029).
 - Divergence metrics: (a) arena path distance over time; (b) spike-raster Hamming distance over time; (c) "time to divergence" (first step where behavior differs by > ε).
 - Visualize the fan. Highlight branches that re-converge versus those that never do.
@@ -385,9 +402,11 @@ Never start phase N+1 until phase N's gate passes and the owner has said "go" in
 ### Phase 6 — Polish and launch prep
 - Aesthetic pass (section 9), honesty page, about page with credits, performance budget, mobile layout.
 - Record the launch clip (screen capture). Script it in `docs/launch/clip-script.md`. Owner approves.
+- Long-form write-up of the three results, with data and scripts, after a literature check (London et al. 2010; van Vreeswijk & Sompolinsky 1996).
 - **Gate:** owner sign-off.
 
 ### Phase 7 — Into the browser (L9)
+- **Open owner decision (ADR-0035):** ship precomputed runs plus a browser player instead of a live in-browser engine. Recommended; changes how L9 is met.
 - Port the engine to the browser: WebGPU compute (preferred) or JS/WASM fallback. Data packed into a compact binary format (CSR, int32 indices, float32 weights), fetched once and cached.
 - Note: float32 on GPU changes numerics. Determinism *within* the browser engine is still required (fixed reduction order); bit-exactness to the Python engine is not. Document this in an ADR.
 - **Gate:** a public static link runs the full experience on a mid-range laptop.

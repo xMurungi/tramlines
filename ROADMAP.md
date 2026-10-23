@@ -2,7 +2,7 @@
 
 ## Status
 
-**Current phase: 4, The ghost and the viewer** (started 2026-10-23, on the projection design of ADR-0030). Phase 3 closed with decision points (ADR-0032): one aimed spike splits the fly's future at laced food and at a faint shadow.
+**Current phase: 5, The demon's limits** (reframed 2026-10-23, ADR-0035; the pre-reframe project is tag `v0.4.0`). Phase 4's viewer is built and watched; its formal sign-off is pending.
 Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-23-session-7.md`.
 
 ## Phase 0: Foundations
@@ -51,7 +51,13 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 - [x] 60 s gate run precomputed: 60 ghost predictions, 177,000/177,000 ms matched
 - [ ] Book chapters 27, 28, 29
 - [ ] **Gate:** owner watches the ghost lead and the fly follow, perfectly, for 60 s
-## Phase 5: Free will
+## Phase 5: The demon's limits, and free will (ADR-0035)
+- [ ] Disjoint inputs and readouts, with a test (a new walking drive, chosen by measurement)
+- [ ] Result 1: predictability horizon (state perturbations + sweep)
+- [ ] Result 2: null brain (degree-preserving shuffle)
+- [ ] Result 3: perturbation atlas + decoder robustness
+- [ ] Viewer: knowledge slider; control ghost labelled; the aimed free-will fan
+- [ ] **Gate:** a stranger understands it in 30 s
 ## Phase 6: Polish and launch prep
 ## Phase 7: Into the browser
 ## Phase 8: Release
