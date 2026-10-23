@@ -67,3 +67,51 @@ def test_stream_replays_a_cached_run(tmp_path: Path, monkeypatch: pytest.MonkeyP
     assert kinds[0]["n_neurons"] == 138_639
     assert (kinds[4]["compared_ms"], kinds[4]["matched_ms"]) == (100, 100)
     assert kinds[5]["cached"] is True and kinds[5]["computing"] is False
+
+
+# --- Fixes from the review in issue #14 ---
+
+
+def test_match_is_counted_per_second_for_the_playhead() -> None:  # B7
+    history = RunHistory()
+    history.add_chunk(chunk(0, 100))
+    history.add_ghost(0, rows(1, 101))
+    match = history.match()
+    assert match.by_second == [(0, 100, 100)]
+    assert history.frontier_ms == 100
+
+
+@pytest.mark.skipif(not (DATA_DIR / ANNOTATIONS_FILE).exists(), reason="needs fetch_data.py")
+def test_cache_key_changes_with_the_model(monkeypatch: pytest.MonkeyPatch) -> None:  # B2
+    from dataclasses import replace
+
+    from tramlines.brain.params import PARAMS
+
+    before = server.Settings().key
+    monkeypatch.setattr(server, "PARAMS", replace(PARAMS, w_syn_mV=0.3))
+    assert server.Settings().key != before
+
+
+def test_crashed_worker_is_reported_not_waited_on() -> None:  # B4
+    import asyncio
+    import queue as queue_module
+    from types import SimpleNamespace
+
+    class Empty:
+        def get(self, block: bool, timeout: float) -> None:
+            raise queue_module.Empty
+
+    run = server.Run(settings=server.Settings(), hello=None)  # type: ignore[arg-type]
+    dead = SimpleNamespace(name="ghost", exitcode=1)
+    asyncio.run(asyncio.wait_for(server.pump(run, Empty(), None, [dead], Path("/nonexistent")), 5))
+    assert run.error is not None and "ghost" in run.error
+    assert run.computing is False
+
+
+def test_cache_is_written_atomically(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:  # B3
+    monkeypatch.setattr(server, "PROJECTIONS", tmp_path)
+    monkeypatch.setattr(server, "build_fingerprint", lambda: "test")
+    run = server.Run(settings=server.Settings(), hello=None)  # type: ignore[arg-type]
+    run.history.add_chunk(chunk(0, 100))
+    server.save_cache(run)
+    assert [p.suffix for p in tmp_path.iterdir()] == [".json"]  # no half-written .part left

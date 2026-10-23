@@ -79,6 +79,7 @@ def run_ghost(
     while (job := inbox.get()) is not None:
         from_ms, path = job
         timeline = Timeline.load(Path(path), connectome, arena, senses, decoder)
+        Path(path).unlink()  # about 6 MB each; a finished run needs only its cache (#14, B5)
         poses = timeline.run(horizon_ms)
         out.put(("ghost", from_ms, [pose_row(p) for p in poses]))
     out.put(("ghost_done",))

@@ -99,6 +99,7 @@ class Match(BaseModel):
     type: Literal["match"] = "match"
     compared_ms: int
     matched_ms: int
+    by_second: list[tuple[int, int, int]] = []  # (second, compared, matched), for the playhead
 
 
 class Status(BaseModel):
@@ -107,3 +108,4 @@ class Status(BaseModel):
     ghost_checkpoint_ms: int | None  # the latest moment the ghost predicted from
     computing: bool
     cached: bool  # the live timeline was replayed from disk
+    error: str | None = None  # a worker stopped unexpectedly (issue #14, B4)
