@@ -20,6 +20,7 @@ class Patch:
     y_mm: float
     radius_mm: float
     kind: PatchKind
+    strength: float = 1.0  # scales the port's rate: 0.5 = a faint taste (ADR-0032)
 
     def contains(self, x_mm: float, y_mm: float) -> bool:
         return math.hypot(x_mm - self.x_mm, y_mm - self.y_mm) <= self.radius_mm
@@ -32,6 +33,7 @@ class Loom:
     start_ms: int
     duration_ms: int
     direction_rad: float  # where it comes from, in arena coordinates
+    strength: float = 1.0  # scales the looming drive: 0.3 = a faint shadow (ADR-0032)
 
     def progress(self, time_ms: int) -> float:
         """0 before it starts, rising to 1 as it arrives, 0 again after."""
@@ -67,4 +69,29 @@ DEFAULT_ARENA = Arena(
         Patch(x_mm=-14.0, y_mm=-16.0, radius_mm=5.0, kind="bitter"),
     ),
     looms=(Loom(start_ms=6_000, duration_ms=500, direction_rad=math.pi / 2),),
+)
+
+
+# Decision points (ADR-0032): the same dish, but the fly meets two moments where its
+# brain sits on a decoder threshold, found by scripts/calibrate_decisions.py:
+# - food laced with bitter at strength 0.72: MN9 crosses "start feeding" in about
+#   half the seeds;
+# - a faint shadow at strength 0.04: the Giant Fiber crosses "jump" in about half.
+LACED_BITTER_STRENGTH = 0.72
+FAINT_SHADOW_STRENGTH = 0.04
+DECISION_ARENA = Arena(
+    radius_mm=40.0,
+    patches=(
+        Patch(x_mm=18.0, y_mm=6.0, radius_mm=5.0, kind="food"),
+        Patch(x_mm=18.0, y_mm=6.0, radius_mm=5.0, kind="bitter", strength=LACED_BITTER_STRENGTH),
+        Patch(x_mm=-14.0, y_mm=-16.0, radius_mm=5.0, kind="bitter"),
+    ),
+    looms=(
+        Loom(
+            start_ms=3_000,
+            duration_ms=500,
+            direction_rad=math.pi / 2,
+            strength=FAINT_SHADOW_STRENGTH,
+        ),
+    ),
 )
