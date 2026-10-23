@@ -25,11 +25,11 @@ FlyWire is a brain only. It does not include the nerve cord that drives the legs
 Every link between the brain and the 2D world is listed in [ADR-0028](decisions/0028-senses-and-decoder-chosen.md), with the history of how it was chosen ([decision history](decisions/history.md)). In short:
 
 - **Senses.** Standing on food forces 21 sugar-sensing neurons to fire; standing on a bitter patch forces 42 bitter-sensing neurons to fire; a looming shadow forces looming-detector neurons (LPLC2) on that side to fire.
-- **Walking, and its speed, are ours.** The simulated brain is completely silent without input, so we continuously drive four "walking command" neurons (P9). The same four neurons are read back for forward speed, so the fly's speed is mostly our own drive returning. What the brain adds while walking is its turning (DNa02), plus feeding and escape below.
+- **Walking is ours; its speed is the brain's.** The simulated brain is completely silent without input, so we continuously drive four central neurons (type CB2777) that feed the "walking command" neurons (P9). We read P9 for speed but never drive it, and a test makes sure no neuron is both driven and read, so speed is the brain's answer to our push ([ADR-0036](decisions/0036-walking-drive-upstream-of-p9.md)). Left alone in a silent world, this brain walks straight; the wall of the dish is what turns it.
 - **Movement is our translation.** We read a handful of descending neurons and turn their firing into speed, turning, an escape jump and feeding, using constants we chose.
 - **It cannot find food.** This model has no smell or sight of food, so the fly only finds food by walking onto it. In our demonstration runs we chose a starting point whose path crosses the food.
 
-What *does* come from the measured wiring: sugar driving the feeding motor neuron, bitter suppressing it, a looming shadow driving the escape neuron on the correct side, and the small turning biases of the walk.
+What *does* come from the measured wiring: sugar driving the feeding motor neuron, bitter suppressing it, a looming shadow driving the escape neuron on the correct side, and how fast the walking-command neurons answer the drive.
 
 ## Why the ghost is always right, and what that does and does not show
 

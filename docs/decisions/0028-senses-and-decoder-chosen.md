@@ -8,6 +8,9 @@
 ## Context
 Choosing sensory and motor neurons is Reserved (CLAUDE.md 2.2). The owner delegated this choice, asking that a history of choices be kept ([decision history](history.md)). Evidence: the port survey and the sugar + bitter check (ADR-0023), and the headless runs below.
 
+!!! note "Update, 2026-10-23"
+    The walking drive and forward-speed gain below were replaced by [ADR-0036](0036-walking-drive-upstream-of-p9.md): the drive moved upstream of P9 (to CB2777), so that P9 is only read and speed is the brain's answer. The rest of this record stands.
+
 ## Decision: senses (`tramlines/world/senses.py`)
 
 | Port | Neurons (v783, annotations v2.1.0) | Rate | Why this option |

@@ -39,3 +39,5 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0033](0033-phase-4-architecture.md) | Phase 4 architecture: a projector, an independent ghost, and a viewer | Accepted (delegated) | 4 |
 | [0034](0034-viewer-design.md) | The viewer's look: fonts, a single dark theme, and what each mark means | Accepted (delegated) | 4 |
 | [0035](0035-proposal-honest-laplaces-demon.md) | An honest Laplace's demon (from the review in issue #14) | **Accepted: owner adopted** | 4 |
+| [0036](0036-walking-drive-upstream-of-p9.md) | The walking drive moves upstream of P9: speed becomes the brain's answer | Accepted (with 0035) | 5 |
+| [0037](0037-result-1-predictability-horizon.md) | Result 1, first pass: to foresee this brain you need its spikes, not its decimals | Accepted (delegated) | 5 |

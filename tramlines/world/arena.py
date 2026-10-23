@@ -76,9 +76,10 @@ DEFAULT_ARENA = Arena(
 # brain sits on a decoder threshold, found by scripts/calibrate_decisions.py:
 # - food laced with bitter at strength 0.72: MN9 crosses "start feeding" in about
 #   half the seeds;
-# - a faint shadow at strength 0.04: the Giant Fiber crosses "jump" in about half.
+# - a faint shadow at strength 0.055: the Giant Fiber crosses "jump" in about half
+#   (0.04 before the walking drive moved upstream of P9, ADR-0036).
 LACED_BITTER_STRENGTH = 0.72
-FAINT_SHADOW_STRENGTH = 0.04
+FAINT_SHADOW_STRENGTH = 0.055
 DECISION_ARENA = Arena(
     radius_mm=40.0,
     patches=(

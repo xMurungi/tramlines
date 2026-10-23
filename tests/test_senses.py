@@ -39,3 +39,12 @@ def test_laced_food_and_faint_shadow_scale_the_rates() -> None:
     assert rates["loom_left"] == {LOOM_MAX_HZ * 0.25}
     assert rates["loom_right"] == {0.0}
     assert rates["walk_drive"] == {WALK_DRIVE_HZ}
+
+
+def test_no_neuron_is_both_driven_and_read() -> None:  # ADR-0035, ADR-0036
+    from tramlines.world.decoder import FlyDecoder
+
+    catalog = load_catalog()
+    driven = set(FlySenses.from_catalog(catalog).input_neurons.tolist())
+    read = set(FlyDecoder.from_catalog(catalog).readout_neurons.tolist())
+    assert driven.isdisjoint(read), f"driven and read: {sorted(driven & read)}"

@@ -83,11 +83,14 @@ nav:
       - decisions/0033-phase-4-architecture.md
       - decisions/0034-viewer-design.md
       - decisions/0035-proposal-honest-laplaces-demon.md
+      - decisions/0036-walking-drive-upstream-of-p9.md
+      - decisions/0037-result-1-predictability-horizon.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
   - Architecture: architecture/index.md
   - Journal:
+      - journal/2026-10-23-session-8.md
       - journal/2026-10-23-session-7.md
       - journal/2026-10-22-session-6.md
       - journal/2026-10-22-session-5.md
