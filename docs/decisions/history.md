@@ -67,3 +67,8 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 59 | 2026-10-23 | **Adopted: an honest Laplace's demon.** CLAUDE.md 1.1–1.3, L1 and Phases 5–7 amended | Owner | [0035](0035-proposal-honest-laplaces-demon.md) |
 | 60 | 2026-10-23 | Disjoint inputs and readouts adopted as part of the reframe; the replacement walking drive is chosen by measurement | Owner (adopted with 0035); neuron choice delegated | [0035](0035-proposal-honest-laplaces-demon.md) |
 | 61 | 2026-10-23 | Issues #11–#13 closed as duplicates of #14; personal paths removed from their text | Owner | owner decisions 18 |
+| 62 | 2026-10-23 | Walking drive moved upstream of P9 to CB2777 at 150 Hz (chosen by survey); speed gain 0.5 mm/s per Hz; driven and read neurons may never overlap (test) | Owner-adopted (0035), neuron choice delegated | [0036](0036-walking-drive-upstream-of-p9.md) |
+| 63 | 2026-10-23 | Start moved to (−2, 6) mm because the fly now walks straight (presentation) | Delegated | [0036](0036-walking-drive-upstream-of-p9.md) |
+| 64 | 2026-10-23 | Faint shadow recalibrated 0.04 → 0.055; laced food stays 0.72 | Delegated | [0036](0036-walking-drive-upstream-of-p9.md) |
+| 65 | 2026-10-23 | Result 1 instruments (perturb.py, horizon study) and first-pass findings recorded | Delegated | [0037](0037-result-1-predictability-horizon.md) |
+| 66 | 2026-10-23 | Heavy runs drop to 1 worker when other apps keep memory pressure at "warning" (swap grew to 2.56 GB) | Delegated | [journal 8](../journal/2026-10-23-session-8.md) |

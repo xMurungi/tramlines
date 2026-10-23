@@ -52,8 +52,8 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 - [ ] Book chapters 27, 28, 29
 - [ ] **Gate:** owner watches the ghost lead and the fly follow, perfectly, for 60 s
 ## Phase 5: The demon's limits, and free will (ADR-0035)
-- [ ] Disjoint inputs and readouts, with a test (a new walking drive, chosen by measurement)
-- [ ] Result 1: predictability horizon (state perturbations + sweep)
+- [x] Disjoint inputs and readouts, with a test: walking drive moved upstream of P9 (ADR-0036)
+- [x] Result 1, first pass: predictability horizon (ADR-0037); next: more seeds, draws and moments
 - [ ] Result 2: null brain (degree-preserving shuffle)
 - [ ] Result 3: perturbation atlas + decoder robustness
 - [ ] Viewer: knowledge slider; control ghost labelled; the aimed free-will fan
