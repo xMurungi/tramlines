@@ -6,7 +6,7 @@ The project is not simplified for you. The path is made gentle. Every chapter en
 
 ## Contents
 
-Chapters are written alongside the code that they teach. A chapter that is not linked yet has not been written. Chapters 17–21, 25 and 26 were written first because Phases 1–3 built their code; the earlier chapters they rely on are coming.
+Chapters are written alongside the code that they teach. A chapter that is not linked yet has not been written. Chapters 17–22, 25 and 26 were written first because Phases 1–4 built their code; the earlier chapters they rely on are coming.
 
 **Part 0: The Door**
 
@@ -44,7 +44,7 @@ Chapters are written alongside the code that they teach. A chapter that is not l
 - [19. State](ch19-state.md)
 - [20. Forking](ch20-forking.md)
 - [21. The sacred tests](ch21-the-sacred-tests.md)
-- 22. The ghost
+- [22. The ghost](ch22-the-ghost.md)
 - 23. Free will
 - 24. Measuring divergence
 
