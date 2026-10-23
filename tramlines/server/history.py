@@ -18,16 +18,17 @@ class RunHistory:
     ghost_full: dict[int, list[PoseRow]] = field(default_factory=dict)  # from_ms -> every pose
     compared_ms: int = 0
     matched_ms: int = 0
+    frontier_ms: int = 0  # the live timeline is computed up to here
+    # Per simulated second: [compared, matched], so a viewer can count only what it has
+    # played (issue #14, B7).
+    by_second: dict[int, list[int]] = field(default_factory=dict)
     _unscored: list[PoseRow] = field(default_factory=list)  # ghost poses not yet comparable
-
-    @property
-    def frontier_ms(self) -> int:
-        return max(self.live) if self.live else 0
 
     def add_chunk(self, chunk: Chunk) -> None:
         self.chunks.append(chunk)
         for row in chunk.poses:
             self.live[row[0]] = row
+            self.frontier_ms = max(self.frontier_ms, row[0])
         self._score()
 
     def add_ghost(self, from_ms: int, poses: list[PoseRow]) -> Ghost:
@@ -40,7 +41,11 @@ class RunHistory:
         return ghost
 
     def match(self) -> Match:
-        return Match(compared_ms=self.compared_ms, matched_ms=self.matched_ms)
+        return Match(
+            compared_ms=self.compared_ms,
+            matched_ms=self.matched_ms,
+            by_second=[(s, c, m) for s, (c, m) in sorted(self.by_second.items())],
+        )
 
     def _score(self) -> None:
         """Compare each ghost pose with the live pose at the same millisecond, once."""
@@ -50,6 +55,10 @@ class RunHistory:
             if live is None:
                 waiting.append(row)
                 continue
+            same = int(row == live)  # every field, exactly
             self.compared_ms += 1
-            self.matched_ms += int(row == live)  # every field, exactly
+            self.matched_ms += same
+            counts = self.by_second.setdefault((row[0] - 1) // 1000, [0, 0])
+            counts[0] += 1
+            counts[1] += same
         self._unscored = waiting

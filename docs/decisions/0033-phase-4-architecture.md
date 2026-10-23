@@ -31,5 +31,8 @@ Option 2.
 - Free will (Phase 5) slots in as a third kind of worker, forking at the on-screen moment; with only 2 processes, the ghost pauses while branches compute.
 - The neuron view uses soma positions from the annotations (v2.1.0), projected to 2D.
 
+!!! note "Correction, 2026-10-23 (review in issue #14)"
+    The ghost's independent process makes the match a real *test*: a bug that leaked state between timelines would show up as a miss. But the ghost uses the same code, state and random numbers, so a 100% match is guaranteed by determinism, not earned by prediction. "The determinism claim shown rather than asserted" overstated it. The viewer and honesty page now present it as the control. The proposed research reframe is [ADR-0035](0035-proposal-honest-laplaces-demon.md).
+
 ## For learners
 A prediction is only impressive if it was made separately from the thing it predicts. So the ghost is computed by its own process, from a saved moment, and the screen shows how often it agreed with the live fly: every millisecond, every time. Chapters 22 and 28 build this.

@@ -34,6 +34,12 @@ def test_wall_stops_the_fly_at_the_edge() -> None:
     assert math.hypot(fly.x_mm, fly.y_mm) == pytest.approx(ARENA.radius_mm)
 
 
+def test_wall_does_not_pin_a_fly_heading_straight_at_it() -> None:
+    fly = walk(MotorCommand(forward_mm_s=20.0), 2000)  # heading 0: straight at the wall
+    assert math.hypot(fly.x_mm, fly.y_mm) == pytest.approx(ARENA.radius_mm)
+    assert fly.y_mm != pytest.approx(0.0, abs=1.0)  # it slid along the wall instead of sticking
+
+
 def test_feeding_fly_stands_still() -> None:
     fly = walk(MotorCommand(forward_mm_s=10.0, feed=True), 300)
     assert (fly.x_mm, fly.y_mm, fly.feeding) == (0.0, 0.0, True)
@@ -83,3 +89,16 @@ def test_decision_arena_has_its_two_edges() -> None:
     food = next(p for p in DECISION_ARENA.patches if p.kind == "food")
     assert (laced[0].x_mm, laced[0].y_mm) == (food.x_mm, food.y_mm)  # the same spot: laced food
     assert DECISION_ARENA.looms[0].strength == FAINT_SHADOW_STRENGTH
+
+
+def test_high_giant_fiber_during_cooldown_does_not_freeze_the_fly() -> None:
+    import torch
+
+    from tramlines.world.decoder import FlyDecoder
+
+    decoder = FlyDecoder(readout_neurons=torch.arange(14))
+    rates = torch.tensor([100.0] * 4 + [0.0, 0.0] + [0.0] * 4 + [150.0, 150.0] + [0.0, 0.0])
+    ready = decoder.command(rates, FlyState(jump_cooldown_ms=0))
+    recovering = decoder.command(rates, FlyState(jump_cooldown_ms=300))
+    assert ready.jump_mm > 0
+    assert recovering.jump_mm == 0 and recovering.forward_mm_s > 0

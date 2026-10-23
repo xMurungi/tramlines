@@ -67,6 +67,8 @@ def step_fly(fly: FlyState, command: MotorCommand, arena: Arena) -> None:
         x += command.jump_mm * math.cos(direction)
         y += command.jump_mm * math.sin(direction)
     fly.x_mm, fly.y_mm = _inside(x, y, arena.radius_mm)
+    if math.hypot(x, y) > arena.radius_mm:
+        fly.heading_rad = _along_wall(fly.x_mm, fly.y_mm, fly.heading_rad)
 
 
 def _inside(x_mm: float, y_mm: float, radius_mm: float) -> tuple[float, float]:
@@ -75,3 +77,15 @@ def _inside(x_mm: float, y_mm: float, radius_mm: float) -> tuple[float, float]:
     if r <= radius_mm:
         return x_mm, y_mm
     return x_mm * radius_mm / r, y_mm * radius_mm / r
+
+
+def _along_wall(x_mm: float, y_mm: float, heading_rad: float) -> float:
+    """Turn to the direction along the wall closest to where the fly was heading.
+
+    Flies follow the walls of a dish; pressing straight into one would pin the fly
+    in place forever (issue #14, B9).
+    """
+    outward = math.atan2(y_mm, x_mm)
+    options = (outward + math.pi / 2, outward - math.pi / 2)
+    best = min(options, key=lambda a: abs(math.remainder(a - heading_rad, math.tau)))
+    return math.remainder(best, math.tau)

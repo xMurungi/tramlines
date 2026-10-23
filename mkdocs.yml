@@ -82,6 +82,7 @@ nav:
       - decisions/0032-decision-points.md
       - decisions/0033-phase-4-architecture.md
       - decisions/0034-viewer-design.md
+      - decisions/0035-proposal-honest-laplaces-demon.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md

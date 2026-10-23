@@ -53,13 +53,16 @@ function frame(now: number): void {
   $("state").dataset.mode = !connected ? "off" : playing ? "live" : "wait";
   $("brain-note").textContent = fired ? `${fired.toLocaleString()} neurons fired in this 100 ms` : "quiet";
   $("horizon").textContent = `${(horizon / 1000).toFixed(1)} s`;
-  const { compared_ms, matched_ms } = run.match;
-  $("match").textContent = compared_ms ? `${((100 * matched_ms) / compared_ms).toFixed(3)}%` : "—";
-  $("checked").textContent = `${compared_ms.toLocaleString()} ms`;
+  // Count only what has been watched (issue #14, B7).
+  const { compared, matched } = run.matchUpTo(playhead);
+  $("match").textContent = compared ? `${((100 * matched) / compared).toFixed(3)}%` : "—";
+  $("checked").textContent = `${compared.toLocaleString()} ms`;
   const ghost = run.ghostFor(playhead);
   $("ghost-from").textContent = ghost ? `t = ${clock(ghost.from_ms)}` : "computing";
   $("lead").textContent = computing ? `${(Math.max(0, lead) / 1000).toFixed(1)} s` : "all computed";
-  $("status").textContent = run.status.cached
+  $("status").textContent = run.status.error
+    ? `error: ${run.status.error}`
+    : run.status.cached
     ? `replaying a computed run · ${hello?.arena_name ?? ""} dish · seed ${hello?.seed ?? ""}`
     : `computed ${clock(frontier_ms)} of ${clock(end)} · ${hello?.arena_name ?? ""} dish · seed ${hello?.seed ?? ""}`;
   requestAnimationFrame(frame);
