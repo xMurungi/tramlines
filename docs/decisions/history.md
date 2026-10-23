@@ -62,4 +62,7 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 54 | 2026-10-23 | Owner: Phase 4 viewer watched ("spectacular"); sign-off deferred while reading | Owner | [journal 7](../journal/2026-10-23-session-7.md) |
 | 55 | 2026-10-23 | Review (issue #14) accepted on points 1–3; honesty page, viewer captions and ADR-0033 corrected | Delegated (honesty, L10) | [0035](0035-proposal-honest-laplaces-demon.md) |
 | 56 | 2026-10-23 | Nine review bugs fixed: connect race, stale cache key, atomic cache, crashed workers, checkpoint cleanup, freeze after jump, wall pinning, match meter counting the future, duplicate ghosts on reconnect | Delegated | issue #14 |
-| 57 | 2026-10-23 | Proposed: reframe as "an honest Laplace's demon" (predictability horizon, null brain, perturbation atlas) | Proposed — awaiting owner | [0035](0035-proposal-honest-laplaces-demon.md) |
+| 57 | 2026-10-23 | Proposed: reframe as "an honest Laplace's demon" (predictability horizon, null brain, perturbation atlas) | Proposed | [0035](0035-proposal-honest-laplaces-demon.md) |
+| 58 | 2026-10-23 | Bug fixes and proposal merged; the pre-reframe project tagged **v0.4.0** ("the Devs demo") | Owner | tag `v0.4.0` |
+| 59 | 2026-10-23 | **Adopted: an honest Laplace's demon.** CLAUDE.md 1.1–1.3, L1 and Phases 5–7 amended | Owner | [0035](0035-proposal-honest-laplaces-demon.md) |
+| 60 | 2026-10-23 | Disjoint inputs and readouts adopted as part of the reframe; the replacement walking drive is chosen by measurement | Owner (adopted with 0035); neuron choice delegated | [0035](0035-proposal-honest-laplaces-demon.md) |

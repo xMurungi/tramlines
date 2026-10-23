@@ -38,4 +38,4 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0032](0032-decision-points.md) | Decision points: where one spike can change what the fly does | Accepted (owner delegated) | 3 |
 | [0033](0033-phase-4-architecture.md) | Phase 4 architecture: a projector, an independent ghost, and a viewer | Accepted (delegated) | 4 |
 | [0034](0034-viewer-design.md) | The viewer's look: fonts, a single dark theme, and what each mark means | Accepted (delegated) | 4 |
-| [0035](0035-proposal-honest-laplaces-demon.md) | Proposal: an honest Laplace's demon (from the review in issue #14) | **Proposed — awaiting owner** | 4 |
+| [0035](0035-proposal-honest-laplaces-demon.md) | An honest Laplace's demon (from the review in issue #14) | **Accepted: owner adopted** | 4 |

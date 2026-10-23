@@ -1,6 +1,6 @@
 # 0001 — The concept is a machine that predicts a fly's future
 
-- Status: Locked
+- Status: Locked; amended by [0035](0035-proposal-honest-laplaces-demon.md) (owner-adopted 2026-10-23): the prediction machine becomes an honest Laplace's demon. The original concept is preserved at tag `v0.4.0`.
 - Date: 2026-10-22
 - Phase: 0
 - Decider: Owner
