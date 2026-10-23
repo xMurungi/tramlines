@@ -81,7 +81,7 @@ def main() -> None:
         print(f"{name}: {len(ids)} neurons")
     jobs = [(n, s, list(reads.values()), seed) for n, s in stims.items() for seed in SEEDS]
     totals: dict[str, list[int]] = {n: [0] * len(reads) for n in stims}
-    with ProcessPoolExecutor(max_workers=5) as pool:
+    with ProcessPoolExecutor(max_workers=2) as pool:  # memory rule (ADR-0029, ADR-0032)
         for name, _seed, counts in pool.map(trial, jobs):
             totals[name] = [a + b for a, b in zip(totals[name], counts, strict=True)]
     OUT.parent.mkdir(parents=True, exist_ok=True)

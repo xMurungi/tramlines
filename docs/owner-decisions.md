@@ -27,6 +27,7 @@ Last updated: 2026-10-23 (session 7). Every choice made so far, in order: [decis
 | — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |
 | — | Go for Phase 3 | Go; decisions deferred. | 2026-10-22 |
 | — | Workflow | Pull requests, merged into `develop` ([ADR-0026](decisions/0026-branches-and-pull-requests.md)). | 2026-10-22 |
+| — | Phase 3 gate and Phase 4 | "Proceed partner" (after the builder asked for the Phase 3 verdict and a go for Phase 4), taken as both. Say so if that was not meant. | 2026-10-23 |
 | 13 | Free will: aim the extra spike | Approved: option 2, aimed at driven inputs, at decision moments ([ADR-0031](decisions/0031-proposal-aimed-free-will.md)). | 2026-10-23 |
 | 14 | Projection, not live; amend CLAUDE.md | Approved ([ADR-0030](decisions/0030-projection-not-live.md)); CLAUDE.md Phases 4, 5 and 13.3 amended. | 2026-10-23 |
 | 8, 11 | Sensory ports and motor decoder | Delegated: "choose what's best and let's see how it goes; keep a history". Chosen in [ADR-0028](decisions/0028-senses-and-decoder-chosen.md); history in [decision history](decisions/history.md). You can still change any of it. | 2026-10-22 |

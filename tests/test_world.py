@@ -64,3 +64,22 @@ def test_clone_and_fingerprint() -> None:
     step_fly(twin, MotorCommand(forward_mm_s=1.0), ARENA)
     assert twin.fingerprint() != fly.fingerprint()
     assert fly.time_ms == 123
+
+
+def test_strength_defaults_to_full() -> None:
+    assert Patch(0.0, 0.0, 1.0, "food").strength == 1.0
+    assert Loom(start_ms=0, duration_ms=10, direction_rad=0.0).strength == 1.0
+
+
+def test_decision_arena_has_its_two_edges() -> None:
+    from tramlines.world.arena import (
+        DECISION_ARENA,
+        FAINT_SHADOW_STRENGTH,
+        LACED_BITTER_STRENGTH,
+    )
+
+    laced = [p for p in DECISION_ARENA.patches if p.kind == "bitter" and p.strength < 1.0]
+    assert [p.strength for p in laced] == [LACED_BITTER_STRENGTH]
+    food = next(p for p in DECISION_ARENA.patches if p.kind == "food")
+    assert (laced[0].x_mm, laced[0].y_mm) == (food.x_mm, food.y_mm)  # the same spot: laced food
+    assert DECISION_ARENA.looms[0].strength == FAINT_SHADOW_STRENGTH

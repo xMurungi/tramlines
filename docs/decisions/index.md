@@ -35,3 +35,4 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0029](0029-divergence-batching-monitoring.md) | What one extra spike does, what batching saves, and the machine's limits | Accepted (owner delegated) | 3 |
 | [0030](0030-projection-not-live.md) | The viewer shows a projection computed ahead, not real-time simulation | Accepted (owner approved) | 3 |
 | [0031](0031-proposal-aimed-free-will.md) | Proposal: aim the free-will spike where it can matter | Accepted (owner, 2026-10-23) | 3 |
+| [0032](0032-decision-points.md) | Decision points: where one spike can change what the fly does | Accepted (owner delegated) | 3 |

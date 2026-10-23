@@ -78,11 +78,13 @@ nav:
       - decisions/0029-divergence-batching-monitoring.md
       - decisions/0030-projection-not-live.md
       - decisions/0031-proposal-aimed-free-will.md
+      - decisions/0032-decision-points.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
   - Architecture: architecture/index.md
   - Journal:
+      - journal/2026-10-23-session-7.md
       - journal/2026-10-22-session-6.md
       - journal/2026-10-22-session-5.md
       - journal/2026-10-22-session-4.md

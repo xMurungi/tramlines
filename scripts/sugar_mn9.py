@@ -110,7 +110,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--set", choices=["reference", "annotated"], default="reference")
     parser.add_argument("--trials", type=int, default=10)
-    parser.add_argument("--workers", type=int, default=5)
+    parser.add_argument("--workers", type=int, default=2)  # memory rule (ADR-0029, ADR-0032)
     parser.add_argument("--rates", type=float, nargs="*", default=list(RATES_HZ))
     parser.add_argument("--tag", default="reference")
     parser.add_argument("--replot", action="store_true", help="redraw from the saved CSV only")

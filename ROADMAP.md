@@ -2,9 +2,8 @@
 
 ## Status
 
-**Current phase: 3, A body and a world.** Gate run done (see journal 5): the fly walks, feeds on food and escapes a looming shadow; determinism 100%. Waiting for the owner's verdict on the gate and "go" for Phase 4. **Speed (0.12× real time in the closed loop) is the main open problem for Phase 4.**
-Session 6: divergence study (random extra spikes rarely matter; aimed ones can), projection-not-live adopted (ADR-0030), free-will aiming proposed (ADR-0031).
-Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-22-session-6.md`.
+**Current phase: 4, The ghost and the viewer** (started 2026-10-23, on the projection design of ADR-0030). Phase 3 closed with decision points (ADR-0032): one aimed spike splits the fly's future at laced food and at a faint shadow.
+Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-23-session-7.md`.
 
 ## Phase 0: Foundations
 - [x] Repo structure, `pyproject.toml` (uv), ruff, mypy, pytest
@@ -41,7 +40,8 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 - [x] `tramlines/world/senses.py` and `decoder.py`; Book chapter 26; honesty page updated
 - [x] Engine speed-up, bit-identical (ADR-0027)
 - [x] **Gate run:** `docs/assets/headless_seed0.png`: walks, feeds on food, escapes the shadow (it does not *approach* food: no distant food sense in the model); determinism 100%
-- [ ] Owner's verdict on the gate; "go" for Phase 4
+- [x] Decision points in the arena (ADR-0032)
+- [x] Owner's verdict on the gate; "go" for Phase 4 ("proceed partner", 2026-10-23)
 
 ## Phase 4: The ghost and the viewer
 ## Phase 5: Free will

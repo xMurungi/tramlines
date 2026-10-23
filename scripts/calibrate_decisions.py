@@ -86,7 +86,7 @@ def main() -> None:
     jobs = [("laced food", s, seed) for s in args.bitter for seed in SEEDS]
     jobs += [("faint shadow", s, seed) for s in args.loom for seed in SEEDS]
     results: dict[tuple[str, float], list[float]] = {}
-    with ProcessPoolExecutor(max_workers=3) as pool:  # memory rule (ADR-0029)
+    with ProcessPoolExecutor(max_workers=2) as pool:  # memory rule (ADR-0029, ADR-0032)
         for kind, strength, _seed, peak in pool.map(trial, jobs):
             results.setdefault((kind, strength), []).append(peak)
     for (kind, strength), peaks in results.items():

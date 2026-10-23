@@ -136,7 +136,7 @@ def main() -> None:
     parser.add_argument("--pick", choices=["random", "awake", "inputs", "driven"], default="random")
     parser.add_argument("--arena", choices=list(ARENAS), default="default")
     parser.add_argument("--moments", nargs="*", default=[f"{k}={v}" for k, v in MOMENTS_MS.items()])
-    parser.add_argument("--workers", type=int, default=4)  # memory headroom (monitoring)
+    parser.add_argument("--workers", type=int, default=2)  # memory rule (ADR-0029, ADR-0032)
     args = parser.parse_args()
     connectome, catalog, senses, decoder = parts()
     arena = ARENAS[args.arena]
@@ -212,7 +212,7 @@ def main() -> None:
             ASSETS / f"fan_{args.arena}_{args.pick}_{moment}.png",
             f"One extra spike, 16 times, at {at_ms / 1000:g} s ({moment}): 3 s of futures",
         )  # fmt: skip
-    out = ASSETS / f"divergence_{args.arena}_{args.pick}.csv"
+    out = ASSETS / f"divergence_{args.arena}_{args.pick}_{'_'.join(moments)}.csv"
     with out.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0]))
         writer.writeheader()
