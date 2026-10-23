@@ -42,7 +42,7 @@ def trial(job: tuple[float, int]) -> tuple[float, int, list[int]]:
 
 def main() -> None:
     results: dict[float, list[list[int]]] = {b: [] for b in BITTER_HZ}
-    with ProcessPoolExecutor(max_workers=5) as pool:
+    with ProcessPoolExecutor(max_workers=2) as pool:  # memory rule (ADR-0029, ADR-0032)
         for bitter_hz, _seed, counts in pool.map(trial, [(b, s) for b in BITTER_HZ for s in SEEDS]):
             results[bitter_hz].append(counts)
     OUT.parent.mkdir(parents=True, exist_ok=True)

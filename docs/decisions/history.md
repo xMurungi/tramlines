@@ -53,3 +53,6 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 45 | 2026-10-22 | Proposed: aim the free-will spike at driven inputs, at decision moments | Proposed | [0031](0031-proposal-aimed-free-will.md) |
 | 46 | 2026-10-23 | Approved: aimed free will (option 2) | Owner | [0031](0031-proposal-aimed-free-will.md) |
 | 47 | 2026-10-23 | Approved: projection, not live; CLAUDE.md Phase 4, 5 and 13.3 amended to match | Owner | [0030](0030-projection-not-live.md) |
+| 48 | 2026-10-23 | Patches and shadows get a strength; decision arena with laced food (0.72) and a faint shadow (0.04) | Owner-delegated | [0032](0032-decision-points.md) |
+| 49 | 2026-10-23 | Free will offered at decision moments: stepping onto laced food, a shadow approaching | Owner-delegated | [0032](0032-decision-points.md) |
+| 50 | 2026-10-23 | Owner: "proceed partner", taken as the Phase 3 verdict (pass, with the documented food-approach gap) and go for Phase 4 | Owner | [journal 7](../journal/2026-10-23-session-7.md) |
