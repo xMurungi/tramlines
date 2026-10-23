@@ -59,3 +59,7 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 51 | 2026-10-23 | Phase 4: projector + independent ghost process + viewer; match meter compares them bit for bit | Delegated | [0033](0033-phase-4-architecture.md) |
 | 52 | 2026-10-23 | Viewer fonts (Cormorant Garamond, JetBrains Mono), single dark theme, fixed meaning for each mark | Delegated | [0034](0034-viewer-design.md) |
 | 53 | 2026-10-23 | FastAPI, uvicorn (locked transport) added; httpx2 for tests | Delegated | [0033](0033-phase-4-architecture.md) |
+| 54 | 2026-10-23 | Owner: Phase 4 viewer watched ("spectacular"); sign-off deferred while reading | Owner | [journal 7](../journal/2026-10-23-session-7.md) |
+| 55 | 2026-10-23 | Review (issue #14) accepted on points 1–3; honesty page, viewer captions and ADR-0033 corrected | Delegated (honesty, L10) | [0035](0035-proposal-honest-laplaces-demon.md) |
+| 56 | 2026-10-23 | Nine review bugs fixed: connect race, stale cache key, atomic cache, crashed workers, checkpoint cleanup, freeze after jump, wall pinning, match meter counting the future, duplicate ghosts on reconnect | Delegated | issue #14 |
+| 57 | 2026-10-23 | Proposed: reframe as "an honest Laplace's demon" (predictability horizon, null brain, perturbation atlas) | Proposed — awaiting owner | [0035](0035-proposal-honest-laplaces-demon.md) |

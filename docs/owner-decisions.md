@@ -2,12 +2,15 @@
 
 This page lists every decision only the owner can make, so it can be picked up at any time. Each item has a recommendation and says what it blocks. Answer in any session ("decision 3: yes") and the builder records the answer in the linked ADR and moves the item to *Answered*.
 
-Last updated: 2026-10-23 (session 7). Every choice made so far, in order: [decision history](decisions/history.md).
+Last updated: 2026-10-23 (session 7, after the review in issue #14). Every choice made so far, in order: [decision history](decisions/history.md).
 
 ## Waiting
 
 | # | Decision | Recommendation | Blocks | Details |
 |---|---|---|---|---|
+| 16 | **Reframe the project as "an honest Laplace's demon"** (from the review in issue #14): the perfect ghost becomes the openly labelled control; v1.0 becomes three measured results (predictability horizon, the brain's contribution against a null brain, a perturbation atlas), the viewer with a knowledge slider, and a write-up. | Adopt. It makes the Devs moment earned instead of a trick, and gives the project an end. | Phase 5 onward, and CLAUDE.md 1.1 / 1.3. | [ADR-0035](decisions/0035-proposal-honest-laplaces-demon.md) |
+| 17 | **Inputs and readouts must not overlap:** today P9 is both driven and read for speed. Choose a new walking drive or speed readout. | Drive walking upstream of P9 (to be surveyed), keep P9 as readout; add a test that the sets never overlap. | Honest speed; part of 16. | [ADR-0035](decisions/0035-proposal-honest-laplaces-demon.md) |
+| 18 | **Issues #11–#13** are the raw pasted conversation behind #14; they repeat it and contain a path with part of your name and your work machine's folder layout. | Close them as duplicates of #14 and edit out the paths (the builder can do this on your go). | Nothing; privacy. | GitHub issues |
 | 15 | **Phase 4 gate: watch the ghost lead and the fly follow for 60 s.** Already computed and cached, so it plays instantly: `cd web && npm install && npm run build`, then `uv run python -m tramlines.server`, then open http://127.0.0.1:8000. | Watch; say whether it passes. | Phase 5 (free will in the viewer). | [ADR-0033](decisions/0033-phase-4-architecture.md) |
 | 1 | **Acknowledge the model details where the reference code differs from CLAUDE.md 7.2**, and say whether CLAUDE.md 7.2 should be rewritten to match. | Acknowledge, and update 7.2 to the verified model in ADR-0016. The engine already follows the reference code, as 7.2 instructs. | Nothing today. A wrong 7.2 will mislead future sessions and Book readers. | [ADR-0014](decisions/0014-challenge-reference-model-details.md), [ADR-0016](decisions/0016-verified-neuron-model.md) |
 | 2 | **Which sugar neurons count as "the fly tasting sugar"** in the world (Phase 3 sensory port). Options: the 21 used by the reference experiment, or all 67 `sugar/water` neurons on that side (which include water-sensing cells). | Keep the reference 21 for the scientific test (already done). Decide the Phase 3 port once the Phase 3 proposal is written. | Phase 3 only. | [ADR-0017](decisions/0017-annotations-and-neuron-sets.md) |

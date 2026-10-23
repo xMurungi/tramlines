@@ -25,11 +25,15 @@ FlyWire is a brain only. It does not include the nerve cord that drives the legs
 Every link between the brain and the 2D world is listed in [ADR-0028](decisions/0028-senses-and-decoder-chosen.md), with the history of how it was chosen ([decision history](decisions/history.md)). In short:
 
 - **Senses.** Standing on food forces 21 sugar-sensing neurons to fire; standing on a bitter patch forces 42 bitter-sensing neurons to fire; a looming shadow forces looming-detector neurons (LPLC2) on that side to fire.
-- **Walking is commanded by us.** The simulated brain is completely silent without input, so we continuously drive four "walking command" neurons (P9). The fly walks because we tell it to. Its brain then adjusts where it goes.
+- **Walking, and its speed, are ours.** The simulated brain is completely silent without input, so we continuously drive four "walking command" neurons (P9). The same four neurons are read back for forward speed, so the fly's speed is mostly our own drive returning. What the brain adds while walking is its turning (DNa02), plus feeding and escape below.
 - **Movement is our translation.** We read a handful of descending neurons and turn their firing into speed, turning, an escape jump and feeding, using constants we chose.
 - **It cannot find food.** This model has no smell or sight of food, so the fly only finds food by walking onto it. In our demonstration runs we chose a starting point whose path crosses the food.
 
 What *does* come from the measured wiring: sugar driving the feeding motor neuron, bitter suppressing it, a looming shadow driving the escape neuron on the correct side, and the small turning biases of the walk.
+
+## Why the ghost is always right, and what that does and does not show
+
+The ghost runs the same code from the same saved state with the same random numbers, so it **must** match the live fly; 100% is what deterministic means. It is the experiment's **control**, a check that nothing has gone wrong, not a feat of prediction. The interesting questions start where the control ends: how long a ghost stays right when it knows the brain *slightly* imperfectly, and where one spike changes what the fly does. In this model, a single extra spike changes the fly's behaviour only at rare moments where its brain is on a threshold. The moments shown in the viewer were found by measurement and placed on the fly's path on purpose ([ADR-0032](decisions/0032-decision-points.md)).
 
 ## Determinism belongs to the simulation
 
