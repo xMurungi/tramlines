@@ -66,3 +66,4 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 58 | 2026-10-23 | Bug fixes and proposal merged; the pre-reframe project tagged **v0.4.0** ("the Devs demo") | Owner | tag `v0.4.0` |
 | 59 | 2026-10-23 | **Adopted: an honest Laplace's demon.** CLAUDE.md 1.1–1.3, L1 and Phases 5–7 amended | Owner | [0035](0035-proposal-honest-laplaces-demon.md) |
 | 60 | 2026-10-23 | Disjoint inputs and readouts adopted as part of the reframe; the replacement walking drive is chosen by measurement | Owner (adopted with 0035); neuron choice delegated | [0035](0035-proposal-honest-laplaces-demon.md) |
+| 61 | 2026-10-23 | Issues #11–#13 closed as duplicates of #14; personal paths removed from their text | Owner | owner decisions 18 |
