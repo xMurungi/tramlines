@@ -56,3 +56,6 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 48 | 2026-10-23 | Patches and shadows get a strength; decision arena with laced food (0.72) and a faint shadow (0.04) | Owner-delegated | [0032](0032-decision-points.md) |
 | 49 | 2026-10-23 | Free will offered at decision moments: stepping onto laced food, a shadow approaching | Owner-delegated | [0032](0032-decision-points.md) |
 | 50 | 2026-10-23 | Owner: "proceed partner", taken as the Phase 3 verdict (pass, with the documented food-approach gap) and go for Phase 4 | Owner | [journal 7](../journal/2026-10-23-session-7.md) |
+| 51 | 2026-10-23 | Phase 4: projector + independent ghost process + viewer; match meter compares them bit for bit | Delegated | [0033](0033-phase-4-architecture.md) |
+| 52 | 2026-10-23 | Viewer fonts (Cormorant Garamond, JetBrains Mono), single dark theme, fixed meaning for each mark | Delegated | [0034](0034-viewer-design.md) |
+| 53 | 2026-10-23 | FastAPI, uvicorn (locked transport) added; httpx2 for tests | Delegated | [0033](0033-phase-4-architecture.md) |

@@ -36,3 +36,5 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0030](0030-projection-not-live.md) | The viewer shows a projection computed ahead, not real-time simulation | Accepted (owner approved) | 3 |
 | [0031](0031-proposal-aimed-free-will.md) | Proposal: aim the free-will spike where it can matter | Accepted (owner, 2026-10-23) | 3 |
 | [0032](0032-decision-points.md) | Decision points: where one spike can change what the fly does | Accepted (owner delegated) | 3 |
+| [0033](0033-phase-4-architecture.md) | Phase 4 architecture: a projector, an independent ghost, and a viewer | Accepted (delegated) | 4 |
+| [0034](0034-viewer-design.md) | The viewer's look: fonts, a single dark theme, and what each mark means | Accepted (delegated) | 4 |

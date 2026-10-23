@@ -4,9 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tramlines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap"
+    />
   </head>
   <body>
-    <main id="app"></main>
+    <header class="bar">
+      <span class="name">TRAMLINES</span>
+      <span class="clock">t = <span id="clock">00:00.000</span></span>
+      <span class="state" id="state">connecting</span>
+    </header>
+    <main class="stage">
+      <section class="arena-wrap" aria-label="Arena, seen from above">
+        <canvas id="arena"></canvas>
+      </section>
+      <aside class="side">
+        <section class="panel">
+          <h2>Brain activity</h2>
+          <canvas id="brain" aria-label="All 138,639 neurons seen from the front; those firing glow gold"></canvas>
+          <p class="note" id="brain-note">waiting for the first spikes</p>
+        </section>
+        <section class="panel">
+          <h2>Prediction</h2>
+          <dl class="readout">
+            <dt>horizon</dt><dd id="horizon">—</dd>
+            <dt>match</dt><dd id="match" class="match">—</dd>
+            <dt>checked</dt><dd id="checked">—</dd>
+            <dt>ghost from</dt><dd id="ghost-from">—</dd>
+            <dt>computed lead</dt><dd id="lead">—</dd>
+          </dl>
+          <p class="note">The ghost is computed by a separate process from a saved moment. Match counts the milliseconds where its prediction equals the live fly, bit for bit.</p>
+        </section>
+      </aside>
+    </main>
+    <footer class="bar">
+      <button id="free-will" disabled title="Phase 5">FREE WILL</button>
+      <span class="status" id="status">—</span>
+      <button id="replay">REPLAY</button>
+    </footer>
+    <p class="honesty">A simulation driven by a real fly's measured wiring, not the fly. Walking is driven by us; where it goes is the brain's. What you see was computed moments before you see it.</p>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

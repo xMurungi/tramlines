@@ -2,7 +2,7 @@
 
 A record, for the owner's review, of every outside resource the builder touched: what was installed on this machine, what was downloaded, which websites and services were contacted, and what was written outside the repository. Kept current every session.
 
-Last updated: 2026-10-22 (session 6).
+Last updated: 2026-10-23 (session 7).
 
 Personal details (the owner's name, machine, username, local paths) are deliberately left out of this page and the whole repository. Paths below are written relative to the home folder or as placeholders.
 
@@ -13,6 +13,7 @@ Personal details (the owner's name, machine, username, local paths) are delibera
 | uv | 0.13.5 | `brew install uv` (Homebrew) | `/opt/homebrew/bin/uv` | Required by ADR-0012; was not installed. |
 | Python | 3.12.15 | `uv python install 3.12` | `~/.local/share/uv/python/cpython-3.12-macos-aarch64-none/` | ADR-0004 (system Python was 3.9.6). |
 | Project Python packages | numpy 2.5.4, pandas 3.1.0, pyarrow 26.0.0, torch 2.14.1, matplotlib 3.11.2, mypy 2.4.0, pandas-stubs 3.0.5, pytest 9.1.1, ruff 0.17.1, mkdocs-material 9.7.7 (plus their dependencies) | `uv sync` from PyPI | `.venv/` in the project (git-ignored); exact versions in `uv.lock` | The project itself. |
+| Server packages (session 7) | fastapi 0.161.1, uvicorn 0.54.0 (with websockets, watchfiles), pydantic 2.14.1; httpx2 for tests | `uv add` from PyPI | `.venv/`; exact versions in `uv.lock` | The viewer's server (locked transport, ADR-0005). |
 | Web packages | vite 8.3.5, typescript 7.0.2 | `npm install` from the npm registry | `web/node_modules/` (git-ignored); exact versions in `web/package-lock.json` | Viewer skeleton (ADR-0005, ADR-0012). |
 
 Side effects of the above: the uv download cache at `~/.cache/uv` (1.1 GB, reusable, safe to delete with `uv cache clean`), and matplotlib's font cache at `~/.matplotlib`.
@@ -52,6 +53,8 @@ Also: `uv run --with brian2` built a throwaway Brian2 environment (in the uv cac
 | github.com (git over HTTPS) | Cloning the two reference repositories; **pushing this project to `github.com/xMurungi/tramlines`, branch `develop`** (owner's instruction, session 3) | The project's git history (no data files). |
 | api.github.com (unauthenticated REST) | Latest commit, tags, releases and file listing of `flyconnectome/flywire_annotations` | None beyond the request. |
 | raw.githubusercontent.com | Downloading the data files above | None. |
+| Google Chrome, already installed, run headless against `http://127.0.0.1:8000` | One screenshot of the viewer (session 7); local only | None. |
+| Google Fonts (from the viewer page, when it is opened) | Cormorant Garamond and JetBrains Mono (ADR-0034) | The viewer's browser requests the fonts. |
 | Local system tools only (`top`, `ps`, `sysctl`, `pmset`, `memory_pressure`) | Monitoring the machine during experiments (session 6); no network, no admin rights | None. |
 | codex.flywire.ai | One request to `/api/download?data_product=classification&data_version=783` | None (no login). |
 | PyPI, npm registry, Homebrew, python-build-standalone (via uv) | Installing the software above, and running `git-filter-repo` once via `uvx` (session 4) | None. |

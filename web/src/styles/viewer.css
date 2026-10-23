@@ -1,0 +1,63 @@
+/* The machine's screen (CLAUDE.md 9.3): arena left, brain and prediction right, controls below. */
+body {
+  font: 400 15px/1.5 var(--font-mono);
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  min-height: 100vh;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+}
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+footer.bar { border-bottom: 0; border-top: 1px solid var(--rule); }
+.name { font: 500 1.35rem/1 var(--font-display); letter-spacing: 0.35em; color: var(--gold); }
+.clock, .state, .status { font-variant-numeric: tabular-nums; color: var(--text-muted); }
+.clock { color: var(--text); }
+.state[data-mode="live"] { color: var(--gold); }
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(16rem, 22rem);
+  gap: 1.5rem;
+  padding-block: 1.25rem;
+}
+.arena-wrap { min-width: 0; display: grid; place-items: center; }
+#arena { width: min(100%, 78vh); aspect-ratio: 1; max-width: 100%; }
+.side { display: grid; gap: 1.25rem; align-content: start; min-width: 0; }
+.panel { border: 1px solid var(--rule); background: var(--panel); padding: 1rem; display: grid; gap: 0.75rem; }
+.panel h2 {
+  margin: 0;
+  font: 500 0.72rem/1 var(--font-mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+#brain { width: 100%; aspect-ratio: 2 / 1; }
+.readout { display: grid; grid-template-columns: auto 1fr; gap: 0.35rem 1rem; margin: 0; }
+.readout dt { color: var(--text-muted); }
+.readout dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
+.match { color: var(--accent); font-weight: 500; }
+.note { margin: 0; font-size: 0.78rem; color: var(--text-muted); line-height: 1.45; }
+button {
+  font: 500 0.8rem/1 var(--font-mono);
+  letter-spacing: 0.2em;
+  color: var(--text);
+  background: transparent;
+  border: 1px solid var(--rule);
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+}
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#free-will { color: var(--accent); border-color: var(--accent); }
+#free-will:disabled { opacity: 0.35; cursor: not-allowed; }
+.honesty { margin: 0; padding-block: 0 1rem; font-size: 0.75rem; color: var(--text-muted); text-align: center; }
+@media (max-width: 760px) {
+  .stage { grid-template-columns: 1fr; }
+  .bar { flex-wrap: wrap; }
+}
