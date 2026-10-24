@@ -21,7 +21,7 @@ Every result was checked against controls; Result 4 and Result 3 were pre-regist
 
 ## Is it worth doing? An honest assessment
 **Where the value is.**
-- Result 3 (and the proposed connectome-error study) ask questions neuroscientists already ask: does a single extra spike change a brain's future (London et al. 2010, in rat cortex)? How accurate must a connectome be for a model built from it to behave correctly? Doing this in a whole-brain, connectome-built model with a body, down to the animal's choices, may be new; the literature check must confirm it.
+- Result 3 (and the proposed connectome-error study) ask questions neuroscientists already ask: does a single extra spike change a brain's future (London et al. 2010, in rat cortex)? How accurate must a connectome be for a model built from it to behave correctly? Doing this in a whole-brain, connectome-built model with a body, down to the animal's choices, may be new; the literature check found close neighbours for each result taken alone, and nothing combining them in behaviour ([what is new, what is not](science/literature-notes.md#what-is-new-what-is-not)). Embodied whole-brain flies themselves already exist, so we never claim to be the first.
 - The method: predictions written before results, controls, a test that does not rely on our own body and decoder, exact-arithmetic validation, public corrections.
 - The public value: it makes determinism, predictability and "free will" concrete without overclaiming.
 

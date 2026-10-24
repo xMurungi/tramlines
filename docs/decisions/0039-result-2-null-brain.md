@@ -20,7 +20,7 @@ ADR-0035 asks what the real connectome contributes: the same senses, decoder and
 **How to test it.** An arena run alone would test only walking (a null fly that never walks never meets food), so each brain also gets **clamped probes**: the fly held in place for 1 s on walking ground, food, bitter, food laced with bitter (both at full strength), and under a full looming shadow, with the same senses and decoder.
 
 ## Decision
-Option 1, in `tramlines/brain/null.py` (`shuffled(connectome, seed, fraction=1.0)`). Permuting the receiver column keeps both degrees; the 0.4% of connections that become self-connections or repeated pairs (none exist in v783) are repaired by swaps, which also keep degrees. `fraction` rewires only a random share of connections, among themselves. Tests: `tests/test_null.py`. Studies: `scripts/null_brain_study.py` (arena, probes, convergence) and `scripts/decoder_free_study.py`; figures `scripts/plot_null_brain.py`. Data in `docs/assets/null_brain*.csv` and `decoder_free.csv`.
+Option 1 (the degree-preserving rewiring of Maslov & Sneppen 2002), in `tramlines/brain/null.py` (`shuffled(connectome, seed, fraction=1.0)`). Permuting the receiver column keeps both degrees; the 0.4% of connections that become self-connections or repeated pairs (none exist in v783) are repaired by swaps, which also keep degrees. `fraction` rewires only a random share of connections, among themselves. Tests: `tests/test_null.py`. Studies: `scripts/null_brain_study.py` (arena, probes, convergence) and `scripts/decoder_free_study.py`; figures `scripts/plot_null_brain.py`. Data in `docs/assets/null_brain*.csv` and `decoder_free.csv`.
 
 ## What is confirmatory and what is exploratory
 - **Planned (ADR-0035):** real against full null brains. Run first, as designed: real ×3 seeds, 5 null brains ×3 seeds.
@@ -86,3 +86,6 @@ Null brains are **not empty**: which situation they are in can still be read fro
 
 ## For learners
 To show that something depends on a cause, take the cause away and keep everything else. Here we kept every neuron, every connection count and every synapse weight, and only scrambled who connects to whom. The fly stopped doing anything. Then we scrambled only part of the wiring and found it is surprisingly tough: a quarter scrambled, it still walks, eats and escapes. What breaks first is its judgement, eating food it should refuse. And when the owner asked whether we were bending the test to fit our expectations, we built a second test that did not use our own measuring stick. See [Chapter 26](../book/ch26-senses-in-movement-out.md).
+
+## Note after the literature check (2026-10-24)
+Candidate explanations for the convergence and the runaway activity, to test rather than assume: the rich club and reciprocity of FlyWire wiring (Lin et al. 2024) and inhibitory hubs (Li et al. 2026). A public embodied project reports that scrambling the wiring stops its fly steering (fly-brain-zero-shot), a neighbour of finding 1. See [literature notes](../science/literature-notes.md).
