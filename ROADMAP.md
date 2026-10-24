@@ -3,7 +3,7 @@
 ## Status
 
 **Current phase: 5, The demon's limits** (reframed 2026-10-23, ADR-0035; the pre-reframe project is tag `v0.4.0`). Phase 4's viewer is built and watched; its formal sign-off is pending.
-Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-24-session-9.md`. Next: Result 2, the null brain.
+Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decisions.md). Latest journal: `docs/journal/2026-10-24-session-9.md`. Next: Result 3, the perturbation atlas.
 
 ## Phase 0: Foundations
 - [x] Repo structure, `pyproject.toml` (uv), ruff, mypy, pytest
@@ -55,7 +55,7 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 - [x] Disjoint inputs and readouts, with a test: walking drive moved upstream of P9 (ADR-0036)
 - [x] Result 1, first pass: predictability horizon (ADR-0037)
 - [x] Result 1, second pass: 3 seeds × 3 draws; what the ghost must know depends on when it looks (ADR-0038)
-- [ ] Result 2: null brain (degree-preserving shuffle)
+- [x] Result 2: null brain (degree-preserving shuffle), partial rewiring and a decoder-free check (ADR-0039)
 - [ ] Result 3: perturbation atlas + decoder robustness
 - [ ] Viewer: knowledge slider; control ghost labelled; the aimed free-will fan
 - [ ] **Gate:** a stranger understands it in 30 s

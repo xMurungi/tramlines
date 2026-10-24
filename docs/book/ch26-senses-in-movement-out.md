@@ -127,6 +127,7 @@ Neither pile is embarrassing. A simulation that tells you which pile everything 
 - [ADR-0024: the options for the decoder](../decisions/0024-proposal-motor-decoder.md)
 - [ADR-0028: what was chosen, and the history of how](../decisions/0028-senses-and-decoder-chosen.md)
 - [ADR-0036: the walking drive moved upstream of P9](../decisions/0036-walking-drive-upstream-of-p9.md)
+- [ADR-0039: the null brain, the same senses and decoder on scrambled wiring](../decisions/0039-result-2-null-brain.md)
 - [Honesty page](../honesty.md)
 
 ## Next

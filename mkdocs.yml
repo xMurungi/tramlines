@@ -86,9 +86,11 @@ nav:
       - decisions/0036-walking-drive-upstream-of-p9.md
       - decisions/0037-result-1-predictability-horizon.md
       - decisions/0038-result-1-second-pass.md
+      - decisions/0039-result-2-null-brain.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
+      - science/null-brain-predictions.md
   - Architecture: architecture/index.md
   - Journal:
       - journal/2026-10-24-session-9.md

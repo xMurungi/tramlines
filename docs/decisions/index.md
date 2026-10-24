@@ -42,3 +42,4 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0036](0036-walking-drive-upstream-of-p9.md) | The walking drive moves upstream of P9: speed becomes the brain's answer | Accepted (with 0035) | 5 |
 | [0037](0037-result-1-predictability-horizon.md) | Result 1, first pass: to foresee this brain you need its spikes, not its decimals | Accepted (delegated) | 5 |
 | [0038](0038-result-1-second-pass.md) | Result 1, second pass: what the ghost must know depends on when it looks | Accepted (delegated) | 5 |
+| [0039](0039-result-2-null-brain.md) | Result 2: the behaviour lives in the wiring, and survives a lot of damage to it | Accepted (delegated) | 5 |
