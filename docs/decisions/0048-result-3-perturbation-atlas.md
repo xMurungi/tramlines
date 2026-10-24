@@ -28,6 +28,8 @@ Ran the plan: 24 cells (seeds 0–2 × 8 moments), 61,848 extra spikes screened 
 
 **E3, where:** cascades come mostly from central neurons (13% of those nudged), ascending and descending neurons (19–27%); optic-lobe neurons, the largest class, almost never cascade (0.2%). Of the random-group spikes that changed the choice, 35 were central, 9 visual projection, 4 ascending, 2 descending, 1 sensory.
 
+![Three panels. 1: share of extra spikes that change other spikes within 30 ms, by moment: random neurons 3–7%, active neurons 12–50%, sensory inputs 30–75%, peaking on the laced food (1.25 s) and under the shadow (3.25 s). 2: share of random extra spikes that change the fly's choice, by moment: 0% at 0.25, 2.25 and 3.75 s; 2.8% at 1.25 s; 0.1–0.9% elsewhere. 3: share of tipping points that still tip under other decoders: thresholds −20% 100% (87/87), +20% 61% (53/87), slower 100 ms readout 13% (11/87), against the pre-registered 70%.](../assets/atlas.png)
+
 ## What it means
 1. **Most single spikes vanish.** About 95% of random extra spikes change no other spike within 30 ms.
 2. **Many brain futures, one behaviour.** Even when a spike ripples through the brain, 90% of the time the fly's choices stay the same (secondary: 23% change the path by > 0.1 mm).
@@ -37,7 +39,7 @@ Ran the plan: 24 cells (seeds 0–2 × 8 moments), 61,848 extra spikes screened 
 **In one sentence:** one extra spike rarely changes what this fly does (about 1 in 170 at random, about 1 in 35 at the laced-food decision), and whether it does depends strongly on how we translate brain activity into movement.
 
 ## Deviations
-- The planned figure (`atlas.png`) was not made yet (token budget); the numbers above and in `atlas_summary.txt` are complete. To add.
+- The planned figure was made after the merge, from the same data (`scripts/plot_atlas.py`, added 2026-10-24); no numbers changed.
 - The London et al. comparison (spikes caused in the injected neuron's direct targets) needs a new exploratory run; not done.
 
 ## Limits
