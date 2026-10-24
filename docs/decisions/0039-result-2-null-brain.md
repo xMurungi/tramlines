@@ -5,6 +5,8 @@
 - Phase: 5
 - Decider: Claude (delegated)
 
+> **Prior work (note added 2026-10-24):** Shiu et al. 2024 already tested shuffled wiring: with connection weights shuffled (global weight distribution kept), sugar drove MN9 in 1 of 100 simulations against 100% with the real connectome. Finding 1 below repeats that result with a different null and at the level of behaviour; what this ADR adds is the closed loop, the partial-rewiring sweep, the convergence measurements and the decoder-free check. See [literature notes](../science/literature-notes.md).
+
 ## Context
 ADR-0035 asks what the real connectome contributes: the same senses, decoder and arena on the real wiring and on a degree-preserving shuffle of it (a "null brain"). In the demon's terms: a demon that knows every neuron, and how many connections each makes, but not *who connects to whom*, what can it predict? And how wrong can its wiring map be?
 
