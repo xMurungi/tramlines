@@ -43,3 +43,4 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0037](0037-result-1-predictability-horizon.md) | Result 1, first pass: to foresee this brain you need its spikes, not its decimals | Accepted (delegated) | 5 |
 | [0038](0038-result-1-second-pass.md) | Result 1, second pass: what the ghost must know depends on when it looks | Accepted (delegated) | 5 |
 | [0039](0039-result-2-null-brain.md) | Result 2: the behaviour lives in the wiring, and survives a lot of damage to it | Accepted (delegated) | 5 |
+| [0040](0040-proposal-backward-horizon.md) | Proposal: the backward horizon (can the demon recover the past?) | **Proposed — awaiting owner** | 5 |
