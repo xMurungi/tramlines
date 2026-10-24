@@ -81,3 +81,6 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 73 | 2026-10-24 | Proposed to the owner: a "backward horizon" (can a demon recover the past?), not yet drafted | Awaiting owner | [owner decisions](../owner-decisions.md) |
 | 74 | 2026-10-24 | Bug: "one missed spike" silently did nothing when no spike was in transit (seed 0, walking). `blur` now refuses; void runs removed; ADR-0037/0038 corrected (walking: 6/6, not 9/9) | Delegated (honesty, L10) | [0038](0038-result-1-second-pass.md) |
 | 75 | 2026-10-24 | Backward-horizon proposal written with a pilot (predictions first); awaiting the owner | Proposed | [0040](0040-proposal-backward-horizon.md) |
+| 76 | 2026-10-24 | **Adopted: Result 4, the backward horizon** (option 1); CLAUDE.md 1.1, 1.3 and Phase 5 amended | Owner | [0040](0040-proposal-backward-horizon.md) |
+| 77 | 2026-10-24 | Raised standard: Result 4's analysis plan is merged before the study runs (pre-registration), with confidence intervals and an exact-arithmetic check | Delegated (owner asked for higher standards) | [plan](../science/backward-horizon-plan.md) |
+| 78 | 2026-10-24 | Proposed to the owner: realistic connectome errors (decision 22) | Awaiting owner | [owner decisions](../owner-decisions.md) |

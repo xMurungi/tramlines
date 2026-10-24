@@ -8,7 +8,7 @@ Last updated: 2026-10-24 (session 9). Every choice made so far, in order: [decis
 
 | # | Decision | Recommendation | Blocks | Details |
 |---|---|---|---|---|
-| 21 | **A fourth result: the backward horizon.** Laplace's demon also knows the past. This model leaks and resets after each spike, so different pasts may lead to the same present brain. Measure how far back a perfect demon can reconstruct, against Result 1's forward horizon. | Do it, framed as the mirror of Result 1 (cheap, reuses existing tools); a proposal ADR first if you say go. It is about this model (no learning or memory), not real brains, and the principle is known in physics; the new part is measuring it in a connectome model. | Nothing yet; changes what the project claims, so it is yours. | **Proposal written:** [ADR-0040](decisions/0040-proposal-backward-horizon.md), with a pilot (the brain forgets within 0.5–2 s; the body remembers) |
+| 22 | **How accurate must a connectome be? (a possible follow-up to Result 2.)** Result 2 scrambled wiring at random. Real connectome errors are specific: missed synapses, wrong neurotransmitter predictions, merge and split errors. Measuring what each realistic error does to the model's behaviour (and which behaviours break first; the bitter veto did) is the version of this work a connectome-modelling lab would read. | Consider it after Results 3 and 4, as a proposal ADR first; it needs published error rates for FlyWire and a literature check. | Nothing now. | session 9 |
 | 19 | **Phase 7: precomputed runs plus a browser player**, instead of a live in-browser engine (WebGPU has no float64). | Adopt: a link still beats a video, without the numerics problem. Live in-browser simulation becomes a Future Season. | Phase 7. | [ADR-0035](decisions/0035-proposal-honest-laplaces-demon.md) |
 | 20 | **The Book's scope.** The review suggests parking the "from zero" Book (chapters 0–16, 23–32) as a separate project and finishing the research first. | The builder's view: keep writing chapters for what is built (they are tested and cheap), park the beginner chapters 0–16 until v1.0. | Nothing now. | [ADR-0035](decisions/0035-proposal-honest-laplaces-demon.md) |
 | 15 | **Phase 4 gate: watch the ghost lead and the fly follow for 60 s.** Already computed and cached, so it plays instantly: `cd web && npm install && npm run build`, then `uv run python -m tramlines.server`, then open http://127.0.0.1:8000. | Watch; say whether it passes. | Phase 5 (free will in the viewer). | [ADR-0033](decisions/0033-phase-4-architecture.md) |
@@ -27,6 +27,7 @@ Last updated: 2026-10-24 (session 9). Every choice made so far, in order: [decis
 
 | # | Decision | Answer | Date |
 |---|---|---|---|
+| 21 | A fourth result: the backward horizon | **Adopted**, option 1, and CLAUDE.md amended: "do 1 and change claude.md" ([ADR-0040](decisions/0040-proposal-backward-horizon.md)). | 2026-10-24 |
 | — | Go for Phase 1 | Go. | 2026-10-22 |
 | — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |
 | — | Go for Phase 3 | Go; decisions deferred. | 2026-10-22 |
