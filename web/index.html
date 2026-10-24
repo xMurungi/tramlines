@@ -46,10 +46,21 @@
           </dl>
           <p class="note" id="ghost-note">—</p>
         </section>
+        <section class="panel" id="fan-panel" hidden aria-live="polite">
+          <div class="panel-head">
+            <h2>Free will</h2>
+            <button id="fan-close" class="quiet" aria-label="Close the fan">×</button>
+          </div>
+          <p class="kind" id="fan-title">—</p>
+          <p class="note" id="fan-note">—</p>
+          <ol class="branches" id="fan-branches"></ol>
+          <p class="note" id="fan-key">● split for good · ○ never split, or came back. Bars: spikes that differ from the untouched brain, per 100 ms (log scale, shared by all branches).</p>
+        </section>
       </aside>
     </main>
     <footer class="bar">
-      <button id="free-will" disabled title="Phase 5">FREE WILL</button>
+      <button id="free-will" disabled>FREE WILL</button>
+      <span class="fan-meter" id="fan-meter" hidden></span>
       <span class="status" id="status">—</span>
       <button id="replay">REPLAY</button>
     </footer>

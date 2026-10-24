@@ -1,0 +1,213 @@
+result,table,row,column,measure,k,n,estimate,low,high,shown_as
+1 (ADR-0038),findings (ghosts right for all 3 s),everything (control),walking,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),everything (control),laced food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),everything (control),shadow,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),float32 precision,walking,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),float32 precision,laced food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),float32 precision,shadow,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.001 mV,walking,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.001 mV,laced food,count (Wilson 95%),5,9,0.5556,0.2667,0.8112,5/9 [27%-81%]
+1 (ADR-0038),time to fail,voltage to 0.001 mV,laced food,median ms (bootstrap 95%),,4,262,177,347,262 [177-347] (n=4)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.001 mV,shadow,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.01 mV,walking,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.01 mV,laced food,count (Wilson 95%),0,9,0.0000,0.0000,0.2991,0/9 [0%-30%]
+1 (ADR-0038),time to fail,voltage to 0.01 mV,laced food,median ms (bootstrap 95%),,9,347,177,361,347 [177-361] (n=9)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.01 mV,shadow,count (Wilson 95%),7,9,0.7778,0.4526,0.9368,7/9 [45%-94%]
+1 (ADR-0038),time to fail,voltage to 0.01 mV,shadow,median ms (bootstrap 95%),,2,334,334,334,334 [334-334] (n=2)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.03 mV,walking,count (Wilson 95%),8,9,0.8889,0.5650,0.9801,8/9 [57%-98%]
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.03 mV,laced food,count (Wilson 95%),1,9,0.1111,0.0199,0.4350,1/9 [2%-43%]
+1 (ADR-0038),time to fail,voltage to 0.03 mV,laced food,median ms (bootstrap 95%),,8,266.5,177,359,266.5 [177-359] (n=8)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.03 mV,shadow,count (Wilson 95%),3,9,0.3333,0.1206,0.6458,3/9 [12%-65%]
+1 (ADR-0038),time to fail,voltage to 0.03 mV,shadow,median ms (bootstrap 95%),,6,322,122,334,322 [122-334] (n=6)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.1 mV,walking,count (Wilson 95%),7,9,0.7778,0.4526,0.9368,7/9 [45%-94%]
+1 (ADR-0038),time to fail,voltage to 0.1 mV,walking,median ms (bootstrap 95%),,2,211,211,211,211 [211-211] (n=2)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.1 mV,laced food,count (Wilson 95%),0,9,0.0000,0.0000,0.2991,0/9 [0%-30%]
+1 (ADR-0038),time to fail,voltage to 0.1 mV,laced food,median ms (bootstrap 95%),,9,294,225,359,294 [225-359] (n=9)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 0.1 mV,shadow,count (Wilson 95%),1,9,0.1111,0.0199,0.4350,1/9 [2%-43%]
+1 (ADR-0038),time to fail,voltage to 0.1 mV,shadow,median ms (bootstrap 95%),,8,141.5,91,178,141.5 [91-178] (n=8)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 1 mV,walking,count (Wilson 95%),2,9,0.2222,0.0632,0.5474,2/9 [6%-55%]
+1 (ADR-0038),time to fail,voltage to 1 mV,walking,median ms (bootstrap 95%),,7,118,92,237,118 [92-237] (n=7)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 1 mV,laced food,count (Wilson 95%),0,9,0.0000,0.0000,0.2991,0/9 [0%-30%]
+1 (ADR-0038),time to fail,voltage to 1 mV,laced food,median ms (bootstrap 95%),,9,88,41,164,88 [41-164] (n=9)
+1 (ADR-0038),findings (ghosts right for all 3 s),voltage to 1 mV,shadow,count (Wilson 95%),0,9,0.0000,0.0000,0.2991,0/9 [0%-30%]
+1 (ADR-0038),time to fail,voltage to 1 mV,shadow,median ms (bootstrap 95%),,9,78,54,132,78 [54-132] (n=9)
+1 (ADR-0038),findings (ghosts right for all 3 s),one in-flight spike missed,walking,count (Wilson 95%),6,6,1.0000,0.6097,1.0000,6/6 [61%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),one in-flight spike missed,laced food,count (Wilson 95%),0,9,0.0000,0.0000,0.2991,0/9 [0%-30%]
+1 (ADR-0038),time to fail,one in-flight spike missed,laced food,median ms (bootstrap 95%),,9,250,177,359,250 [177-359] (n=9)
+1 (ADR-0038),findings (ghosts right for all 3 s),one in-flight spike missed,shadow,count (Wilson 95%),1,9,0.1111,0.0199,0.4350,1/9 [2%-43%]
+1 (ADR-0038),time to fail,one in-flight spike missed,shadow,median ms (bootstrap 95%),,8,118,75,147,118 [75-147] (n=8)
+1 (ADR-0038),findings (ghosts right for all 3 s),99.9% of neurons,walking,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),99.9% of neurons,laced food,count (Wilson 95%),6,9,0.6667,0.3542,0.8794,6/9 [35%-88%]
+1 (ADR-0038),time to fail,99.9% of neurons,laced food,median ms (bootstrap 95%),,3,347,106,359,347 [106-359] (n=3)
+1 (ADR-0038),findings (ghosts right for all 3 s),99.9% of neurons,shadow,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+1 (ADR-0038),findings (ghosts right for all 3 s),99.5% of neurons,walking,count (Wilson 95%),8,9,0.8889,0.5650,0.9801,8/9 [57%-98%]
+1 (ADR-0038),findings (ghosts right for all 3 s),99.5% of neurons,laced food,count (Wilson 95%),4,9,0.4444,0.1888,0.7333,4/9 [19%-73%]
+1 (ADR-0038),time to fail,99.5% of neurons,laced food,median ms (bootstrap 95%),,5,347,84,537,347 [84-537] (n=5)
+1 (ADR-0038),findings (ghosts right for all 3 s),99.5% of neurons,shadow,count (Wilson 95%),6,9,0.6667,0.3542,0.8794,6/9 [35%-88%]
+1 (ADR-0038),time to fail,99.5% of neurons,shadow,median ms (bootstrap 95%),,3,132,48,148,132 [48-148] (n=3)
+1 (ADR-0038),findings (ghosts right for all 3 s),99.0% of neurons,walking,count (Wilson 95%),6,9,0.6667,0.3542,0.8794,6/9 [35%-88%]
+1 (ADR-0038),time to fail,99.0% of neurons,walking,median ms (bootstrap 95%),,3,175,54,387,175 [54-387] (n=3)
+1 (ADR-0038),findings (ghosts right for all 3 s),99.0% of neurons,laced food,count (Wilson 95%),2,9,0.2222,0.0632,0.5474,2/9 [6%-55%]
+1 (ADR-0038),time to fail,99.0% of neurons,laced food,median ms (bootstrap 95%),,7,177,63,347,177 [63-347] (n=7)
+1 (ADR-0038),findings (ghosts right for all 3 s),99.0% of neurons,shadow,count (Wilson 95%),4,9,0.4444,0.1888,0.7333,4/9 [19%-73%]
+1 (ADR-0038),time to fail,99.0% of neurons,shadow,median ms (bootstrap 95%),,5,91,48,148,91 [48-148] (n=5)
+1 (ADR-0038),time to fail,every failed ghost,all moments,median ms (bootstrap 95%),,118,177,148,211,177 [148-211] (n=118)
+1 (ADR-0038),pooled (findings text),float32 precision,walking+laced food+shadow,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+1 (ADR-0038),pooled (findings text),"missed spike, walking",walking,count (Wilson 95%),6,6,1.0000,0.6097,1.0000,6/6 [61%-100%]
+1 (ADR-0038),pooled (findings text),"missed spike, at decisions",laced food+shadow,count (Wilson 95%),1,18,0.0556,0.0099,0.2576,1/18 [1%-26%]
+1 (ADR-0038),time to fail,"missed spike, at decisions",laced food+shadow,median ms (bootstrap 95%),,17,148,106,250,148 [106-250] (n=17)
+1 (ADR-0038),comparisons,"Finding 1: a missed spike matters at decisions, not while walking","missed spike, walking minus missed spike, at decisions",difference (Newcombe 95%),6/6 vs 1/18,24,0.9444,0.5049,0.9901,"6/6 [61%-100%] vs 1/18 [1%-26%]: +94% [+50% to +99%], supported"
+1 (ADR-0038),comparisons,Finding 2: 0.001 mV is not enough at the laced food (vs walking),walking minus laced food,difference (Newcombe 95%),9/9 vs 5/9,18,0.4444,0.0509,0.7333,"9/9 [70%-100%] vs 5/9 [27%-81%]: +44% [+5% to +73%], supported"
+1 (ADR-0038),comparisons,Finding 2: 0.001 mV is not enough at the laced food (vs shadow),shadow minus laced food,difference (Newcombe 95%),9/9 vs 5/9,18,0.4444,0.0509,0.7333,"9/9 [70%-100%] vs 5/9 [27%-81%]: +44% [+5% to +73%], supported"
+1 (ADR-0038),comparisons,"Finding 4: 0.01 mV harmless while walking, fatal at the laced food",walking minus laced food,difference (Newcombe 95%),9/9 vs 0/9,18,1.0000,0.5769,1.0000,"9/9 [70%-100%] vs 0/9 [0%-30%]: +100% [+58% to +100%], supported"
+1 (ADR-0038),comparisons,Finding 5: 99.9% observed is not quite enough at the laced food (vs walking),walking minus laced food,difference (Newcombe 95%),9/9 vs 6/9,18,0.3333,-0.0337,0.6458,"9/9 [70%-100%] vs 6/9 [35%-88%]: +33% [-3% to +65%], NOT supported (interval includes 0)"
+1 (ADR-0038),comparisons,Finding 5: 99.9% observed is not quite enough at the laced food (vs shadow),shadow minus laced food,difference (Newcombe 95%),9/9 vs 6/9,18,0.3333,-0.0337,0.6458,"9/9 [70%-100%] vs 6/9 [35%-88%]: +33% [-3% to +65%], NOT supported (interval includes 0)"
+2 (ADR-0039),finding 1 (real vs full null),arena: moves (walked > 0 mm),real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),arena: moves (walked > 0 mm),full null,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),finding 1 (real vs full null),arena: reaches the food,real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),arena: reaches the food,full null,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),finding 1 (real vs full null),arena: feeds,real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),arena: feeds,full null,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),finding 1 (real vs full null),arena: escapes the shadow,real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),arena: escapes the shadow,full null,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, walking ground: walks (P9)",real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, walking ground: walks (P9)",full null,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, food: feeds (MN9)",real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, food: feeds (MN9)",full null,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, bitter: refuses (MN9)",real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, bitter: refuses (MN9)",full null,count (Wilson 95%),15,15,1.0000,0.7961,1.0000,15/15 [80%-100%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, laced food: refuses (MN9)",real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, laced food: refuses (MN9)",full null,count (Wilson 95%),15,15,1.0000,0.7961,1.0000,15/15 [80%-100%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, shadow: jumps (GF)",real,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),finding 1 (real vs full null),"held in place, shadow: jumps (GF)",full null,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),finding 1 (real vs full null),arena: walked_mm,real,median mm (bootstrap 95%),,3,71,69,71.5,71 [69-71.5] (n=3)
+2 (ADR-0039),finding 1 (real vs full null),arena: feeding_ms,real,median ms (bootstrap 95%),,3,5020,4927,5114,5020 [4927-5114] (n=3)
+2 (ADR-0039),finding 1 (real vs full null),"held in place, walking ground: P9_hz",real,median Hz (bootstrap 95%),,3,28.2,26.5,30.8,28.2 [26.5-30.8] (n=3)
+2 (ADR-0039),finding 1 (real vs full null),"held in place, food: MN9_hz",real,median Hz (bootstrap 95%),,3,65.5,65,66.5,65.5 [65-66.5] (n=3)
+2 (ADR-0039),finding 1 (real vs full null),"held in place, shadow: GF_hz",real,median Hz (bootstrap 95%),,3,45,44.5,45.5,45 [44.5-45.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),0% (real),walks,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,0% (real),walks: walked_mm,median mm walked (bootstrap 95%),,3,71,69,71.5,71 [69-71.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),0% (real),feeds on food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,0% (real),feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,65.5,65,66.5,65.5 [65-66.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),0% (real),refuses laced food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,0% (real),refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,0.5,0,0.5,0.5 [0-0.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),0% (real),escapes,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,0% (real),escapes: GF_hz,median GF Hz (bootstrap 95%),,3,45,44.5,45.5,45 [44.5-45.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),0% (real),stays quiet,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,0% (real),stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,1162,1139,1176,1162 [1139-1176] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),1%,walks,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,1%,walks: walked_mm,median mm walked (bootstrap 95%),,3,72.7,71,75.3,72.7 [71-75.3] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),1%,feeds on food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,1%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,70.5,68.5,73.5,70.5 [68.5-73.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),1%,refuses laced food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,1%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,0.5,0,0.5,0.5 [0-0.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),1%,escapes,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,1%,escapes: GF_hz,median GF Hz (bootstrap 95%),,3,46,45.5,46.5,46 [45.5-46.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),1%,stays quiet,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,1%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,1200,1194,1221,1200 [1194-1221] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),5%,walks,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,5%,walks: walked_mm,median mm walked (bootstrap 95%),,3,69.6,38.6,81.7,69.6 [38.6-81.7] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),5%,feeds on food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,5%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,68,49,77,68 [49-77] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),5%,refuses laced food,count (Wilson 95%),1,3,0.3333,0.0615,0.7923,1/3 [6%-79%]
+2 (ADR-0039),sweep figure medians,5%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,8,1,14.5,8 [1-14.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),5%,escapes,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,5%,escapes: GF_hz,median GF Hz (bootstrap 95%),,3,43,41.5,48,43 [41.5-48] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),5%,stays quiet,count (Wilson 95%),2,3,0.6667,0.2077,0.9385,2/3 [21%-94%]
+2 (ADR-0039),sweep figure medians,5%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,1135,1090,10197,1135 [1090-10197] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),10%,walks,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,10%,walks: walked_mm,median mm walked (bootstrap 95%),,3,48.5,28.4,77.5,48.5 [28.4-77.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),10%,feeds on food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,10%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,92,43,97.5,92 [43-97.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),10%,refuses laced food,count (Wilson 95%),0,3,0.0000,0.0000,0.5615,0/3 [0%-56%]
+2 (ADR-0039),sweep figure medians,10%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,16,4,27,16 [4-27] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),10%,escapes,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,10%,escapes: GF_hz,median GF Hz (bootstrap 95%),,3,38,31.5,48.5,38 [31.5-48.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),10%,stays quiet,count (Wilson 95%),1,3,0.3333,0.0615,0.7923,1/3 [6%-79%]
+2 (ADR-0039),sweep figure medians,10%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,10391,1165,10675,10391 [1165-10675] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),25%,walks,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,25%,walks: walked_mm,median mm walked (bootstrap 95%),,3,58.3,57.5,67.3,58.3 [57.5-67.3] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),25%,feeds on food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,25%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,71,51,73.5,71 [51-73.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),25%,refuses laced food,count (Wilson 95%),0,3,0.0000,0.0000,0.5615,0/3 [0%-56%]
+2 (ADR-0039),sweep figure medians,25%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,20.5,7,34.5,20.5 [7-34.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),25%,escapes,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,25%,escapes: GF_hz,median GF Hz (bootstrap 95%),,3,34.5,33,38,34.5 [33-38] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),25%,stays quiet,count (Wilson 95%),1,3,0.3333,0.0615,0.7923,1/3 [6%-79%]
+2 (ADR-0039),sweep figure medians,25%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,11685,1298,11732,11685 [1298-11732] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),50%,walks,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,50%,walks: walked_mm,median mm walked (bootstrap 95%),,3,55.1,53.7,88,55.1 [53.7-88] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),50%,feeds on food,count (Wilson 95%),2,3,0.6667,0.2077,0.9385,2/3 [21%-94%]
+2 (ADR-0039),sweep figure medians,50%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,11,5,11.5,11 [5-11.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),50%,refuses laced food,count (Wilson 95%),2,3,0.6667,0.2077,0.9385,2/3 [21%-94%]
+2 (ADR-0039),sweep figure medians,50%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,2.5,0,9.5,2.5 [0-9.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),50%,escapes,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,50%,escapes: GF_hz,median GF Hz (bootstrap 95%),,3,19.5,18,44.5,19.5 [18-44.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),50%,stays quiet,count (Wilson 95%),0,3,0.0000,0.0000,0.5615,0/3 [0%-56%]
+2 (ADR-0039),sweep figure medians,50%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,12003,11260,12082,12003 [11260-12082] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),75%,walks,count (Wilson 95%),2,3,0.6667,0.2077,0.9385,2/3 [21%-94%]
+2 (ADR-0039),sweep figure medians,75%,walks: walked_mm,median mm walked (bootstrap 95%),,3,74,0.9,116.7,74 [0.9-116.7] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),75%,feeds on food,count (Wilson 95%),0,3,0.0000,0.0000,0.5615,0/3 [0%-56%]
+2 (ADR-0039),sweep figure medians,75%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,0,0,0,0 [0-0] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),75%,refuses laced food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,75%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,0,0,0,0 [0-0] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),75%,escapes,count (Wilson 95%),2,3,0.6667,0.2077,0.9385,2/3 [21%-94%]
+2 (ADR-0039),sweep figure medians,75%,escapes: GF_hz,median GF Hz (bootstrap 95%),,3,9.5,1,11,9.5 [1-11] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),75%,stays quiet,count (Wilson 95%),2,3,0.6667,0.2077,0.9385,2/3 [21%-94%]
+2 (ADR-0039),sweep figure medians,75%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,810,637,9271,810 [637-9271] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),90%,walks,count (Wilson 95%),2,3,0.6667,0.2077,0.9385,2/3 [21%-94%]
+2 (ADR-0039),sweep figure medians,90%,walks: walked_mm,median mm walked (bootstrap 95%),,3,34.4,1.1,36.9,34.4 [1.1-36.9] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),90%,feeds on food,count (Wilson 95%),0,3,0.0000,0.0000,0.5615,0/3 [0%-56%]
+2 (ADR-0039),sweep figure medians,90%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,0,0,0,0 [0-0] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),90%,refuses laced food,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,90%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,3,0,0,0,0 [0-0] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),90%,escapes,count (Wilson 95%),1,3,0.3333,0.0615,0.7923,1/3 [6%-79%]
+2 (ADR-0039),sweep figure medians,90%,escapes: GF_hz,median GF Hz (bootstrap 95%),,3,2,0.5,7.5,2 [0.5-7.5] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),90%,stays quiet,count (Wilson 95%),3,3,1.0000,0.4385,1.0000,3/3 [44%-100%]
+2 (ADR-0039),sweep figure medians,90%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,3,623,547,639,623 [547-639] (n=3)
+2 (ADR-0039),finding 4 (partial rewiring),100%,walks,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),sweep figure medians,100%,walks: walked_mm,median mm walked (bootstrap 95%),,15,0,0,0,0 [0-0] (n=15)
+2 (ADR-0039),finding 4 (partial rewiring),100%,feeds on food,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),sweep figure medians,100%,feeds on food: MN9_hz,median MN9 Hz (bootstrap 95%),,15,0,0,0,0 [0-0] (n=15)
+2 (ADR-0039),finding 4 (partial rewiring),100%,refuses laced food,count (Wilson 95%),15,15,1.0000,0.7961,1.0000,15/15 [80%-100%]
+2 (ADR-0039),sweep figure medians,100%,refuses laced food: MN9_hz,median MN9 Hz (bootstrap 95%),,15,0,0,0,0 [0-0] (n=15)
+2 (ADR-0039),finding 4 (partial rewiring),100%,escapes,count (Wilson 95%),0,15,0.0000,0.0000,0.2039,0/15 [0%-20%]
+2 (ADR-0039),sweep figure medians,100%,escapes: GF_hz,median GF Hz (bootstrap 95%),,15,0,0,0,0 [0-0] (n=15)
+2 (ADR-0039),finding 4 (partial rewiring),100%,stays quiet,count (Wilson 95%),15,15,1.0000,0.7961,1.0000,15/15 [80%-100%]
+2 (ADR-0039),sweep figure medians,100%,stays quiet: neurons_active,median neurons active (bootstrap 95%),,15,425,384,449,425 [384-449] (n=15)
+2 (ADR-0039),pooled (findings text),5-25% rewired,walks,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+2 (ADR-0039),pooled (findings text),5-25% rewired,feeds on food,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+2 (ADR-0039),pooled (findings text),5-25% rewired,refuses laced food,count (Wilson 95%),1,9,0.1111,0.0199,0.4350,1/9 [2%-43%]
+2 (ADR-0039),pooled (findings text),5-25% rewired,escapes,count (Wilson 95%),9,9,1.0000,0.7009,1.0000,9/9 [70%-100%]
+2 (ADR-0039),pooled (findings text),5-25% rewired,stays quiet,count (Wilson 95%),4,9,0.4444,0.1888,0.7333,4/9 [19%-73%]
+2 (ADR-0039),pooled (findings text),5-25% rewired,"walks, feeds or escapes (each one sense)",count (Wilson 95%),27,27,1.0000,0.8754,1.0000,27/27 [88%-100%]
+2 (ADR-0039),comparisons,"Finding 1: real brains walk, full null brains never move","walks, 0% (real) minus walks, 100%",difference (Newcombe 95%),3/3 vs 0/15,18,1.0000,0.4026,1.0000,"3/3 [44%-100%] vs 0/15 [0%-20%]: +100% [+40% to +100%], supported"
+2 (ADR-0039),comparisons,"Finding 1: real brains feed on food, full null brains do not","feeds on food, 0% (real) minus feeds on food, 100%",difference (Newcombe 95%),3/3 vs 0/15,18,1.0000,0.4026,1.0000,"3/3 [44%-100%] vs 0/15 [0%-20%]: +100% [+40% to +100%], supported"
+2 (ADR-0039),comparisons,"Finding 1: real brains escape, full null brains do not","escapes, 0% (real) minus escapes, 100%",difference (Newcombe 95%),3/3 vs 0/15,18,1.0000,0.4026,1.0000,"3/3 [44%-100%] vs 0/15 [0%-20%]: +100% [+40% to +100%], supported"
+2 (ADR-0039),comparisons,Finding 4: refusing laced food breaks at 5%,"refuses laced food, 0% (real) minus refuses laced food, 5%",difference (Newcombe 95%),3/3 vs 1/3,6,0.6667,-0.0586,0.9385,"3/3 [44%-100%] vs 1/3 [6%-79%]: +67% [-6% to +94%], NOT supported (interval includes 0)"
+2 (ADR-0039),comparisons,Finding 4: refusing laced food breaks at 10%,"refuses laced food, 0% (real) minus refuses laced food, 10%",difference (Newcombe 95%),3/3 vs 0/3,6,1.0000,0.2059,1.0000,"3/3 [44%-100%] vs 0/3 [0%-56%]: +100% [+21% to +100%], supported"
+2 (ADR-0039),comparisons,Finding 4: refusing laced food breaks at 25%,"refuses laced food, 0% (real) minus refuses laced food, 25%",difference (Newcombe 95%),3/3 vs 0/3,6,1.0000,0.2059,1.0000,"3/3 [44%-100%] vs 0/3 [0%-56%]: +100% [+21% to +100%], supported"
+2 (ADR-0039),comparisons,Finding 4: refusing laced food breaks at 5-25% (pooled),"refuses laced food, 0% (real) minus refuses laced food, 5-25%",difference (Newcombe 95%),3/3 vs 1/9,12,0.8889,0.2407,0.9801,"3/3 [44%-100%] vs 1/9 [2%-43%]: +89% [+24% to +98%], supported"
+2 (ADR-0039),comparisons,"Finding 4: the decision breaks first (single-sense vs refusing, 5-25%)","walks/feeds/escapes, 5-25% minus refuses laced food, 5-25%",difference (Newcombe 95%),27/27 vs 1/9,36,0.8889,0.5419,0.9801,"27/27 [88%-100%] vs 1/9 [2%-43%]: +89% [+54% to +98%], supported"
+2 (ADR-0039),comparisons,"Finding 4: runaway activity between 5% and 50% (stays quiet, real vs 50%)","stays quiet, 0% (real) minus stays quiet, 50%",difference (Newcombe 95%),3/3 vs 0/3,6,1.0000,0.2059,1.0000,"3/3 [44%-100%] vs 0/3 [0%-56%]: +100% [+21% to +100%], supported"
+2 (ADR-0039),comparisons,Finding 4: feeding is gone by 75% (real vs 75%),"feeds on food, 0% (real) minus feeds on food, 75%",difference (Newcombe 95%),3/3 vs 0/3,6,1.0000,0.2059,1.0000,"3/3 [44%-100%] vs 0/3 [0%-56%]: +100% [+21% to +100%], supported"
+2 (ADR-0039),finding 3 (decoder-free),situation read right,real: real,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right (pooled),real,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,full null (5): null 0,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,full null (5): null 1,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,full null (5): null 2,count (Wilson 95%),10,12,0.8333,0.5520,0.9530,10/12 [55%-95%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,full null (5): null 3,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,full null (5): null 4,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right (pooled),full null (5),count (Wilson 95%),58,60,0.9667,0.8864,0.9908,58/60 [89%-99%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,10% rewired: null 0,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,10% rewired: null 1,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,10% rewired: null 2,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right (pooled),10% rewired,count (Wilson 95%),36,36,1.0000,0.9036,1.0000,36/36 [90%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,50% rewired: null 0,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,50% rewired: null 1,count (Wilson 95%),11,12,0.9167,0.6461,0.9851,11/12 [65%-99%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,50% rewired: null 2,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right (pooled),50% rewired,count (Wilson 95%),35,36,0.9722,0.8583,0.9951,35/36 [86%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,90% rewired: null 0,count (Wilson 95%),10,12,0.8333,0.5520,0.9530,10/12 [55%-95%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,90% rewired: null 1,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right,90% rewired: null 2,count (Wilson 95%),12,12,1.0000,0.7575,1.0000,12/12 [76%-100%]
+2 (ADR-0039),finding 3 (decoder-free),situation read right (pooled),90% rewired,count (Wilson 95%),34,36,0.9444,0.8186,0.9846,34/36 [82%-98%]

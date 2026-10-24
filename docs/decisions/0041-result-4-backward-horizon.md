@@ -63,7 +63,7 @@ Proportions with Wilson 95% intervals; all seeds (seeds 1–2 alone give the sam
 
 ## Limits
 - One model with no learning or memory; it is built to forget. Real brains store memories in their wiring. This says nothing about real flies.
-- The principle (dissipative dynamics erase the past) is long known in physics; what is new here is only the concrete measurement in a whole-brain connectome model, pending a literature check.
+- The principle is long known: networks of leaky neurons have fading memory (Maass et al. 2002; Ganguli et al. 2008), and the ~140 ms per thousandfold difference is what LIF theory predicts (20 ms × ln 1000 ≈ 138 ms), a check on the simulation rather than a finding. What may be new is measuring it in a closed-loop whole-brain model, and that the past survives only when the body's difference reaches the senses. Landauer's principle concerns the heat cost of erasure and links only through the computer's rounding. *(Updated 2026-10-24 after the literature check; [literature notes](../science/literature-notes.md).)*
 - 3 seeds, 3 moments, 3 s; "never" means "not within 3 s".
 - B is defined on the brain's functional state; the engine's last-spike bookkeeping is ignored by design (plan, Definitions).
 - Cost: 75 minutes on 2 workers; memory pressure stayed normal (lowest 72% available).

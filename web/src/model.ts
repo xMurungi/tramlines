@@ -1,4 +1,5 @@
-// What the viewer knows about the run, assembled from the server's messages (ADR-0033, ADR-0042).
+// What the viewer knows about the run, assembled from the server's messages (ADR-0033, ADR-0042,
+// and the free-will fan, ADR-0046).
 
 export type PoseRow = [number, number, number, number, boolean, boolean]; // t, x, y, heading, feeding, jumped
 
@@ -53,11 +54,54 @@ export interface Status {
   cached: boolean;
   error: string | null;
   to_compute: Record<string, number>; // chosen setting -> ghosts still to compute
+  fans_to_compute: number; // free-will fans asked for and not yet finished
 }
-export type Message = Hello | Chunk | Checkpoint | Ghost | Refused | Match | Status;
 
-/** The one message a viewer sends: which knowledge setting to watch, from about when. */
+/** When free will is offered: [first ms, last ms, what the world is asking]. */
+export interface Decisions { type: "decisions"; moments: [number, number, string][] }
+export interface AimedSpike { neuron: number; label: string }
+export interface SpikeRefused extends AimedSpike { reason: string }
+export interface Fan {
+  type: "fan";
+  at_ms: number; // the moment the extra spikes are added
+  checkpoint_ms: number;
+  decision: string;
+  horizon_ms: number;
+  wanted: number;
+  driven: number | null; // neurons receiving input then: the pool the spikes are aimed at
+  aimed: AimedSpike[];
+  refused: SpikeRefused[];
+  base: PoseRow[]; // the untouched future, every 10th pose
+  base_compared_ms: number; // the untouched future against the live fly, bit for bit
+  base_matched_ms: number;
+  done: boolean;
+  not_made: string | null;
+}
+export interface FanBranch {
+  type: "branch";
+  at_ms: number;
+  index: number;
+  neuron: number;
+  label: string;
+  poses: PoseRow[]; // every 10th pose
+  distance_mm: number[]; // from the untouched fly, every 10th ms (same times as poses)
+  spike_diffs: number[]; // per spike_bin_ms
+  spike_bin_ms: number;
+  first_apart_ms: number | null;
+  end_distance_mm: number;
+  max_distance_mm: number;
+  split: boolean;
+  body_rejoined: boolean;
+  brain_rejoined: boolean;
+  brain_max_dv_mV: number;
+  events: [number, string][];
+}
+export type Message = Hello | Chunk | Checkpoint | Ghost | Refused | Match | Status | Decisions | Fan | FanBranch;
+
+/** What a viewer sends: which knowledge setting to watch, from about when... */
 export interface Choose { type: "choose"; knowledge: string; from_ms: number }
+/** ...or a request for the free-will fan at this moment. */
+export interface FreeWill { type: "free_will"; at_ms: number }
 
 function decodeBase64(text: string): Uint8Array {
   const raw = atob(text);
@@ -75,6 +119,10 @@ export class Run {
   ghosts = new Map<string, Ghost[]>(); // setting -> ghosts in order of from_ms
   refused = new Map<string, Map<number, string>>(); // setting -> from_ms -> reason
   matches = new Map<string, Match>(); // setting -> its latest scores
+  decisions: [number, number, string][] = [];
+  fans = new Map<number, Fan>(); // at_ms -> fan
+  branches = new Map<number, (FanBranch | undefined)[]>(); // at_ms -> branches by index
+  arrived = new Map<string, number>(); // "at_ms:index" -> when it arrived (for unfolding)
   status: Status = {
     type: "status",
     frontier_ms: 0,
@@ -83,6 +131,7 @@ export class Run {
     cached: false,
     error: null,
     to_compute: {},
+    fans_to_compute: 0,
   };
 
   accept(message: Message): void {
@@ -96,6 +145,10 @@ export class Run {
         this.ghosts.clear();
         this.refused.clear();
         this.matches.clear();
+        this.decisions = [];
+        this.fans.clear();
+        this.branches.clear();
+        this.arrived.clear();
         this.hello = message;
         const bytes = decodeBase64(message.neuron_xy);
         this.neuronXY = new Uint16Array(bytes.buffer, bytes.byteOffset, bytes.byteLength / 2);
@@ -132,6 +185,20 @@ export class Run {
       case "status":
         this.status = message;
         break;
+      case "decisions":
+        this.decisions = message.moments;
+        break;
+      case "fan":
+        this.fans.set(message.at_ms, message);
+        break;
+      case "branch": {
+        const list = this.branches.get(message.at_ms) ?? [];
+        list[message.index] = message;
+        this.branches.set(message.at_ms, list);
+        const key = `${message.at_ms}:${message.index}`;
+        if (!this.arrived.has(key)) this.arrived.set(key, performance.now());
+        break;
+      }
     }
   }
 
@@ -176,6 +243,12 @@ export class Run {
   refusalFor(t: number, knowledge: string): string | undefined {
     const moment = this.checkpointFor(t);
     return moment ? this.refused.get(knowledge)?.get(moment.at_ms) : undefined;
+  }
+
+  /** What the world is asking the brain at `t`, if anything: when free will is offered. */
+  decisionAt(t: number): string | undefined {
+    const ms = Math.floor(t);
+    return this.decisions.find(([a, b]) => a <= ms && ms <= b)?.[2];
   }
 
   /** How long the ghost from `from_ms` stayed on the live path, once that is known. */

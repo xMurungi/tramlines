@@ -27,8 +27,9 @@ footer.bar { border-bottom: 0; border-top: 1px solid var(--rule); }
   gap: 1.5rem;
   padding-block: 1.25rem;
 }
-.arena-wrap { min-width: 0; display: grid; place-items: center; }
-#arena { width: min(100%, 78vh); aspect-ratio: 1; max-width: 100%; }
+.arena-wrap { min-width: 0; display: grid; justify-items: center; align-items: start; }
+/* Sticky, so the arena stays in view while a long side column (the fan's list) scrolls. */
+#arena { width: min(100%, 78vh); aspect-ratio: 1; max-width: 100%; position: sticky; top: 1rem; }
 .side { display: grid; gap: 1.25rem; align-content: start; min-width: 0; }
 .panel { border: 1px solid var(--rule); background: var(--panel); padding: 1rem; display: grid; gap: 0.75rem; }
 .panel h2 {
@@ -94,3 +95,30 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* Result 1's counts under the slider (owner decision 24). */
 .note.evidence { margin-top: 0.45rem; }
+
+/* The free-will fan (ADR-0046). */
+[hidden] { display: none !important; } /* a class's display (.panel's grid) must not undo it */
+#fan-panel { order: -1; } /* when open, the fan is what the viewer is looking at */
+.panel-head { display: flex; justify-content: space-between; align-items: center; }
+button.quiet { border: 0; padding: 0.1rem 0.4rem; color: var(--text-muted); letter-spacing: 0; font-size: 1rem; }
+.branches { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+.branch { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 0 0.5rem; font-size: 0.76rem; line-height: 1.4; }
+.branch .num {
+  grid-row: span 3;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.3rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.branch .swatch { width: 0.55rem; height: 0.55rem; margin-top: 0.3rem; border-radius: 50%; flex: none; }
+.branch .swatch[data-for-good="false"] { background: transparent !important; border: 1px solid currentColor; }
+.branch .who { color: var(--text-muted); overflow-wrap: anywhere; }
+.branch .what { color: var(--text); }
+.branch .spark { color: var(--text-muted); letter-spacing: -0.05em; white-space: nowrap; overflow: hidden; }
+.branch.waiting { opacity: 0.45; }
+.fan-meter { font-variant-numeric: tabular-nums; color: var(--text-muted); white-space: nowrap; }
+.fan-meter .bars { color: var(--accent); letter-spacing: -0.05em; }
+#free-will { transition: box-shadow 1.2s ease, opacity 1.2s ease; }
+#free-will:not(:disabled) { box-shadow: 0 0 14px rgb(25 230 255 / 0.25); }
+@media (prefers-reduced-motion: reduce) { #free-will { transition: none; } }
