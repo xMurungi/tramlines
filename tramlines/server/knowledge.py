@@ -1,4 +1,4 @@
-"""How much the ghost knows: the stops of the viewer's knowledge slider (ADR-XXXX).
+"""How much the ghost knows: the stops of the viewer's knowledge slider (ADR-0042).
 
 The perfect ghost is a bit-exact copy and is always right, because the simulation
 is deterministic: it is the control, not a prediction (ADR-0035). The other stops

@@ -1,4 +1,4 @@
-"""Messages between the server and the viewer, one JSON object each (ADR-0033, ADR-XXXX).
+"""Messages between the server and the viewer, one JSON object each (ADR-0033, ADR-0042).
 
 The server sends everything below except `Choose`, the one message a viewer sends:
 which knowledge setting it wants to watch. Ghosts, matches and refusals carry the

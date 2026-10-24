@@ -46,7 +46,7 @@ footer.bar { border-bottom: 0; border-top: 1px solid var(--rule); }
 .kind { margin: 0; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
 .kind[data-control="false"] { color: var(--text); }
 
-/* The knowledge slider (ADR-XXXX): a vertical track of stops, most knowledge at the top.
+/* The knowledge slider (ADR-0042): a vertical track of stops, most knowledge at the top.
    Native radio inputs, so arrow keys move between stops and skip unavailable ones. */
 .stops { display: grid; gap: 0.15rem; position: relative; padding-left: 0.2rem; }
 .stops::before {

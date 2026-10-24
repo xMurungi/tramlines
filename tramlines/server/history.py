@@ -1,7 +1,7 @@
 """What the server remembers about a run, and the ghost-versus-live comparison (ADR-0033).
 
 Pure bookkeeping, no processes or sockets, so it can be tested directly. Each
-knowledge setting has its own track of ghosts and scores (ADR-XXXX); the live
+knowledge setting has its own track of ghosts and scores (ADR-0042); the live
 timeline is shared by all of them.
 """
 

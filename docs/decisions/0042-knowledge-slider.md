@@ -1,4 +1,4 @@
-# XXXX — The knowledge slider: the control, and ghosts that know less
+# 0042 — The knowledge slider: the control, and ghosts that know less
 
 - Status: Accepted (delegated)
 - Date: 2026-10-24

@@ -1,4 +1,4 @@
-"""Which ghost the ghost process computes next (ADR-XXXX).
+"""Which ghost the ghost process computes next (ADR-0042).
 
 One ghost process serves every knowledge setting, one job at a time, so the
 server never runs more than two brain processes (ADR-0032). Pure bookkeeping,

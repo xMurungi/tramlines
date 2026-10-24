@@ -45,3 +45,4 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0039](0039-result-2-null-brain.md) | Result 2: the behaviour lives in the wiring, and survives a lot of damage to it | Accepted (delegated) | 5 |
 | [0040](0040-proposal-backward-horizon.md) | Proposal: the backward horizon (can the demon recover the past?) | **Accepted: owner adopted** | 5 |
 | [0041](0041-result-4-backward-horizon.md) | Result 4: the brain forgets, the body remembers, and the body can make the brain remember | Accepted (delegated) | 5 |
+| [0042](0042-knowledge-slider.md) | The knowledge slider: the control, and ghosts that know less | Accepted (delegated) | 5 |

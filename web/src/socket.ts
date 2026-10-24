@@ -1,5 +1,5 @@
 // The live wire from the server (ADR-0005): one WebSocket, JSON messages, reconnect on loss.
-// The viewer sends one kind of message back: which knowledge setting it wants (ADR-XXXX).
+// The viewer sends one kind of message back: which knowledge setting it wants (ADR-0042).
 
 import type { Choose, Message } from "./model";
 

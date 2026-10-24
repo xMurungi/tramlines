@@ -18,7 +18,7 @@ let connected = false;
 let playhead = Math.max(0, Number(query.get("t")) || 0); // ms of simulated time on screen
 let playing = false;
 let last = performance.now();
-let knowledge = query.get("knowledge") ?? CONTROL; // the setting being watched (ADR-XXXX)
+let knowledge = query.get("knowledge") ?? CONTROL; // the setting being watched (ADR-0042)
 let stopsFor: KnowledgeOption[] | null = null; // the options the stops were built from
 
 const wire = connect(

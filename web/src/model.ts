@@ -1,4 +1,4 @@
-// What the viewer knows about the run, assembled from the server's messages (ADR-0033, ADR-XXXX).
+// What the viewer knows about the run, assembled from the server's messages (ADR-0033, ADR-0042).
 
 export type PoseRow = [number, number, number, number, boolean, boolean]; // t, x, y, heading, feeding, jumped
 

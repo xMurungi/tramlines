@@ -6,7 +6,7 @@ Settings (environment): TRAMLINES_ARENA (decision | default), TRAMLINES_SEED (0)
 TRAMLINES_SECONDS (60, the Phase 4 gate), TRAMLINES_HORIZON_MS (3000). A finished run is cached in
 `data/projections/` and replayed instantly next time; delete the file to recompute.
 
-A viewer chooses how much the ghost knows (ADR-XXXX). Each setting's ghosts are
+A viewer chooses how much the ghost knows (ADR-0042). Each setting's ghosts are
 computed on demand by the same ghost process from the run's saved checkpoints
 (kept in `data/projections/<key>_checkpoints/`, about 6 MB per simulated second
 of the full brain) and cached in their own file, keyed by the setting too.
@@ -100,7 +100,7 @@ class WorkerPool(Protocol):
 
 
 class Workers:
-    """The run's brain processes, each started only when first needed (ADR-0033, ADR-XXXX).
+    """The run's brain processes, each started only when first needed (ADR-0033, ADR-0042).
 
     At most two: the projector (only while the live timeline is computing) and one
     ghost, which serves every knowledge setting one job at a time.
@@ -267,7 +267,7 @@ def neuron_xy() -> np.ndarray:
 
 def cache_path(settings: Settings, setting: Setting = BY_ID[CONTROL]) -> Path:
     """The live timeline and its control share one file; every other setting has its own,
-    keyed by its kind, size and random draw as well as the run (ADR-XXXX)."""
+    keyed by its kind, size and random draw as well as the run (ADR-0042)."""
     if setting.id == CONTROL:
         return PROJECTIONS / f"{settings.key}.json"
     return PROJECTIONS / f"{settings.key}_{setting.key}.json"

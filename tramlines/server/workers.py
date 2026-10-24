@@ -1,4 +1,4 @@
-"""The two brain processes behind the viewer (ADR-0033, ADR-XXXX).
+"""The two brain processes behind the viewer (ADR-0033, ADR-0042).
 
 - The **projector** computes the live timeline in 100 ms chunks and saves a
   checkpoint every simulated second.
@@ -96,7 +96,7 @@ def run_ghost(
     """Answer each job `(knowledge, from_ms, path)` with a ghost, or a refusal saying why.
 
     Checkpoints are kept, not deleted: a viewer may later ask for the same moment
-    with other knowledge (ADR-XXXX).
+    with other knowledge (ADR-0042).
     """
     connectome, senses, decoder = parts()
     while (job := inbox.get()) is not None:

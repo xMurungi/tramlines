@@ -1,4 +1,4 @@
-"""The knowledge slider: settings, messages, scheduling and the ghost worker (ADR-XXXX).
+"""The knowledge slider: settings, messages, scheduling and the ghost worker (ADR-0042).
 
 Workers run in this process on the small 400-neuron network (tests/_scenarios.py), so
 nothing here needs the FlyWire data or a second brain process.

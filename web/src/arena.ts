@@ -72,7 +72,7 @@ export class ArenaView {
     }
 
     // The ghost: the independent prediction, drawn ahead of the fly. An imperfect one is
-    // also drawn where it says the fly is now, so it can be seen peeling away (ADR-XXXX).
+    // also drawn where it says the fly is now, so it can be seen peeling away (ADR-0042).
     const ghost = run.refusalFor(playhead, knowledge) ? undefined : run.ghostFor(playhead, knowledge);
     if (ghost && knowledge !== CONTROL) this.drawPeel(run, ghost, playhead, hello.right_within_mm, toX, toY);
     if (ghost) this.drawGhost(ghost, playhead, label, toX, toY);
