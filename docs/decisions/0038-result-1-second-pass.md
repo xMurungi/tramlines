@@ -44,7 +44,7 @@ Ghosts right for all 3 s (paths within 0.1 mm).
 2. **The first pass was too kind to small voltage errors.** At the laced food, voltages known to a thousandth of a millivolt still failed in 4 of 9 ghosts (within 177–347 ms), and 0.01 mV failed in all 9. Seed 0, the only seed of the first pass, happened to be one where 0.001 mV survived. At this decision there is no "good enough" voltage precision within the range tested.
 3. **Float32 is always enough** (9/9 runs across moments). Its error is far smaller than 0.001 mV (about 10⁻⁶ mV at these voltages).
 4. **Timing matters more than precision.** The "walking" ghosts start at 0.5 s and run 3 s, so they pass through the same laced food and the same shadow as the others, yet with 0.01 mV error they stay right 9/9 and with a missed spike 6/6. The same errors made *at* the decision fail almost every time. A difference made while the brain is not deciding fades within the ~0.7 s before the fly reaches the food; a difference made on the edge does not. This matches the divergence studies ([ADR-0036](0036-walking-drive-upstream-of-p9.md)): the brain forgets small differences unless they land on a threshold.
-5. **Seeing 99.9% of neurons is not quite enough at the laced food** (6/9; about 140 neurons unseen). Elsewhere it is.
+5. ~~**Seeing 99.9% of neurons is not quite enough at the laced food** (6/9; about 140 neurons unseen). Elsewhere it is.~~ **Withdrawn (2026-10-24, uncertainty analysis):** 6/9 against 9/9 elsewhere is not a demonstrated difference (difference +33%, 95% interval −3 to +65). Three ghosts did fail at the laced food, but the data do not show it is worse than the other moments.
 
 **In one sentence:** what a demon must know depends on when it looks; while the fly walks, rough knowledge foresees it for seconds, but at a decision even a thousandth of a millivolt or one spike in flight can be the difference.
 
@@ -61,3 +61,19 @@ Ghosts right for all 3 s (paths within 0.1 mm).
 
 ## For learners
 One measurement can fool you. Our first try said a ghost that knows every voltage to a thousandth of a millivolt is always right. Running the same experiment on three versions of the brain, three times each, showed that is true while the fly walks but false at the moment it decides whether to eat. Repeating experiments is how you tell a rule from luck. See [Chapter 22](../book/ch22-the-ghost.md).
+
+## Uncertainty (added 2026-10-24)
+Wilson 95% intervals for the counts above, and intervals for differences, from `scripts/analyse_uncertainty.py` (data `docs/assets/uncertainty_results_1_2.csv`; reproduced and checked by the main session).
+
+| Claim | Counts | 95% interval |
+|---|---|---|
+| Missed spike harmless while walking | 6/6 | 61–100% |
+| Missed spike at decisions (laced food + shadow) stays right | 1/18 | 1–26% |
+| Difference walking − decisions | +94 points | +50 to +99 |
+| 0.001 mV at the laced food stays right | 5/9 | 27–81% (elsewhere 9/9, 70–100%) |
+| 0.01 mV: walking against laced food | 9/9 vs 0/9 | difference +100 points, +58 to +100 |
+| float32 stays right (all moments) | 9/9 | 70–100% |
+| Time to fail, all 118 failed ghosts | median 177 ms | 148–211 ms |
+
+Findings 1–4 stand. Finding 5 is withdrawn (above). Caveat: ghosts share seeds within a moment, so these intervals may be slightly too narrow.
+

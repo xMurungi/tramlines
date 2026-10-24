@@ -65,12 +65,12 @@ Null brains are **not empty**: which situation they are in can still be read fro
 
 \* Hollow: these brains cannot feed at all, so there is nothing to refuse.
 
-- Walking, feeding and escape (each one sense driving one readout) survive rewiring a quarter of all 15 million connections.
-- Weighing two senses against each other (bitter vetoing sugar) is the first thing to break, from 5%.
+- Walking, feeding and escape (each one sense driving one readout) did not fail in any of the 9 brains rewired by 5–25% (27/27; 95% interval 88–100%). With 3 brains per share, "survives a quarter" means "no failures seen in 3 brains", which still allows a true failure rate of up to 56% at any one share. *(Wording corrected 2026-10-24.)*
+- Weighing two senses against each other (bitter vetoing sugar) is the first thing to break: it held in 1 of 9 brains rewired by 5–25% (2–43%), against 27/27 for the single-sense behaviours. The break is demonstrated from 10% (0/3); at 5% alone (1/3 against 3/3) the difference is not significant. *(Corrected 2026-10-24; pooling 5–25% is a grouping chosen after seeing the data.)*
 - Between 5% and 50%, many rewired brains tip into **runaway activity**: about 10,000 neurons active instead of about 1,200, often triggered by the shadow. The real wiring stays quiet; partly scrambled wiring does not.
-- The fall is graceful, then a cliff between 50% and 100%.
+- ~~The fall is graceful, then a cliff between 50% and 100%.~~ Three brains per share cannot settle the curve's shape; only specific contrasts are demonstrated (e.g. staying quiet, real against 50%; feeding gone by 75%). *(Corrected 2026-10-24.)*
 
-**In one sentence:** a demon that knew every neuron but not its wiring would predict nothing; one whose wiring map is a quarter wrong would still predict walking, eating and escaping, but not the fly's decision about bitter-laced food.
+**In one sentence:** a demon that knew every neuron but not its wiring would predict nothing; one whose wiring map is up to a quarter wrong would still, in every brain we tested, predict walking, eating and escaping, but not the fly's decision about bitter-laced food.
 
 ## Limits
 - **The yardstick:** senses, readouts and decoder were chosen and calibrated on the real brain. The decoder-free test reduces this concern but does not remove it: "responds to a sense" and "synapses from the sense" are still our measures.
@@ -89,3 +89,7 @@ To show that something depends on a cause, take the cause away and keep everythi
 
 ## Note after the literature check (2026-10-24)
 Candidate explanations for the convergence and the runaway activity, to test rather than assume: the rich club and reciprocity of FlyWire wiring (Lin et al. 2024) and inhibitory hubs (Li et al. 2026). A public embodied project reports that scrambling the wiring stops its fly steering (fly-brain-zero-shot), a neighbour of finding 1. See [literature notes](../science/literature-notes.md).
+
+## Uncertainty (added 2026-10-24)
+From `scripts/analyse_uncertainty.py` (checked by the main session): real against full null brains, every behaviour 3/3 (44–100%) against 0/15 (0–20%); single-sense behaviours at 5–25% rewired 27/27 (88–100%); refusing laced food at 5–25% 1/9 (2–43%); the situation read from deep neurons in full null brains 58/60 (89–99%; chance 25%). Finding 4's wording is corrected above; the one-sentence summary stands in its narrowed form.
+
