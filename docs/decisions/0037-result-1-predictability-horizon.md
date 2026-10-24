@@ -5,6 +5,8 @@
 - Phase: 5
 - Decider: Claude (delegated)
 
+> **Second pass:** [ADR-0038](0038-result-1-second-pass.md) repeats this on 3 seeds with 3 draws each. Finding 1 below does not hold at the laced food, where even 0.001 mV fails about half the time.
+
 ## Context
 ADR-0035 asks how much you must know about a brain to predict it. The perfect ghost (a bit-exact copy) is the control and is always right. Here the ghost is given *imperfect* knowledge of the brain at a chosen moment, and we measure how long its predicted path stays right.
 

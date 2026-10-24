@@ -41,3 +41,4 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0035](0035-proposal-honest-laplaces-demon.md) | An honest Laplace's demon (from the review in issue #14) | **Accepted: owner adopted** | 4 |
 | [0036](0036-walking-drive-upstream-of-p9.md) | The walking drive moves upstream of P9: speed becomes the brain's answer | Accepted (with 0035) | 5 |
 | [0037](0037-result-1-predictability-horizon.md) | Result 1, first pass: to foresee this brain you need its spikes, not its decimals | Accepted (delegated) | 5 |
+| [0038](0038-result-1-second-pass.md) | Result 1, second pass: what the ghost must know depends on when it looks | Accepted (delegated) | 5 |

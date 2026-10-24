@@ -18,6 +18,7 @@ from __future__ import annotations
 import argparse
 import csv
 import tempfile
+import time
 from concurrent.futures import ProcessPoolExecutor
 from dataclasses import replace
 from pathlib import Path
@@ -150,8 +151,15 @@ def main() -> None:
                 jobs += [(seed, moment, path, d, False) for d in draws_of(k, args.draws)]
     print(f"{len(jobs)} runs of {HORIZON_MS} ms on {args.workers} workers", flush=True)
 
+    results = []
+    started = time.monotonic()
     with ProcessPoolExecutor(max_workers=args.workers) as pool:
-        results = list(pool.map(run_one, jobs))
+        for done, result in enumerate(pool.map(run_one, jobs), start=1):
+            results.append(result)
+            elapsed = time.monotonic() - started
+            left = elapsed / done * (len(jobs) - done)
+            print(f"  {done}/{len(jobs)} done, {elapsed / 60:.1f} min, ~{left / 60:.0f} min left",
+                  flush=True)  # fmt: skip
 
     truth = {(s, m): (poses, keys) for s, m, _, is_truth, poses, keys in results if is_truth}
     rows = []
