@@ -102,3 +102,25 @@ def test_high_giant_fiber_during_cooldown_does_not_freeze_the_fly() -> None:
     recovering = decoder.command(rates, FlyState(jump_cooldown_ms=300))
     assert ready.jump_mm > 0
     assert recovering.jump_mm == 0 and recovering.forward_mm_s > 0
+
+
+def test_decoder_thresholds_default_to_the_constants_and_scale_together() -> None:
+    import torch
+
+    from tramlines.world import decoder as d
+    from tramlines.world.fly import FlyState
+
+    base = d.FlyDecoder(readout_neurons=torch.arange(14))
+    assert (base.gf_jump_hz, base.mn9_feed_start_hz, base.mn9_feed_stop_hz) == (
+        d.GIANT_FIBER_JUMP_HZ,
+        d.MN9_FEED_START_HZ,
+        d.MN9_FEED_STOP_HZ,
+    )
+    high = base.scaled(1.2)
+    assert high.gf_jump_hz == d.GIANT_FIBER_JUMP_HZ * 1.2
+    assert high.mn9_feed_stop_hz == d.MN9_FEED_STOP_HZ * 1.2
+    rates = torch.zeros(14, dtype=torch.float64)
+    rates[10] = 55.0  # Giant Fiber at 55 Hz: above 50, below 60
+    fly = FlyState()
+    assert base.command(rates, fly).jump_mm > 0
+    assert high.command(rates, fly).jump_mm == 0

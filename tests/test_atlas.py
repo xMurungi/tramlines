@@ -6,6 +6,7 @@ from tramlines.timeline.atlas import (
     Event,
     behaviour_differs,
     behaviour_events,
+    choice,
     outcome,
     screen,
     spike_keys,
@@ -69,3 +70,10 @@ def test_outcome_of_nothing_changed_is_no_difference() -> None:
     result = outcome(base, quiet, truth_poses, 30)
     assert result.made
     assert isinstance(result.behaviour_differs, bool)
+
+
+def test_choice_counts_meals_and_jumps_but_not_timing() -> None:
+    a = [Event("feed", 100), Event("stop", 300), Event("jump", 900)]
+    later = [Event("feed", 400), Event("stop", 600), Event("jump", 1500)]
+    assert choice(a) == choice(later) == (1, 1)
+    assert choice([Event("jump", 5), Event("jump", 700)]) == (0, 2)
