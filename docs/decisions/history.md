@@ -88,3 +88,9 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 80 | 2026-10-24 | Bug: `inject_spike` accepted an input neuron that had just fired (a no-op extra spike). Now refused; one pair group rerun; ADR-0036 checked, unaffected | Delegated (honesty, L10) | [0041](0041-result-4-backward-horizon.md) |
 | 81 | 2026-10-24 | Exact arithmetic via Python `decimal` (50 digits) instead of mpmath: no new dependency (deviation recorded) | Delegated | [0041](0041-result-4-backward-horizon.md) |
 | 82 | 2026-10-24 | `brain_difference` added to the library with tests; honesty page states Result 4 and its limits | Delegated | [0041](0041-result-4-backward-horizon.md) |
+| 83 | 2026-10-24 | Knowledge slider settings from Result 1, control first, draw 0 of each error | Delegated (parallel agent, reviewed) | [0042](0042-knowledge-slider.md) |
+| 84 | 2026-10-24 | One ghost process serves every setting; the latest choice first, from the viewer's playhead | Delegated | [0042](0042-knowledge-slider.md) |
+| 85 | 2026-10-24 | Checkpoints kept for later settings (reverses issue #14 B5) | Delegated | [0042](0042-knowledge-slider.md) |
+| 86 | 2026-10-24 | Imperfect ghosts scored bit-exact, on path (0.1 mm) and right-for | Delegated | [0042](0042-knowledge-slider.md) |
+| 87 | 2026-10-24 | "One missed spike" offered only with a spike in transit; the worker refuses otherwise | Delegated | [0042](0042-knowledge-slider.md) |
+| 88 | 2026-10-24 | First parallel agent: worked in its own git worktree, opened a PR without merging; the main session reviewed, numbered and merged it | Owner (tried at owner's request) | PR #24 |

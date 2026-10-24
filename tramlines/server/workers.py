@@ -1,11 +1,12 @@
-"""The two brain processes behind the viewer (ADR-0033).
+"""The two brain processes behind the viewer (ADR-0033, ADR-0042).
 
 - The **projector** computes the live timeline in 100 ms chunks and saves a
   checkpoint every simulated second.
-- The **ghost** takes each checkpoint, loads it on its own, and predicts
+- The **ghost** takes one checkpoint at a time, loads it on its own, and predicts
   `horizon_ms` ahead. It shares nothing with the projector but the checkpoint
-  file, so when its path equals the live one, that is two separate computations
-  agreeing.
+  file. With the control setting it starts from the checkpoint exactly, so it is
+  always right; with any other setting it first blurs the brain the way a real
+  measurement could fall short (`tramlines.timeline.perturb.blur`, Result 1).
 
 Each runs in its own process with its own brain: two brain processes, the
 machine's limit (ADR-0032). Messages go back as plain tuples on queues.
@@ -13,17 +14,19 @@ machine's limit (ADR-0032). Messages go back as plain tuples on queues.
 
 from __future__ import annotations
 
-from multiprocessing.queues import Queue
+from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import Any, Protocol
 
 import numpy as np
 
-from tramlines.brain.connectome import load_connectome
+from tramlines.brain.connectome import Connectome, load_connectome
 from tramlines.brain.engine import enable_determinism
 from tramlines.brain.neurons import load_catalog
+from tramlines.server.knowledge import BY_ID
 from tramlines.server.protocol import pose_row
-from tramlines.timeline.timeline import Timeline
+from tramlines.timeline.perturb import NoSpikeInTransit, blur
+from tramlines.timeline.timeline import MotorDecoder, SensoryPorts, Timeline
 from tramlines.world.arena import DECISION_ARENA, DEFAULT_ARENA, Arena
 from tramlines.world.decoder import FlyDecoder
 from tramlines.world.fly import DEFAULT_START
@@ -33,29 +36,44 @@ ARENAS: dict[str, Arena] = {"default": DEFAULT_ARENA, "decision": DECISION_ARENA
 CHUNK_MS = 100
 CHECKPOINT_EVERY_MS = 1000
 
+Parts = tuple[Connectome, SensoryPorts, MotorDecoder]
 
-def _parts() -> tuple[Any, FlySenses, FlyDecoder]:
+
+class Inbox(Protocol):
+    def get(self) -> Any: ...
+
+
+class Outbox(Protocol):
+    def put(self, item: tuple[Any, ...], /) -> None: ...
+
+
+def full_brain() -> Parts:
+    """The whole v783 brain with the fly's senses and decoder (ADR-0028)."""
     enable_determinism()
     catalog = load_catalog()
     return load_connectome(), FlySenses.from_catalog(catalog), FlyDecoder.from_catalog(catalog)
 
 
+def checkpoint_path(directory: Path, at_ms: int) -> Path:
+    return directory / f"t{at_ms:07d}.pt"
+
+
 def run_projector(
-    out: Queue[tuple[Any, ...]],
+    out: Outbox,
     checkpoints: Path,
-    arena_name: str,
+    arena: Arena,
     seed: int,
     duration_ms: int,
+    parts: Callable[[], Parts] = full_brain,
 ) -> None:
-    connectome, senses, decoder = _parts()
-    arena = ARENAS[arena_name]
+    connectome, senses, decoder = parts()
     timeline = Timeline(connectome, arena, senses, decoder, seed=seed, start=DEFAULT_START)
     checkpoints.mkdir(parents=True, exist_ok=True)
 
     def checkpoint() -> None:
-        path = checkpoints / f"t{timeline.fly.time_ms:07d}.pt"
-        timeline.save(path)
-        out.put(("checkpoint", timeline.fly.time_ms, str(path)))
+        at_ms = timeline.fly.time_ms
+        timeline.save(checkpoint_path(checkpoints, at_ms))
+        out.put(("checkpoint", at_ms, int(timeline.brain.state.in_flight.sum())))
 
     checkpoint()
     while timeline.fly.time_ms < duration_ms:
@@ -69,17 +87,28 @@ def run_projector(
 
 
 def run_ghost(
-    inbox: Queue[tuple[int, str] | None],
-    out: Queue[tuple[Any, ...]],
-    arena_name: str,
+    inbox: Inbox,
+    out: Outbox,
+    arena: Arena,
     horizon_ms: int,
+    parts: Callable[[], Parts] = full_brain,
 ) -> None:
-    connectome, senses, decoder = _parts()
-    arena = ARENAS[arena_name]
+    """Answer each job `(knowledge, from_ms, path)` with a ghost, or a refusal saying why.
+
+    Checkpoints are kept, not deleted: a viewer may later ask for the same moment
+    with other knowledge (ADR-0042).
+    """
+    connectome, senses, decoder = parts()
     while (job := inbox.get()) is not None:
-        from_ms, path = job
+        knowledge, from_ms, path = job
         timeline = Timeline.load(Path(path), connectome, arena, senses, decoder)
-        Path(path).unlink()  # about 6 MB each; a finished run needs only its cache (#14, B5)
+        error = BY_ID[knowledge].knowledge
+        if error is not None:
+            try:
+                blur(timeline.brain.state, error)
+            except NoSpikeInTransit as refusal:
+                out.put(("refused", knowledge, from_ms, str(refusal)))
+                continue
         poses = timeline.run(horizon_ms)
-        out.put(("ghost", from_ms, [pose_row(p) for p in poses]))
+        out.put(("ghost", knowledge, from_ms, [pose_row(p) for p in poses]))
     out.put(("ghost_done",))

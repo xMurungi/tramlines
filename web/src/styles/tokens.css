@@ -10,6 +10,7 @@
   --ghost: rgb(232 176 74 / 0.45);
   --ghost-fly: rgb(232 176 74 / 0.4);
   --ghost-blur: 3px;
+  --ghost-off: rgb(196 122 112 / 0.75); /* an imperfect ghost off the fly's path (ADR-0042) */
   --food: #c9b98f;
   --bitter: #8f86b8;
   --shadow: rgb(0 0 0 / 0.85);

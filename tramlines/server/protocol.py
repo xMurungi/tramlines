@@ -1,4 +1,8 @@
-"""Messages from the server to the viewer, one JSON object each (ADR-0033).
+"""Messages between the server and the viewer, one JSON object each (ADR-0033, ADR-0042).
+
+The server sends everything below except `Choose`, the one message a viewer sends:
+which knowledge setting it wants to watch. Ghosts, matches and refusals carry the
+setting they belong to, so a viewer can switch between settings already computed.
 
 Poses travel as compact rows `[time_ms, x_mm, y_mm, heading_rad, feeding, jumped]`;
 neuron indices as base64 little-endian uint32 arrays. Both keep messages small
@@ -11,8 +15,9 @@ import base64
 from typing import Literal
 
 import numpy as np
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 
+from tramlines.server.knowledge import BY_ID, CONTROL, RIGHT_WITHIN_MM, SETTINGS
 from tramlines.timeline.timeline import Pose
 from tramlines.world.arena import Arena
 
@@ -46,6 +51,27 @@ class LoomInfo(BaseModel):
     strength: float
 
 
+class KnowledgeOption(BaseModel):
+    """One stop of the knowledge slider, in slider order."""
+
+    id: str
+    label: str
+    description: str
+    needs_spike_in_transit: bool
+
+
+def knowledge_options() -> list[KnowledgeOption]:
+    return [
+        KnowledgeOption(
+            id=s.id,
+            label=s.label,
+            description=s.description,
+            needs_spike_in_transit=s.needs_spike_in_transit,
+        )
+        for s in SETTINGS
+    ]
+
+
 class Hello(BaseModel):
     type: Literal["hello"] = "hello"
     arena_name: str
@@ -57,6 +83,8 @@ class Hello(BaseModel):
     duration_ms: int  # how long the run is
     n_neurons: int
     neuron_xy: str  # base64 uint16 pairs (x, y), frontal view, scaled to 0..65535
+    knowledge: list[KnowledgeOption] = Field(default_factory=knowledge_options)
+    right_within_mm: float = RIGHT_WITHIN_MM  # "on path" for an imperfect ghost (Result 1)
 
     @classmethod
     def describe(
@@ -85,21 +113,48 @@ class Chunk(BaseModel):
     spikes: int  # total spikes in this chunk
 
 
+class Checkpoint(BaseModel):
+    """A saved moment of the live timeline, which every ghost starts from."""
+
+    type: Literal["checkpoint"] = "checkpoint"
+    at_ms: int
+    in_flight: int  # spikes in transit: with none, "one missed spike" has nothing to miss
+
+
 class Ghost(BaseModel):
     """A prediction made independently from a checkpoint (every 10th pose, to stay small)."""
 
     type: Literal["ghost"] = "ghost"
+    knowledge: str = CONTROL
     from_ms: int
     poses: list[PoseRow]
 
 
+class Refused(BaseModel):
+    """A ghost that could not be made, and why. Never replaced by a silent perfect copy."""
+
+    type: Literal["refused"] = "refused"
+    knowledge: str
+    from_ms: int
+    reason: str
+
+
 class Match(BaseModel):
-    """How many milliseconds the ghost predicted, and how many matched bit for bit."""
+    """How the ghosts of one knowledge setting compared with the live fly.
+
+    `matched_ms` counts milliseconds equal bit for bit (the control's test, ADR-0033);
+    `close_ms` counts those within `RIGHT_WITHIN_MM` (Result 1's test, ADR-0037).
+    """
 
     type: Literal["match"] = "match"
+    knowledge: str = CONTROL
     compared_ms: int
     matched_ms: int
-    by_second: list[tuple[int, int, int]] = []  # (second, compared, matched), for the playhead
+    close_ms: int = 0
+    # (second, compared, matched, close), so a viewer counts only what it has played (#14, B7).
+    by_second: list[tuple[int, int, int, int]] = []
+    # (from_ms, ms the ghost stayed within RIGHT_WITHIN_MM), once its whole horizon is checked.
+    right_for: list[tuple[int, int]] = []
 
 
 class Status(BaseModel):
@@ -109,3 +164,19 @@ class Status(BaseModel):
     computing: bool
     cached: bool  # the live timeline was replayed from disk
     error: str | None = None  # a worker stopped unexpectedly (issue #14, B4)
+    to_compute: dict[str, int] = {}  # chosen setting -> ghosts still to compute for it
+
+
+class Choose(BaseModel):
+    """Viewer → server: show me the ghost with this much knowledge, from about this moment."""
+
+    type: Literal["choose"] = "choose"
+    knowledge: str
+    from_ms: int = Field(default=0, ge=0)  # the viewer's playhead: compute from here first
+
+    @field_validator("knowledge")
+    @classmethod
+    def known(cls, value: str) -> str:
+        if value not in BY_ID:
+            raise ValueError(f"unknown knowledge setting: {value!r}")
+        return value

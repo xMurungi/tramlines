@@ -43,6 +43,36 @@ footer.bar { border-bottom: 0; border-top: 1px solid var(--rule); }
 .readout dt { color: var(--text-muted); }
 .readout dd { margin: 0; text-align: right; font-variant-numeric: tabular-nums; }
 .match { color: var(--accent); font-weight: 500; }
+.kind { margin: 0; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); }
+.kind[data-control="false"] { color: var(--text); }
+
+/* The knowledge slider (ADR-0042): a vertical track of stops, most knowledge at the top.
+   Native radio inputs, so arrow keys move between stops and skip unavailable ones. */
+.stops { display: grid; gap: 0.15rem; position: relative; padding-left: 0.2rem; }
+.stops::before {
+  content: "";
+  position: absolute;
+  left: calc(0.2rem + 0.4rem - 0.5px);
+  top: 0.7rem;
+  bottom: 0.7rem;
+  border-left: 1px solid var(--rule);
+}
+.stop { display: flex; align-items: center; gap: 0.7rem; cursor: pointer; font-size: 0.82rem; padding-block: 0.15rem; }
+.stop input {
+  appearance: none;
+  margin: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  border: 1px solid var(--text-muted);
+  background: var(--panel);
+  position: relative;
+  flex: none;
+}
+.stop input:checked { background: var(--gold); border-color: var(--gold); }
+.stop input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.stop:has(input:checked) { color: var(--gold); }
+.stop:has(input:disabled) { opacity: 0.35; cursor: not-allowed; }
 .note { margin: 0; font-size: 0.78rem; color: var(--text-muted); line-height: 1.45; }
 button {
   font: 500 0.8rem/1 var(--font-mono);

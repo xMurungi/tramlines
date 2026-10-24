@@ -11,6 +11,7 @@ from tramlines.brain.data import DATA_DIR
 from tramlines.brain.neurons import ANNOTATIONS_FILE
 from tramlines.server import app as server
 from tramlines.server.history import RunHistory
+from tramlines.server.knowledge import SETTINGS
 from tramlines.server.protocol import Chunk, decode_indices, encode_indices
 
 
@@ -33,21 +34,26 @@ def test_indices_round_trip() -> None:
 
 def test_ghost_scored_against_live_exactly_once() -> None:
     history = RunHistory()
+    control = history.track()
     history.add_ghost(0, rows(1, 201))  # predicted 200 ms ahead, before live exists
-    assert (history.compared_ms, history.matched_ms) == (0, 0)
+    assert (control.compared_ms, control.matched_ms) == (0, 0)
     history.add_chunk(chunk(0, 100))
-    assert (history.compared_ms, history.matched_ms) == (100, 100)
+    assert (control.compared_ms, control.matched_ms) == (100, 100)
     history.add_chunk(chunk(100, 200))
-    assert (history.compared_ms, history.matched_ms) == (200, 200)
+    assert (control.compared_ms, control.matched_ms) == (200, 200)
     history.add_chunk(chunk(100, 200))  # a repeat changes nothing
-    assert history.compared_ms == 200
+    assert control.compared_ms == 200
+    assert history.add_ghost(0, rows(1, 201)) is None  # nor does a repeated ghost
+    assert control.compared_ms == 200
 
 
 def test_a_wrong_ghost_is_counted_as_a_miss() -> None:
     history = RunHistory()
     history.add_chunk(chunk(0, 100))
     history.add_ghost(0, rows(1, 101, x0=1e-12))  # off by a trillionth of a millimetre
-    assert (history.compared_ms, history.matched_ms) == (100, 0)
+    control = history.track()
+    assert (control.compared_ms, control.matched_ms) == (100, 0)
+    assert control.close_ms == 100  # but on the path, by Result 1's test
 
 
 @pytest.mark.skipif(not (DATA_DIR / ANNOTATIONS_FILE).exists(), reason="needs fetch_data.py")
@@ -58,15 +64,19 @@ def test_stream_replays_a_cached_run(tmp_path: Path, monkeypatch: pytest.MonkeyP
     monkeypatch.setattr(server, "PROJECTIONS", tmp_path)
     cached = {
         "chunks": [chunk(0, 100).model_dump(), chunk(100, 200).model_dump()],
-        "ghosts": [[100, rows(101, 201)]],
+        "checkpoints": [[0, 4], [100, 0]],
+        "ghosts": [[0, rows(1, 101)], [100, rows(101, 201)]],
     }
     (tmp_path / f"{server.Settings().key}.json").write_text(json.dumps(cached))
     with TestClient(server.app) as client, client.websocket_connect("/stream") as ws:
-        kinds = [json.loads(ws.receive_text()) for _ in range(6)]
-    assert [k["type"] for k in kinds] == ["hello", "chunk", "chunk", "ghost", "match", "status"]
+        kinds = [json.loads(ws.receive_text()) for _ in range(9)]
+    assert [k["type"] for k in kinds] == [
+        "hello", "chunk", "chunk", "checkpoint", "checkpoint", "ghost", "ghost", "match", "status"
+    ]  # fmt: skip
     assert kinds[0]["n_neurons"] == 138_639
-    assert (kinds[4]["compared_ms"], kinds[4]["matched_ms"]) == (100, 100)
-    assert kinds[5]["cached"] is True and kinds[5]["computing"] is False
+    assert [o["id"] for o in kinds[0]["knowledge"]] == [s.id for s in SETTINGS]
+    assert (kinds[7]["compared_ms"], kinds[7]["matched_ms"]) == (200, 200)
+    assert kinds[8]["cached"] is True and kinds[8]["computing"] is False
 
 
 # --- Fixes from the review in issue #14 ---
@@ -77,7 +87,7 @@ def test_match_is_counted_per_second_for_the_playhead() -> None:  # B7
     history.add_chunk(chunk(0, 100))
     history.add_ghost(0, rows(1, 101))
     match = history.match()
-    assert match.by_second == [(0, 100, 100)]
+    assert match.by_second == [(0, 100, 100, 100)]
     assert history.frontier_ms == 100
 
 
@@ -102,8 +112,8 @@ def test_crashed_worker_is_reported_not_waited_on() -> None:  # B4
             raise queue_module.Empty
 
     run = server.Run(settings=server.Settings(), hello=None)  # type: ignore[arg-type]
-    dead = SimpleNamespace(name="ghost", exitcode=1)
-    asyncio.run(asyncio.wait_for(server.pump(run, Empty(), None, [dead], Path("/nonexistent")), 5))
+    crashed = SimpleNamespace(out=Empty(), dead=lambda: ["ghost"], send=lambda job: None)
+    asyncio.run(asyncio.wait_for(server.pump(run, crashed), 5))
     assert run.error is not None and "ghost" in run.error
     assert run.computing is False
 

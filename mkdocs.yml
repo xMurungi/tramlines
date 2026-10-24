@@ -90,6 +90,7 @@ nav:
       - decisions/0039-result-2-null-brain.md
       - decisions/0040-proposal-backward-horizon.md
       - decisions/0041-result-4-backward-horizon.md
+      - decisions/0042-knowledge-slider.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
