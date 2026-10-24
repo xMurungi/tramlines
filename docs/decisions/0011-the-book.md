@@ -1,6 +1,6 @@
 # 0011 — The repository ships The Book
 
-- Status: Locked
+- Status: Superseded by [0044](0044-book-retired.md) (owner, 2026-10-24)
 - Date: 2026-10-22
 - Phase: 0
 - Decider: Owner

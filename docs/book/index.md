@@ -1,5 +1,7 @@
 # Tramlines: Building a Machine That Sees the Future
 
+> **Retired (2026-10-24, [ADR-0044](../decisions/0044-book-retired.md)).** These chapters are kept as learning notes and stay tested; no new chapters will be written. To learn by rebuilding the project, see [Rebuild it with an AI assistant](../rebuild-with-ai.md).
+
 You are going to build a copy of a fly's brain, put it in a small world, and then build a second copy that runs ahead and shows the first one its future. You do not need to know how to code. You will by the end.
 
 The project is not simplified for you. The path is made gentle. Every chapter ends with something real running on your own computer, and every program in this book is run automatically, so if a chapter says a program prints something, it does.
