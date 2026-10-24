@@ -3,6 +3,7 @@
 import math
 
 import numpy as np
+import pytest
 import torch
 
 from tramlines.brain.connectome import from_arrays
@@ -77,3 +78,13 @@ def test_injected_spike_behaves_like_a_natural_one() -> None:
     injected.inject_spike(0)  # the same spike, put in by hand
     assert natural.state.fingerprint() == injected.state.fingerprint()
     assert natural.run(100).fingerprint() == injected.run(100).fingerprint()
+
+
+def test_an_extra_spike_is_refused_when_the_neuron_just_fired() -> None:
+    # Input neurons have no refractory period, so only this check stops a no-op.
+    brain = chain()
+    brain.state.v_mV[0] = -40.0  # neuron 0 (an input) fires at step 0
+    brain.run(1)
+    assert int(brain.state.last_spike_step[0]) == 0
+    with pytest.raises(ValueError, match="already fired"):
+        brain.inject_spike(0)
