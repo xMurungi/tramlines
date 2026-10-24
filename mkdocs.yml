@@ -31,6 +31,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Owner decisions: owner-decisions.md
+  - What remains: remaining-and-suggestions.md
   - Sources and access: sources-and-access.md
   - Honesty: honesty.md
   - The Book:
@@ -88,6 +89,7 @@ nav:
       - decisions/0038-result-1-second-pass.md
       - decisions/0039-result-2-null-brain.md
       - decisions/0040-proposal-backward-horizon.md
+      - decisions/0041-result-4-backward-horizon.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md

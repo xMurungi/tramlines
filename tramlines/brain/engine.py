@@ -154,13 +154,19 @@ class Brain:
 
         Exactly what a natural spike leaves behind: it is reset, it starts its
         refractory period, and its spike travels to its targets after the usual delay.
-        Refuses a neuron that is already refractory, which could not have fired.
+        Refuses a neuron that is already refractory, which could not have fired, and
+        one that fired at that very step: input neurons have no refractory period
+        (ADR-0014), so without this check the "extra" spike would silently change
+        nothing (found in Result 4, ADR-0041).
         """
         s, p = self.state, self.params
         if s.step == 0:
             raise ValueError("run at least one step before injecting a spike")
         just_now = s.step - 1
-        if just_now - int(s.last_spike_step[neuron]) < int(self.refractory_steps[neuron]):
+        last = int(s.last_spike_step[neuron])
+        if last == just_now:
+            raise ValueError(f"neuron {neuron} already fired at this step; nothing to add")
+        if just_now - last < int(self.refractory_steps[neuron]):
             raise ValueError(f"neuron {neuron} is refractory and cannot fire")
         s.v_mV[neuron] = p.v_reset_mV
         s.g_mV[neuron] = 0.0

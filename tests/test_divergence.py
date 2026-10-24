@@ -4,7 +4,13 @@ import torch
 from _scenarios import timeline_small
 
 from tramlines.brain.engine import SpikeRecord
-from tramlines.timeline.divergence import first_divergence_ms, path_distance_mm, spike_differences
+from tramlines.timeline.divergence import (
+    brain_difference,
+    first_divergence_ms,
+    path_distance_mm,
+    spike_differences,
+)
+from tramlines.timeline.perturb import Knowledge, blur
 from tramlines.timeline.timeline import Pose
 
 
@@ -36,3 +42,24 @@ def test_run_recording_matches_plain_run() -> None:
     assert poses == plain.run(50)
     assert recorded.fingerprint() == plain.fingerprint()
     assert spikes.neurons.numel() > 0
+
+
+def test_brain_difference_sees_voltages_spikes_and_nothing_else() -> None:
+    from _scenarios import small
+
+    brain = small().brain(0)
+    brain.set_input_rates(150.0)
+    brain.run(400)
+    twin = brain.fork()
+    same = brain_difference(brain, twin)
+    assert same.discrete_equal and same.max_dv_mV == 0.0 and same.below(1e-300)
+
+    blur(twin.state, Knowledge("voltage", 1e-6, seed=1))
+    blurred = brain_difference(brain, twin)
+    assert blurred.discrete_equal and 0 < blurred.max_dv_mV < 1e-4
+    assert blurred.below(1e-3) and not blurred.below(1e-9)
+
+    other = brain.fork()
+    quiet = next(int(n) for n in range(400) if other.state.last_spike_step[n] < 0)
+    other.inject_spike(quiet)
+    assert not brain_difference(brain, other).discrete_equal
