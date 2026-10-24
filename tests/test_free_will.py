@@ -1,4 +1,4 @@
-"""The free-will fan: aiming, measuring, the ghost worker and the server's bookkeeping (ADR-XXXX).
+"""The free-will fan: aiming, measuring, the ghost worker and the server's bookkeeping (ADR-0046).
 
 Everything runs in this process on the small 400-neuron network (tests/_scenarios.py), so
 nothing here needs the FlyWire data or a second brain process.

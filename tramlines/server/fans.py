@@ -1,4 +1,4 @@
-"""What the server remembers about free-will fans, and when free will is offered (ADR-XXXX).
+"""What the server remembers about free-will fans, and when free will is offered (ADR-0046).
 
 Pure bookkeeping, no processes or sockets, so it can be tested directly. The fans
 themselves are computed by the ghost process (`tramlines.server.workers`) with

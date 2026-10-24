@@ -1,4 +1,4 @@
-# XXXX — The free-will fan: one moment, eight futures, one aimed spike apart
+# 0046 — The free-will fan: one moment, eight futures, one aimed spike apart
 
 - Status: Accepted (delegated)
 - Date: 2026-10-24

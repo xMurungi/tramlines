@@ -11,7 +11,7 @@ computed on demand by the same ghost process from the run's saved checkpoints
 (kept in `data/projections/<key>_checkpoints/`, about 6 MB per simulated second
 of the full brain) and cached in their own file, keyed by the setting too.
 
-At decision moments a viewer can ask for free will (ADR-XXXX): the same ghost process
+At decision moments a viewer can ask for free will (ADR-0046): the same ghost process
 forks the moment into 8 futures, each one aimed extra spike apart, and measures how
 they diverge. Each fan is cached in its own file, keyed by its moment and its rules.
 """
@@ -390,7 +390,7 @@ def _track_from_json(run: Run, knowledge: str, saved: dict[str, Any]) -> None:
 
 
 def fan_path(settings: Settings, at_ms: int) -> Path:
-    """One file per fan, keyed by the run, the moment and the fan's own rules (ADR-XXXX)."""
+    """One file per fan, keyed by the run, the moment and the fan's own rules (ADR-0046)."""
     return PROJECTIONS / f"{settings.key}_fan-t{at_ms:07d}-{fan_key()}.json"
 
 

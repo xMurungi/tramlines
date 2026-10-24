@@ -20,7 +20,7 @@ let playing = false;
 let last = performance.now();
 let knowledge = query.get("knowledge") ?? CONTROL; // the setting being watched (ADR-0042)
 let stopsFor: KnowledgeOption[] | null = null; // the options the stops were built from
-let fanAt: number | null = query.has("fan") ? Math.max(1, Number(query.get("fan")) || 1) : null; // ADR-XXXX
+let fanAt: number | null = query.has("fan") ? Math.max(1, Number(query.get("fan")) || 1) : null; // ADR-0046
 let fanDrawn = ""; // what the fan panel was last built from
 
 const wire = connect(
@@ -44,7 +44,7 @@ $("replay").addEventListener("click", () => {
   choose(knowledge);
 });
 
-// Free will (ADR-XXXX): fork the moment on screen into futures one extra spike apart.
+// Free will (ADR-0046): fork the moment on screen into futures one extra spike apart.
 $("free-will").addEventListener("click", () => {
   fanAt = Math.max(1, Math.floor(playhead));
   wire.send({ type: "free_will", at_ms: fanAt });

@@ -4,7 +4,7 @@ One ghost process serves every knowledge setting, one job at a time, so the
 server never runs more than two brain processes (ADR-0032). Pure bookkeeping,
 tested directly.
 
-Order: a free-will fan comes first, the most recently asked first (ADR-XXXX): it is
+Order: a free-will fan comes first, the most recently asked first (ADR-0046): it is
 the one thing a viewer has just pressed a button for. Then the setting a viewer chose
 most recently, starting at the checkpoint behind that viewer's playhead and going
 forward, then wrapping round to earlier moments. The control is chosen at the start,

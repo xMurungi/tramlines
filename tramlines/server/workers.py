@@ -7,7 +7,7 @@
   file. With the control setting it starts from the checkpoint exactly, so it is
   always right; with any other setting it first blurs the brain the way a real
   measurement could fall short (`tramlines.timeline.perturb.blur`, Result 1).
-  It also computes free-will fans (ADR-XXXX): from the checkpoint behind the moment,
+  It also computes free-will fans (ADR-0046): from the checkpoint behind the moment,
   it runs untouched to that moment, forks, gives each branch one aimed extra spike
   (`tramlines.timeline.branches`), and runs them all `horizon_ms` ahead.
 

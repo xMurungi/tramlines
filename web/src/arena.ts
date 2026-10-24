@@ -1,5 +1,5 @@
 // The arena seen from above: the dish, food and bitter, a looming shadow, the fly and its ghost,
-// and the free-will fan (ADR-XXXX).
+// and the free-will fan (ADR-0046).
 
 import { CONTROL, type Fan, type FanBranch, type Ghost, type PoseRow, type Run } from "./model";
 

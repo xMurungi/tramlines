@@ -1,6 +1,6 @@
 // The live wire from the server (ADR-0005): one WebSocket, JSON messages, reconnect on loss.
 // The viewer sends two kinds of message back: which knowledge setting it wants (ADR-0042),
-// and a request for the free-will fan at a moment (ADR-XXXX).
+// and a request for the free-will fan at a moment (ADR-0046).
 
 import type { Choose, FreeWill, Message } from "./model";
 

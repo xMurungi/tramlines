@@ -2,7 +2,7 @@
 
 The server sends everything below except `Choose` and `FreeWill`, the two messages a
 viewer sends: which knowledge setting it wants to watch, and a request for the
-free-will fan at a moment (ADR-XXXX). Ghosts, matches and refusals carry the setting
+free-will fan at a moment (ADR-0046). Ghosts, matches and refusals carry the setting
 they belong to, so a viewer can switch between settings already computed; a fan and
 its branches carry the moment they split from.
 
@@ -197,7 +197,7 @@ class Choose(BaseModel):
         return value
 
 
-# --- Free will (ADR-XXXX) ---
+# --- Free will (ADR-0046) ---
 
 
 class Decisions(BaseModel):

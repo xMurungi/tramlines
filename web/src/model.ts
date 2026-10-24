@@ -1,5 +1,5 @@
 // What the viewer knows about the run, assembled from the server's messages (ADR-0033, ADR-0042,
-// and the free-will fan, ADR-XXXX).
+// and the free-will fan, ADR-0046).
 
 export type PoseRow = [number, number, number, number, boolean, boolean]; // t, x, y, heading, feeding, jumped
 

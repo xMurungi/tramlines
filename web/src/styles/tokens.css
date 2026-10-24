@@ -11,7 +11,7 @@
   --ghost-fly: rgb(232 176 74 / 0.4);
   --ghost-blur: 3px;
   --ghost-off: rgb(196 122 112 / 0.75); /* an imperfect ghost off the fly's path (ADR-0042) */
-  /* The free-will fan's branches (ADR-XXXX): a restrained spectrum in prism order,
+  /* The free-will fan's branches (ADR-0046): a restrained spectrum in prism order,
      OKLCH chroma 0.11 (the least that still reads as a hue), lightness alternating
      0.67 / 0.52 so neighbours separate. Validated on --void with the dataviz checker:
      adjacent pairs pass for colour-blind and normal vision; across all pairs some
