@@ -84,3 +84,7 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 76 | 2026-10-24 | **Adopted: Result 4, the backward horizon** (option 1); CLAUDE.md 1.1, 1.3 and Phase 5 amended | Owner | [0040](0040-proposal-backward-horizon.md) |
 | 77 | 2026-10-24 | Raised standard: Result 4's analysis plan is merged before the study runs (pre-registration), with confidence intervals and an exact-arithmetic check | Delegated (owner asked for higher standards) | [plan](../science/backward-horizon-plan.md) |
 | 78 | 2026-10-24 | Proposed to the owner: realistic connectome errors (decision 22) | Awaiting owner | [owner decisions](../owner-decisions.md) |
+| 79 | 2026-10-24 | Result 4 run as pre-registered: H1–H4 supported (H2 exactly at its threshold), H5 not supported as written (float64 erased rather than froze on the busy test network) | Delegated | [0041](0041-result-4-backward-horizon.md) |
+| 80 | 2026-10-24 | Bug: `inject_spike` accepted an input neuron that had just fired (a no-op extra spike). Now refused; one pair group rerun; ADR-0036 checked, unaffected | Delegated (honesty, L10) | [0041](0041-result-4-backward-horizon.md) |
+| 81 | 2026-10-24 | Exact arithmetic via Python `decimal` (50 digits) instead of mpmath: no new dependency (deviation recorded) | Delegated | [0041](0041-result-4-backward-horizon.md) |
+| 82 | 2026-10-24 | `brain_difference` added to the library with tests; honesty page states Result 4 and its limits | Delegated | [0041](0041-result-4-backward-horizon.md) |

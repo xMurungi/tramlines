@@ -39,6 +39,8 @@ The ghost runs the same code from the same saved state with the same random numb
 
 The ghost is always right because the simulation is deterministic: the same starting state, with the same random seed, always produces the same result, bit for bit. That is a property of this computer program. It is **not** a claim about real flies, and it is not evidence for or against free will. Tramlines is a thought experiment you can touch, not an argument.
 
+The same goes for the past. In this model, small differences in the brain fade within about a second, and a perfect observer of the brain can no longer tell which past happened, unless the difference moved the fly somewhere that feels different ([ADR-0041](decisions/0041-result-4-backward-horizon.md)). This model has no learning or memory, so it is built to forget; real brains store memories in their wiring. Whether the faintest differences vanish or freeze is decided by the computer's rounding, not by the model.
+
 ## Credit
 
 The connectome is the work of hundreds of people. See [citations](science/citations.md).
