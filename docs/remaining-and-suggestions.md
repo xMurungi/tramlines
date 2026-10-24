@@ -28,6 +28,8 @@ The science is about half done; presenting it and writing it up are mostly still
 - The launch clip script (owner approves).
 - **The long-form write-up of the four results**, with data and scripts, after a literature check (London et al. 2010; van Vreeswijk & Sompolinsky 1996; Landauer 1961; work on connectome-constrained models and their robustness).
 
+Before recording the clip: freeze the code, then run `uv run python -m tramlines.server.precompute` (about 4–5 hours) so every slider setting plays instantly (owner decision 25).
+
 ### Phase 7: into the browser (1–2 sessions, if decision 19 is approved)
 Precomputed runs plus a browser player, rather than a live engine (WebGPU has no 64-bit floats).
 

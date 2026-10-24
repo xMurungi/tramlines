@@ -8,9 +8,6 @@ Last updated: 2026-10-24 (session 9). Every choice made so far, in order: [decis
 
 | # | Decision | Recommendation | Blocks | Details |
 |---|---|---|---|---|
-| 23 | **Public wording of the knowledge slider.** The viewer says the control is "copying, not predicting"; the honesty page says imperfect ghosts are imitations of measurement errors inside the model, "one example, not a rate". | Keep: it is accurate and matches ADR-0035. | Nothing; in use. | [ADR-0042](decisions/0042-knowledge-slider.md) |
-| 24 | **Show Result 1's counts beside the slider?** The slider shows one draw of each error; Result 1 shows outcomes vary (e.g. "this error fails 4 of 9 times here"). | Yes: one example without the rate can mislead; showing both is honest and teaches. | The viewer's final form. | [ADR-0042](decisions/0042-knowledge-slider.md), [ADR-0038](decisions/0038-result-1-second-pass.md) |
-| 25 | **Precompute every slider setting for the demo run, or compute on demand?** On demand: ~35 min per setting for the 60 s run, then cached. Precomputed: ~4 h once. | Precompute for the demo (fits decision 19, a link that plays instantly); keep on-demand for exploring. | The demo run. | [ADR-0042](decisions/0042-knowledge-slider.md) |
 | 22 | **How accurate must a connectome be? (a possible follow-up to Result 2.)** Result 2 scrambled wiring at random. Real connectome errors are specific: missed synapses, wrong neurotransmitter predictions, merge and split errors. Measuring what each realistic error does to the model's behaviour (and which behaviours break first; the bitter veto did) is the version of this work a connectome-modelling lab would read. | Consider it after Results 3 and 4, as a proposal ADR first; it needs published error rates for FlyWire and a literature check. | Nothing now. | session 9 |
 | 19 | **Phase 7: precomputed runs plus a browser player**, instead of a live in-browser engine (WebGPU has no float64). | Adopt: a link still beats a video, without the numerics problem. Live in-browser simulation becomes a Future Season. | Phase 7. | [ADR-0035](decisions/0035-proposal-honest-laplaces-demon.md) |
 | 20 | **The Book's scope.** The review suggests parking the "from zero" Book (chapters 0–16, 23–32) as a separate project and finishing the research first. | The builder's view: keep writing chapters for what is built (they are tested and cheap), park the beginner chapters 0–16 until v1.0. | Nothing now. | [ADR-0035](decisions/0035-proposal-honest-laplaces-demon.md) |
@@ -30,6 +27,9 @@ Last updated: 2026-10-24 (session 9). Every choice made so far, in order: [decis
 
 | # | Decision | Answer | Date |
 |---|---|---|---|
+| 23 | Public wording of the knowledge slider | **Keep** ("copying, not predicting"; "one example, not a rate"): accurate, and what ADR-0035 adopted. | 2026-10-24 |
+| 24 | Show Result 1's counts beside the slider | **Yes**: each stop now shows Result 1's "right in n of 9" per moment, so one draw is not mistaken for the rule ([ADR-0042](decisions/0042-knowledge-slider.md), addendum). | 2026-10-24 |
+| 25 | Precompute every slider setting for the demo | **Yes, once the code is frozen**: the command exists (`uv run python -m tramlines.server.precompute`, ~4–5 h); running it now would be thrown away by the next code change, since cached runs are keyed by all of the code. Run it in Phase 6/7. | 2026-10-24 |
 | 21 | A fourth result: the backward horizon | **Adopted**, option 1, and CLAUDE.md amended: "do 1 and change claude.md" ([ADR-0040](decisions/0040-proposal-backward-horizon.md)). | 2026-10-24 |
 | — | Go for Phase 1 | Go. | 2026-10-22 |
 | — | Go for Phase 2 | Go; other decisions deferred until later. | 2026-10-22 |

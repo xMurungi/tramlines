@@ -13,8 +13,11 @@ observation, then one missed spike. Kinds are not ranked against each other.
 
 from __future__ import annotations
 
+import csv
+import functools
 import hashlib
 from dataclasses import dataclass
+from pathlib import Path
 
 from tramlines.timeline.perturb import Knowledge
 
@@ -22,6 +25,20 @@ CONTROL = "control"
 # "Right" means the ghost's path is within this distance of the live fly's, as in
 # Result 1 (scripts/horizon_study.py, EPSILON_MM; ADR-0037).
 RIGHT_WITHIN_MM = 0.1
+# Result 1's second pass (ADR-0038): how often each error kept the ghost right, shown
+# beside the slider, because the ghost on screen is one draw (owner decision 24).
+RESULT1_CSV = Path(__file__).resolve().parents[2] / "docs" / "assets" / "horizon_v2.csv"
+RESULT1_HORIZON_MS = 3_000
+RESULT1_MOMENTS = ("walking", "laced food", "shadow")
+
+
+@dataclass(frozen=True)
+class Evidence:
+    """In Result 1, at one moment of the decision dish: ghosts right for all 3 s, of all made."""
+
+    moment: str
+    right: int
+    total: int
 
 
 @dataclass(frozen=True)
@@ -42,6 +59,19 @@ class Setting:
         return self.knowledge is not None and self.knowledge.kind == "drop_spike"
 
     @property
+    def evidence(self) -> tuple[Evidence, ...]:
+        """Result 1's counts for this error, one per moment (empty if the data is absent)."""
+        label = "everything (control)" if self.knowledge is None else self.knowledge.describe()
+        rows = [r for r in _result1_rows() if r["ghost_knows"] == label]
+        out = []
+        for moment in RESULT1_MOMENTS:
+            mine = [r for r in rows if r["moment"] == moment]
+            if mine:
+                right = sum(int(r["path_stays_right_ms"]) >= RESULT1_HORIZON_MS for r in mine)
+                out.append(Evidence(moment, right, len(mine)))
+        return tuple(out)
+
+    @property
     def key(self) -> str:
         """Part of the cache key: changes with the error's kind, size or random draw."""
         digest = hashlib.sha256(repr(self.knowledge).encode()).hexdigest()[:8]
@@ -60,3 +90,11 @@ SETTINGS: tuple[Setting, ...] = (
     Setting("drop-spike", "1 spike missed", Knowledge("drop_spike")),
 )
 BY_ID: dict[str, Setting] = {s.id: s for s in SETTINGS}
+
+
+@functools.cache
+def _result1_rows() -> tuple[dict[str, str], ...]:
+    if not RESULT1_CSV.exists():
+        return ()
+    with RESULT1_CSV.open() as f:
+        return tuple(csv.DictReader(f))

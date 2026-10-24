@@ -5,7 +5,15 @@ export type PoseRow = [number, number, number, number, boolean, boolean]; // t, 
 export interface Patch { x_mm: number; y_mm: number; radius_mm: number; kind: "food" | "bitter"; strength: number }
 export interface Loom { start_ms: number; duration_ms: number; direction_rad: number; strength: number }
 
-export interface KnowledgeOption { id: string; label: string; description: string; needs_spike_in_transit: boolean }
+/** Result 1 at one moment of this dish: ghosts right for all 3 s, of all made (ADR-0038). */
+export interface Result1Count { moment: string; right: number; total: number }
+export interface KnowledgeOption {
+  id: string;
+  label: string;
+  description: string;
+  needs_spike_in_transit: boolean;
+  result1: Result1Count[]; // owner decision 24: the rate beside the one example
+}
 
 export const CONTROL = "control";
 
