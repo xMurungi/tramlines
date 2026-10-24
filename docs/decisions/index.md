@@ -51,3 +51,4 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0045](0045-automated-checks.md) | Automated checks on GitHub | Accepted (owner) | 5 |
 | [0046](0046-free-will-fan.md) | The free-will fan: one moment, eight futures, one aimed spike apart | Accepted (delegated) | 5 |
 | [0047](0047-proposal-connectome-errors.md) | Proposal: how accurate must a connectome be? (realistic connectome errors) | **Proposed — awaiting owner** | 5 |
+| [0048](0048-result-3-perturbation-atlas.md) | Result 3: one spike rarely changes what the fly does, and when it does, our decoder matters | Accepted (delegated) | 5 |
