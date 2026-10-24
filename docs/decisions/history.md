@@ -97,3 +97,6 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 89 | 2026-10-24 | Owner: keep the slider's wording (decision 23) | Owner | [0042](0042-knowledge-slider.md) |
 | 90 | 2026-10-24 | Owner: show Result 1's counts beside the slider; built and tested (decision 24) | Owner | [0042](0042-knowledge-slider.md) |
 | 91 | 2026-10-24 | Owner: precompute the demo's settings; command built, to run once the code is frozen (decision 25) | Owner; timing delegated | [0042](0042-knowledge-slider.md) |
+| 92 | 2026-10-24 | Licence: MIT (code), CC BY 4.0 (docs, figures, result data); copyright "xMurungi and Tramlines contributors" | Owner delegated | [0043](0043-licence.md) |
+| 93 | 2026-10-24 | **The Book retired** (L11 superseded); chapters kept as learning notes; a rebuild-with-AI guide added | Owner | [0044](0044-book-retired.md) |
+| 94 | 2026-10-24 | Automated checks on GitHub: every PR (lint, types, full tests with data, docs, viewer build), the determinism gate weekly | Owner | [0045](0045-automated-checks.md) |

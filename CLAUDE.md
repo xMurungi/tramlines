@@ -14,7 +14,7 @@ Owner and sole authority: **xMurungi** (referred to below as "the owner").
 2. Check `docs/journal/` (latest entry) and `ROADMAP.md` to see where the last session stopped.
 3. Work only on the current phase (section 10). Do not jump ahead.
 4. Every non-trivial choice you make becomes an ADR (section 5).
-5. Every piece of code you write gets its chapter (or chapter update) in The Book (section 12).
+5. ~~Every piece of code you write gets its chapter in The Book.~~ Retired 2026-10-24 (ADR-0044): explain code in its ADR (with its "For learners" section) and its docstrings.
 6. End every session with a journal entry (section 13.4).
 
 If anything in this file conflicts with a request in a session, **stop and ask the owner**. Do not resolve the conflict yourself.
@@ -63,7 +63,7 @@ Reframed by ADR-0035 (owner-adopted 2026-10-23). The original list is preserved 
 - [ ] Free will produces a fan of ≥ 8 aimed futures with divergence measures.
 - [ ] A web viewer with the control ghost, the knowledge slider, the fan and the aesthetic in section 9.
 - [ ] A long-form write-up (or preprint) with the data and scripts, after a literature check.
-- [ ] The Book (scope under review: owner decision).
+- [x] ~~The Book~~ retired by the owner (ADR-0044): the repository is the learning path; see `docs/rebuild-with-ai.md`.
 - [ ] Every decision recorded as an ADR.
 - [ ] An honesty page (section 4) linked from the main screen.
 - [ ] A 30–60 second launch clip.
@@ -115,7 +115,7 @@ Each of these has an ADR in `docs/decisions/` created during Phase 0. Write them
 | L8 | Forking shares the **immutable weight matrix**; a fork copies only state (voltages, conductances, refractory timers, delay buffer, RNG state, world state). | Makes many futures cheap (a few MB each). |
 | L9 | Phase 2 target: run the whole thing **in the visitor's browser** (WebGPU or JS), no server needed. | A link beats a video. |
 | L10 | **Honesty is a feature.** The project states clearly what the model is and is not (section 4). | Credibility with scientists. Integrity. |
-| L11 | The repository ships **The Book**: a from-zero learning path that builds this exact project (section 12). | The owner's requirement: someone who has never written Hello World can follow it. |
+| L11 | ~~The repository ships **The Book**: a from-zero learning path that builds this exact project (section 12).~~ **Superseded by ADR-0044 (owner, 2026-10-24):** the Book is retired; existing chapters stay as learning notes. | An AI assistant pointed at the repository can guide a rebuild for each reader. |
 | L12 | The development environment uses **uv** for Python, **Vite** for the frontend, **MkDocs Material** for docs, **pytest** for tests, **ruff** for lint/format, **mypy** for types, **git** for history. | Modern, fast, simple to install. |
 
 ---
@@ -163,13 +163,13 @@ What we chose, in one sentence, then details.
 What this makes easy, what it makes hard, what we must watch for.
 
 ## For learners
-2–5 sentences explaining this decision to a beginner reading The Book. Link the chapter where it matters.
+2–5 sentences explaining this decision to a beginner.
 ```
 
 ### 5.2 Rules
 
 - The `For learners` section is mandatory. Decisions are teaching material.
-- Link every ADR from the relevant Book chapter, and every chapter from relevant ADRs.
+- (Linking ADRs to Book chapters retired with the Book, ADR-0044; existing chapters keep their links.)
 - Keep `docs/decisions/index.md` updated as a table: number, title, status, phase.
 
 ---
@@ -354,7 +354,7 @@ Sacred, silent, golden, inevitable. A cathedral of computation. The viewer shoul
 
 ## 10. The roadmap (phases, in order, with gates)
 
-Never start phase N+1 until phase N's gate passes and the owner has said "go" in a session. Each phase ends with: tests green, ADRs written, Book chapters written and tested, journal entry.
+Never start phase N+1 until phase N's gate passes and the owner has said "go" in a session. Each phase ends with: tests green, ADRs written, journal entry. (Book chapters: retired, ADR-0044.)
 
 ### Phase 0 — Foundations
 - Create repo structure (section 11), `pyproject.toml` with uv, ruff, mypy, pytest, MkDocs site skeleton, Vite + TypeScript skeleton.
@@ -480,7 +480,9 @@ tramlines/
 
 ---
 
-## 12. The Book: "Tramlines: Building a Machine That Sees the Future"
+## 12. The Book: "Tramlines: Building a Machine That Sees the Future" (retired)
+
+> **Retired by the owner on 2026-10-24 (ADR-0044).** Kept as history. The chapters already written stay as learning notes and their tests keep running while they pass; no new chapters are written. The learning path is now the repository itself; see `docs/rebuild-with-ai.md`.
 
 ### 12.1 Its promise
 
@@ -707,4 +709,4 @@ Verify each citation's exact authors, title, venue and year before publishing:
 
 ---
 
-*Last edited by: Claude, at the owner's request (2026-10-24: Result 4 added, ADR-0040). Changes to this file are Reserved: propose them as an ADR.*
+*Last edited by: Claude, at the owner's request (2026-10-24: Result 4 added, ADR-0040; the Book retired, ADR-0044; licence chosen, ADR-0043). Changes to this file are Reserved: propose them as an ADR.*

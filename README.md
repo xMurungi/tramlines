@@ -29,4 +29,4 @@ The connectome is the work of the FlyWire consortium (Dorkenwald et al. 2024, *N
 
 ## Licence
 
-Not yet chosen.
+Code: [MIT](LICENSE). Documentation, figures and result data: [CC BY 4.0](LICENSE-docs.md). The FlyWire data is not included and keeps its own licence (CC BY 4.0); see [LICENSE-docs.md](LICENSE-docs.md) and [docs/decisions/0043-licence.md](docs/decisions/0043-licence.md).

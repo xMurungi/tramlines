@@ -1,0 +1,87 @@
+# Automated checks on GitHub (owner decision 12, ADR-0045): the same checks every
+# session runs by hand, on every pull request and every push to develop, plus the
+# full 10-repeat determinism gate weekly and on demand.
+name: checks
+
+on:
+  pull_request:
+  push:
+    branches: [develop, main]
+  schedule:
+    - cron: "0 3 * * 1"  # Mondays 03:00 UTC: the determinism gate
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: lint, types, tests, docs
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --locked
+      - name: FlyWire v783 data (cached; checksums verified by fetch_data.py)
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/Completeness_783.csv
+            data/Connectivity_783.parquet
+            data/neuron_annotations_v2.1.0.tsv
+          key: flywire-v783-${{ hashFiles('scripts/fetch_data.py') }}
+      - run: uv run python scripts/fetch_data.py
+      - run: uv run ruff format --check .
+      - run: uv run ruff check .
+      - run: uv run mypy --strict tramlines
+      - run: uv run pytest -q
+      - run: uv run mkdocs build --strict
+
+  web:
+    name: viewer build (TypeScript strict)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run build
+
+  determinism-gate:
+    name: determinism gate (10 repeats)
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --locked
+      - uses: actions/cache@v4
+        with:
+          path: |
+            data/Completeness_783.csv
+            data/Connectivity_783.parquet
+            data/neuron_annotations_v2.1.0.tsv
+          key: flywire-v783-${{ hashFiles('scripts/fetch_data.py') }}
+      - run: uv run python scripts/fetch_data.py
+      - run: uv run pytest -q tests/test_determinism.py
+        env:
+          TRAMLINES_DETERMINISM_REPEATS: "10"

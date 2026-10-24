@@ -4,6 +4,8 @@ version = "0.0.1"
 description = "A whole-brain emulation of the adult fruit fly, with a ghost that sees its future."
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
+license = "MIT"
+license-files = ["LICENSE", "LICENSE-docs.md"]
 authors = [{ name = "xMurungi" }]
 dependencies = [
     "fastapi>=0.161.1",

@@ -14,7 +14,7 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0008](0008-fork-shares-weights.md) | A fork shares the weight matrix and copies only state | Locked | 0 |
 | [0009](0009-browser-target-phase-2.md) | The long-term target is running entirely in the visitor's browser | Locked | 0 |
 | [0010](0010-honesty-is-a-feature.md) | Honesty is a feature | Locked | 0 |
-| [0011](0011-the-book.md) | The repository ships The Book | Locked | 0 |
+| [0011](0011-the-book.md) | The repository ships The Book | Superseded by 0044 | 0 |
 | [0012](0012-development-tooling.md) | Development tooling: uv, Vite, MkDocs Material, pytest, ruff, mypy, git | Locked | 0 |
 | [0013](0013-data-files-and-source.md) | The v783 files are fetched from the Shiu repository at a pinned commit | Accepted (delegated) | 0 |
 | [0014](0014-challenge-reference-model-details.md) | Challenge: the reference code differs from CLAUDE.md 7.2 in five details | Challenge | 0 |
@@ -46,3 +46,6 @@ Every decision in Tramlines is written down as an Architecture Decision Record (
 | [0040](0040-proposal-backward-horizon.md) | Proposal: the backward horizon (can the demon recover the past?) | **Accepted: owner adopted** | 5 |
 | [0041](0041-result-4-backward-horizon.md) | Result 4: the brain forgets, the body remembers, and the body can make the brain remember | Accepted (delegated) | 5 |
 | [0042](0042-knowledge-slider.md) | The knowledge slider: the control, and ghosts that know less | Accepted (delegated) | 5 |
+| [0043](0043-licence.md) | Licence: MIT for the code, CC BY 4.0 for the docs, figures and results | Accepted (owner delegated) | 5 |
+| [0044](0044-book-retired.md) | The Book is retired: the repository is the learning path | **Accepted: owner** (supersedes 0011) | 5 |
+| [0045](0045-automated-checks.md) | Automated checks on GitHub | Accepted (owner) | 5 |
