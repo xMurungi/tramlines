@@ -74,3 +74,11 @@ Constraints: keep ADR-0033 / [ADR-0042](0042-knowledge-slider.md)'s architecture
 
 ## For learners
 A deterministic program has one future. To see others, we copy the present eight times and change each copy by exactly one spike, in a neuron the world is stimulating right now, because that is where this model lets one spike matter. Then we run all nine futures and measure how far apart they drift: where the flies go, how many spikes differ, and whether each brain eventually forgets the extra spike. Often the brain forgets and the body does not. The screen names every neuron we touched, because a "choice" we injected ourselves should never be dressed up as the fly's.
+
+## Review (main session, 2026-10-24)
+- **Where it is offered:** kept wide (any active taste or shadow). Offering it only at the calibrated close calls would show only the dramatic splits; offering it wherever a sense is active also shows the fans that do not split ("many brain futures, one behaviour", ADR-0035). To revisit when Result 3's atlas says where spikes matter.
+- **Queue:** one job per fan, kept; the demo's waiting goes away with the precompute (owner decision 25).
+- **Colours:** kept as validated; distinguishability, numbered, outranks an exact pastel.
+- **Public wording:** owner decision 26.
+- **Not yet measured:** the cost of one fan on the full brain (estimated 5–6 minutes); the full-brain tests ran on GitHub, and the 10-repeat determinism gate was run there for this PR.
+
