@@ -191,6 +191,11 @@ So "a closed-loop, embodied whole-brain fly" is established, even pre-registered
 
 **Verified by the main session:** Monteforte & Wolf, "Dynamic flux tubes form reservoirs of stability in neuronal circuits", *Phys. Rev. X* 2, 041007 (2012): stability to infinitesimal perturbations coexists with exponential separation after single-spike perturbations in LIF networks (from the arXiv version, [1102.5428](https://www.arxiv.org/abs/1102.5428)). London et al., *Nature* 466, 123–127 (2010): about 28 extra spikes in the postsynaptic targets after one extra spike (from the abstract).
 
+### A model reproduction of a known experiment (added 2026-10-24)
+- **Kallman, B. R., Kim, H. & Scott, K. 2015.** "Excitation and inhibition onto central courtship neurons biases *Drosophila* mate choice." *eLife* 4, e11188. [doi:10.7554/eLife.11188](https://doi.org/10.7554/eLife.11188). In real male flies, GABAergic mAL neurons inhibit the P1 courtship command neurons; female pheromones excite P1 (via PPN1) and also drive mAL, male pheromones drive only mAL; silencing mAL causes male–male courtship.
+- **[offpolicyinc/fruitless](https://github.com/offpolicyinc/fruitless)** (public code and a widely shared post, September 2026; not peer-reviewed): blocked mAL output in a 166,606-neuron fly model and measured 8 candidate P1 neurons; responses to male cues rose from 0 to 1–5 spikes, to female cues from 8–11 to 18–20, with female preference still dominant (its author: "sexually frustrated" rather than bisexual).
+- *For our claims.* A close neighbour in method: testing a connectome model against a known experimental result, as Shiu et al. did, which is the kind of validation our behaviour-level results lack. Its brain (166,606 neurons) is not FlyWire's female brain (138,639); P1 neurons are male-specific, so the experiment cannot be repeated on our model as it stands (a male brain is the "Reverie" season, CLAUDE.md 15).
+
 ## 6. Forgetting, memory and irreversibility
 *For Result 4 (the backward horizon).*
 
