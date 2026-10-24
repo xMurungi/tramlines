@@ -29,7 +29,7 @@ Every link between the brain and the 2D world is listed in [ADR-0028](decisions/
 - **Movement is our translation.** We read a handful of descending neurons and turn their firing into speed, turning, an escape jump and feeding, using constants we chose.
 - **It cannot find food.** This model has no smell or sight of food, so the fly only finds food by walking onto it. In our demonstration runs we chose a starting point whose path crosses the food.
 
-What *does* come from the measured wiring: sugar driving the feeding motor neuron, bitter suppressing it, a looming shadow driving the escape neuron on the correct side, and how fast the walking-command neurons answer the drive.
+What *does* come from the measured wiring: sugar driving the feeding motor neuron, bitter suppressing it, a looming shadow driving the escape neuron on the correct side, and how fast the walking-command neurons answer the drive. We tested this: with every neuron, connection count and synapse weight kept but the connections scrambled (a "null brain"), the fly does none of these things; its senses still excite a few dozen neurons, but the signal does not travel on to the neurons that move the body ([ADR-0039](decisions/0039-result-2-null-brain.md)). Our readouts were chosen on the real brain, which is why we also checked without them.
 
 ## Why the ghost is always right, and what that does and does not show
 

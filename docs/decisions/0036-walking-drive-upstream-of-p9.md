@@ -48,7 +48,7 @@ Option 1. `senses.py`: walking drive = the four CB2777 neurons at 150 Hz. `decod
 | On laced food, 1.2 s | 16/16 | **7/16**, two seconds later | 8/16 | 0/16 |
 | Shadow growing, 3.35 s | 15/16 | **14/16** | 0/16 | **16/16** |
 
-At the shadow, every brain returns exactly to the untouched brain's state within 0.5 s, yet 14 of 16 flies have escaped, and the escapes fall into only four distinct timings (3.441, 3.442, 3.452, 3.453 s). The brains forget the spike; the bodies do not. Many brain futures, few behaviours.
+At the shadow, every brain fires exactly the same spikes as the untouched brain within 0.5 s (correction, 2026-10-24: this was measured on spikes only; whether the full state, voltages included, becomes identical was not checked), yet 14 of 16 flies have escaped, and the escapes fall into only four distinct timings (3.441, 3.442, 3.452, 3.453 s). The brains forget the spike; the bodies do not. Many brain futures, few behaviours.
 
 ## Consequences
 - Speed now belongs to the brain; the honesty page says so, and that walking itself is still our drive.
