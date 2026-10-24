@@ -58,7 +58,7 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 - [x] Result 2: null brain (degree-preserving shuffle), partial rewiring and a decoder-free check (ADR-0039)
 - [ ] Result 3: perturbation atlas + decoder robustness
 - [x] Result 4: the backward horizon, pre-registered (ADR-0040, ADR-0041)
-- [ ] Viewer: knowledge slider and control ghost labelled **done** (ADR-0042); the aimed free-will fan remains
+- [x] Viewer: knowledge slider and control ghost labelled (ADR-0042); the aimed free-will fan (ADR-0046)
 - [ ] **Gate:** a stranger understands it in 30 s
 ## Phase 6: Polish and launch prep
 ## Phase 7: Into the browser
