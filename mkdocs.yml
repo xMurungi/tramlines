@@ -31,6 +31,7 @@ markdown_extensions:
 nav:
   - Home: index.md
   - The project at a glance: overview.md
+  - Write-up (draft): writeup/draft.md
   - Owner decisions: owner-decisions.md
   - What remains: remaining-and-suggestions.md
   - Rebuild it with an AI assistant: rebuild-with-ai.md
