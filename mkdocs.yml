@@ -102,6 +102,7 @@ nav:
       - science/reference-model-notes.md
       - science/citations.md
       - science/literature-notes.md
+      - science/compute.md
       - science/connectome-error-rates.md
       - science/null-brain-predictions.md
       - science/backward-horizon-predictions.md
