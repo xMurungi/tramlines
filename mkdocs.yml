@@ -87,10 +87,12 @@ nav:
       - decisions/0037-result-1-predictability-horizon.md
       - decisions/0038-result-1-second-pass.md
       - decisions/0039-result-2-null-brain.md
+      - decisions/0040-proposal-backward-horizon.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
       - science/null-brain-predictions.md
+      - science/backward-horizon-predictions.md
   - Architecture: architecture/index.md
   - Journal:
       - journal/2026-10-24-session-9.md
