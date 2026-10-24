@@ -1,8 +1,10 @@
 """Messages between the server and the viewer, one JSON object each (ADR-0033, ADR-0042).
 
-The server sends everything below except `Choose`, the one message a viewer sends:
-which knowledge setting it wants to watch. Ghosts, matches and refusals carry the
-setting they belong to, so a viewer can switch between settings already computed.
+The server sends everything below except `Choose` and `FreeWill`, the two messages a
+viewer sends: which knowledge setting it wants to watch, and a request for the
+free-will fan at a moment (ADR-XXXX). Ghosts, matches and refusals carry the setting
+they belong to, so a viewer can switch between settings already computed; a fan and
+its branches carry the moment they split from.
 
 Poses travel as compact rows `[time_ms, x_mm, y_mm, heading_rad, feeding, jumped]`;
 neuron indices as base64 little-endian uint32 arrays. Both keep messages small
@@ -12,7 +14,7 @@ enough to stream a whole brain's activity.
 from __future__ import annotations
 
 import base64
-from typing import Literal
+from typing import Annotated, Literal
 
 import numpy as np
 from pydantic import BaseModel, Field, field_validator
@@ -177,6 +179,7 @@ class Status(BaseModel):
     cached: bool  # the live timeline was replayed from disk
     error: str | None = None  # a worker stopped unexpectedly (issue #14, B4)
     to_compute: dict[str, int] = {}  # chosen setting -> ghosts still to compute for it
+    fans_to_compute: int = 0  # free-will fans asked for and not yet finished
 
 
 class Choose(BaseModel):
@@ -192,3 +195,84 @@ class Choose(BaseModel):
         if value not in BY_ID:
             raise ValueError(f"unknown knowledge setting: {value!r}")
         return value
+
+
+# --- Free will (ADR-XXXX) ---
+
+
+class Decisions(BaseModel):
+    """The moments at which free will is offered: the world is asking the brain something.
+
+    `(first_ms, last_ms, what)`: the fly is on food, bitter or laced food, or a shadow is
+    growing (ADR-0031, ADR-0032). Elsewhere one spike almost never changes anything
+    (ADR-0029), and the viewer says so instead of offering it.
+    """
+
+    type: Literal["decisions"] = "decisions"
+    moments: list[tuple[int, int, str]] = []
+
+
+class AimedSpike(BaseModel):
+    neuron: int  # engine index
+    label: str  # the sense it belongs to, its cell type and FlyWire root ID
+
+
+class SpikeRefused(AimedSpike):
+    """A neuron the engine would not make fire (refractory, or it just fired, ADR-0041)."""
+
+    reason: str
+
+
+class Fan(BaseModel):
+    """One free-will fan: the moment, where each extra spike went, and the untouched future.
+
+    `base_compared_ms` / `base_matched_ms` check the untouched future, computed by the
+    ghost process, against the live fly, bit for bit: they must be equal (ADR-0033).
+    """
+
+    type: Literal["fan"] = "fan"
+    at_ms: int  # the moment the spikes are added (the playhead when asked)
+    checkpoint_ms: int  # the saved moment it was computed from
+    decision: str  # what the world is asking at that moment
+    horizon_ms: int
+    wanted: int  # branches asked for (owner decision 9: 8)
+    driven: int | None = None  # neurons receiving input then: the pool spikes are aimed at
+    aimed: list[AimedSpike] = []  # one per branch, in branch order
+    refused: list[SpikeRefused] = []  # tried and refused, then replaced by the next candidate
+    base: list[PoseRow] = []  # the untouched future, every 10th pose
+    base_compared_ms: int = 0
+    base_matched_ms: int = 0
+    done: bool = False
+    not_made: str | None = None  # why no fan could be made, said plainly
+
+
+class FanBranch(BaseModel):
+    """One future of a fan, measured against the untouched one."""
+
+    type: Literal["branch"] = "branch"
+    at_ms: int  # the fan it belongs to
+    index: int  # 0-based; shown as index + 1 beside its colour, so colour is never alone
+    neuron: int
+    label: str
+    poses: list[PoseRow]  # every 10th pose
+    distance_mm: list[float]  # from the untouched fly, every 10th ms
+    spike_diffs: list[int]  # spikes in one raster but not the other, per `spike_bin_ms`
+    spike_bin_ms: int
+    first_apart_ms: int | None  # ms after the spike when the flies were first > 0.1 mm apart
+    end_distance_mm: float
+    max_distance_mm: float
+    split: bool  # the fly went somewhere the untouched fly did not
+    body_rejoined: bool  # split, then back on the untouched path at the horizon
+    brain_rejoined: bool  # at the horizon, brain state within 1e-9 mV of the untouched one
+    brain_max_dv_mV: float
+    events: list[tuple[int, str]]  # (ms, "feeds" | "stops feeding" | "jumps")
+
+
+class FreeWill(BaseModel):
+    """Viewer → server: fork the fan at this moment (it must be a decision moment)."""
+
+    type: Literal["free_will"] = "free_will"
+    at_ms: int = Field(ge=1)  # a spike can only be added after at least one step
+
+
+ViewerMessage = Annotated[Choose | FreeWill, Field(discriminator="type")]

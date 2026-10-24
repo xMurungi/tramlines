@@ -1,8 +1,8 @@
 import "./styles/tokens.css";
 import "./styles/viewer.css";
-import { ArenaView } from "./arena";
+import { ArenaView, branchColor } from "./arena";
 import { BrainView } from "./brainView";
-import { CONTROL, type KnowledgeOption, Run } from "./model";
+import { CONTROL, type Fan, type FanBranch, type KnowledgeOption, Run } from "./model";
 import { connect } from "./socket";
 
 const run = new Run();
@@ -11,7 +11,7 @@ const brain = new BrainView(document.querySelector<HTMLCanvasElement>("#brain")!
 const $ = (id: string) => document.getElementById(id)!;
 const css = (name: string) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 
-// A link can open a setting at a moment: ?knowledge=voltage-0.1&t=1200 (ms).
+// A link can open a setting at a moment: ?knowledge=voltage-0.1&t=1200 (ms), and a fan: &fan=1200.
 const query = new URLSearchParams(location.search);
 
 let connected = false;
@@ -20,12 +20,15 @@ let playing = false;
 let last = performance.now();
 let knowledge = query.get("knowledge") ?? CONTROL; // the setting being watched (ADR-0042)
 let stopsFor: KnowledgeOption[] | null = null; // the options the stops were built from
+let fanAt: number | null = query.has("fan") ? Math.max(1, Number(query.get("fan")) || 1) : null; // ADR-XXXX
+let fanDrawn = ""; // what the fan panel was last built from
 
 const wire = connect(
   (message) => run.accept(message),
   (open) => {
     connected = open;
     if (open) choose(knowledge); // a (re)connection forgets nothing the viewer asked for
+    if (open && fanAt !== null) wire.send({ type: "free_will", at_ms: fanAt });
   },
 );
 
@@ -37,8 +40,121 @@ function choose(id: string): void {
 $("replay").addEventListener("click", () => {
   playhead = 0;
   playing = false;
+  fanAt = null;
   choose(knowledge);
 });
+
+// Free will (ADR-XXXX): fork the moment on screen into futures one extra spike apart.
+$("free-will").addEventListener("click", () => {
+  fanAt = Math.max(1, Math.floor(playhead));
+  wire.send({ type: "free_will", at_ms: fanAt });
+});
+$("fan-close").addEventListener("click", () => {
+  fanAt = null;
+});
+
+const BARS = "▁▂▃▄▅▆▇█";
+
+/** Spike differences per bin as bars on a log scale shared by the fan; "·" is exactly none. */
+function spark(values: number[], max: number): string {
+  const top = Math.log10(1 + max);
+  return values
+    .map((v) => (v === 0 || top === 0 ? "·" : BARS[Math.min(7, Math.max(0, Math.ceil((7 * Math.log10(1 + v)) / top)))]))
+    .join("");
+}
+
+function seconds(ms: number): string {
+  return `${(ms / 1000).toFixed(2)} s`;
+}
+
+/** One branch, in words: where its spike went, what the fly did, whether the brain forgot. */
+function branchRow(branch: FanBranch | undefined, index: number, fan: Fan, sparkMax: number): HTMLLIElement {
+  const li = document.createElement("li");
+  li.className = "branch";
+  const num = document.createElement("span");
+  num.className = "num";
+  const swatch = document.createElement("span");
+  swatch.className = "swatch";
+  const hue = branchColor(index);
+  swatch.style.background = hue;
+  swatch.style.color = hue;
+  num.append(swatch, String(index + 1));
+  const who = document.createElement("span");
+  who.className = "who";
+  who.textContent = `spike in ${fan.aimed[index]?.label ?? "…"}`;
+  const what = document.createElement("span");
+  what.className = "what";
+  const spike = document.createElement("span");
+  spike.className = "spark";
+  if (!branch) {
+    li.classList.add("waiting");
+    what.textContent = "computing…";
+    li.append(num, who, what);
+    return li;
+  }
+  const body = !branch.split
+    ? "never left the untouched path"
+    : branch.body_rejoined
+    ? `split at ${branch.first_apart_ms} ms, back on the path by the end`
+    : `split at ${branch.first_apart_ms} ms · ${branch.end_distance_mm.toFixed(2)} mm apart at the end`;
+  const acts = branch.events.map(([t, e]) => `${e} at +${seconds(t - fan.at_ms)}`).join(", ");
+  const brain = branch.brain_rejoined ? "brain forgot the spike" : "brain still different";
+  what.textContent = `${body}${acts ? ` · ${acts}` : ""} · ${brain}`;
+  swatch.dataset.forGood = String(branch.split && !branch.body_rejoined);
+  spike.textContent = spark(branch.spike_diffs, sparkMax);
+  const total = branch.spike_diffs.reduce((a, b) => a + b, 0);
+  spike.title = `${total.toLocaleString()} spikes differ in ${seconds(fan.horizon_ms)}; per ${branch.spike_bin_ms} ms: ${branch.spike_diffs.join(", ")}`;
+  spike.setAttribute("aria-label", spike.title);
+  li.append(num, who, what, spike);
+  return li;
+}
+
+/** The free-will panel and the footer meter, rebuilt only when the fan changes. */
+function drawFanPanel(): void {
+  const fan = fanAt === null ? undefined : run.fans.get(fanAt);
+  const branches = fan ? run.branches.get(fan.at_ms) ?? [] : [];
+  const made = branches.filter(Boolean) as FanBranch[];
+  const key = fanAt === null ? "" : JSON.stringify([fan ?? fanAt, made.length, run.status.fans_to_compute]);
+  if (key === fanDrawn) return;
+  fanDrawn = key;
+  $("fan-panel").hidden = fanAt === null;
+  $("fan-meter").hidden = !made.length;
+  if (fanAt === null) return;
+  $("fan-title").textContent = `t = ${clock(fanAt)}${fan?.decision ? ` · ${fan.decision}` : ""}`;
+  const list = $("fan-branches");
+  if (!fan || fan.not_made) {
+    $("fan-note").textContent = fan?.not_made ? `No fan: ${fan.not_made}.` : "Asking the ghost process…";
+    list.replaceChildren();
+    return;
+  }
+  const n = fan.aimed.length;
+  const parts: string[] = [];
+  if (fan.driven === null) parts.push(`Waiting for the ghost process (${run.status.fans_to_compute} fan${run.status.fans_to_compute === 1 ? "" : "s"} to compute; ghosts wait meanwhile).`);
+  else {
+    parts.push(`${fan.done ? n : `${made.length} of ${n}`} futures, ${seconds(fan.horizon_ms)} each. Each got one extra spike in a different neuron receiving input (${fan.driven} at this moment), added at exactly this moment; the rest of each brain is the live one.`);
+    if (n < fan.wanted) parts.push(`Only ${n} of the ${fan.wanted} asked for could be made here.`);
+    if (fan.refused.length) {
+      const why = [...new Set(fan.refused.map((r) => r.reason.replace(/^neuron \d+ /, "")))].join("; ");
+      parts.push(`${fan.refused.length} refused by the engine (${why}); the next candidate took each one's place.`);
+    }
+    if (fan.base_compared_ms) parts.push(`The untouched future, computed separately: ${fan.base_matched_ms.toLocaleString()} / ${fan.base_compared_ms.toLocaleString()} ms identical to the live fly.`);
+  }
+  $("fan-note").textContent = parts.join(" ");
+  const sparkMax = Math.max(0, ...made.flatMap((b) => b.spike_diffs));
+  list.replaceChildren(...fan.aimed.map((_, i) => branchRow(branches[i], i, fan, sparkMax)));
+
+  // Footer (CLAUDE.md 9.3): how many futures are apart from the untouched one, over the horizon.
+  if (made.length) {
+    const bins = 10;
+    const per = Math.max(1, Math.floor(made[0].distance_mm.length / bins));
+    const apart = Array.from({ length: bins }, (_, k) => made.filter((b) => (b.distance_mm[(k + 1) * per - 1] ?? 0) > (run.hello?.right_within_mm ?? 0.1)).length);
+    const bars = apart.map((a) => (a ? BARS[Math.min(7, Math.ceil((7 * a) / made.length))] : "·")).join("");
+    const meter = $("fan-meter");
+    meter.replaceChildren(`branches: ${made.length} · apart `, Object.assign(document.createElement("span"), { className: "bars", textContent: bars }));
+    meter.setAttribute("aria-label", `futures apart from the untouched one at each tenth of the horizon: ${apart.join(", ")} of ${made.length}`);
+    meter.title = meter.getAttribute("aria-label")!;
+  }
+}
 
 /** One radio per stop, built from the server's list so the two never disagree. */
 function buildStops(options: KnowledgeOption[]): void {
@@ -117,7 +233,7 @@ function frame(now: number): void {
   const isControl = knowledge === CONTROL;
   const label = isControl ? "control" : setting?.label ?? knowledge;
 
-  arena.draw(run, playhead, knowledge, label);
+  arena.draw(run, playhead, knowledge, label, fanAt, now);
   const fired = brain.draw(run, playhead, { faint: css("--text-muted"), gold: css("--gold") });
 
   $("clock").textContent = clock(playhead);
@@ -165,6 +281,16 @@ function frame(now: number): void {
   }
 
   $("ghost-from").textContent = ghost ? `t = ${clock(ghost.from_ms)}` : "—";
+
+  // Free will is offered only where the world is asking the brain something (ADR-0031, 0032).
+  const decision = run.decisionAt(playhead);
+  const offered = connected && Boolean(decision) && playhead >= 1 && Boolean(run.checkpointFor(playhead));
+  const button = $("free-will") as HTMLButtonElement;
+  button.disabled = !offered;
+  button.title = offered
+    ? `${decision}: fork this moment into futures, each one extra spike apart`
+    : "Free will is offered at decision moments: on food or bitter, or a shadow approaching. Elsewhere one extra spike almost never changes anything in this model.";
+  drawFanPanel();
   $("lead").textContent = computing ? `${(Math.max(0, lead) / 1000).toFixed(1)} s` : "all computed";
   $("status").textContent = run.status.error
     ? `error: ${run.status.error}`

@@ -10,6 +10,10 @@ A viewer chooses how much the ghost knows (ADR-0042). Each setting's ghosts are
 computed on demand by the same ghost process from the run's saved checkpoints
 (kept in `data/projections/<key>_checkpoints/`, about 6 MB per simulated second
 of the full brain) and cached in their own file, keyed by the setting too.
+
+At decision moments a viewer can ask for free will (ADR-XXXX): the same ghost process
+forks the moment into 8 futures, each one aimed extra spike apart, and measures how
+they diverge. Each fan is cached in its own file, keyed by its moment and its rules.
 """
 
 from __future__ import annotations
@@ -31,15 +35,27 @@ import numpy as np
 import pandas as pd
 from fastapi import FastAPI, WebSocket
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, TypeAdapter, ValidationError
 
 from tramlines.brain.data import COMPLETENESS_FILE, CONNECTIVITY_FILE, DATA_DIR
 from tramlines.brain.neurons import ANNOTATIONS_FILE
 from tramlines.brain.params import PARAMS
+from tramlines.server.fans import BRANCHES, FAN, DecisionLog, FanHistory, fan_key
 from tramlines.server.history import RunHistory, Track
 from tramlines.server.jobs import GhostJobs, Job
 from tramlines.server.knowledge import BY_ID, CONTROL, SETTINGS, Setting
-from tramlines.server.protocol import Checkpoint, Choose, Chunk, Hello, Status, encode_indices
+from tramlines.server.protocol import (
+    Checkpoint,
+    Choose,
+    Chunk,
+    Fan,
+    FanBranch,
+    FreeWill,
+    Hello,
+    Status,
+    ViewerMessage,
+    encode_indices,
+)
 from tramlines.server.workers import ARENAS, checkpoint_path, run_ghost, run_projector
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -150,10 +166,18 @@ class Run:
     cached: bool = False
     error: str | None = None
     saved: set[str] = field(default_factory=set)  # settings whose cache file is written
+    fans: FanHistory = field(default_factory=FanHistory)
+    decisions: DecisionLog | None = None  # made from the settings' arena on first use
     # One outbox per connected viewer (issue #14, B1): broadcasting only queues messages,
     # and each viewer's own task sends them, so no message falls between a viewer's
     # history replay and its live updates.
     outboxes: set[asyncio.Queue[str]] = field(default_factory=set)
+
+    @property
+    def decision_log(self) -> DecisionLog:
+        if self.decisions is None:
+            self.decisions = DecisionLog(ARENAS[self.settings.arena])
+        return self.decisions
 
     @property
     def computing(self) -> bool:
@@ -171,6 +195,7 @@ class Run:
             cached=self.cached,
             error=self.error,
             to_compute={k: n for k, n in to_compute.items() if n},
+            fans_to_compute=self.jobs.fans_remaining(),
         )
 
     def snapshot(self) -> list[str]:
@@ -179,6 +204,10 @@ class Run:
         messages += self.history.checkpoints.values()
         for track in self.history.tracks.values():
             messages += [*track.ghosts, *track.refused.values(), track.match()]
+        if self.decision_log.moments:
+            messages.append(self.decision_log.message())
+        for record in self.fans.records.values():
+            messages += record.messages()
         messages.append(self.status())
         return [m.model_dump_json() for m in messages]
 
@@ -196,7 +225,10 @@ class Run:
             chunk = Chunk(t0_ms=t0_ms, poses=poses, fired=encode_indices(fired), spikes=spikes)
             self.history.add_chunk(chunk)
             matches = [t.match() for t in self.history.tracks.values()]
-            self.broadcast(chunk, *matches, self.status())
+            news: list[BaseModel] = [chunk, *matches, *self.fans.score(self.history.live)]
+            if self.decision_log.add(chunk.poses):
+                news.append(self.decision_log.message())
+            self.broadcast(*news, self.status())
         elif kind == "checkpoint":
             _, at_ms, in_flight = message
             checkpoint = Checkpoint(at_ms=at_ms, in_flight=in_flight)
@@ -209,13 +241,37 @@ class Run:
             ghost = self.history.add_ghost(from_ms, poses, knowledge)
             if knowledge == CONTROL:
                 self.ghost_checkpoint_ms = from_ms
-            news: list[BaseModel] = [ghost] if ghost else []
-            self.broadcast(*news, self.history.match(knowledge), self.status())
+            made: list[BaseModel] = [ghost] if ghost else []
+            self.broadcast(*made, self.history.match(knowledge), self.status())
         elif kind == "refused":
             _, knowledge, from_ms, reason = message
             self.jobs.mark_done(knowledge, from_ms)
             refused = self.history.refuse(from_ms, knowledge, reason)
             self.broadcast(refused, self.history.match(knowledge), self.status())
+        elif kind == "fan_plan":
+            _, at_ms, driven, aimed, refused_spikes = message
+            fan = self.fans.records[at_ms].fan
+            fan.driven, fan.aimed, fan.refused = driven, aimed, refused_spikes
+            if not aimed:
+                fan.not_made = "no neuron receiving input at this moment could take an extra spike"
+            self.broadcast(fan)
+        elif kind == "fan_base":
+            _, at_ms, poses = message
+            record = self.fans.records[at_ms]
+            record.set_base([tuple(p) for p in poses])
+            record.score(self.history.live)
+            self.broadcast(record.fan)
+        elif kind == "branch":
+            branch: FanBranch = message[1]
+            self.fans.records[branch.at_ms].branches[branch.index] = branch
+            self.broadcast(branch)
+        elif kind == "fan_done":
+            _, at_ms = message
+            self.jobs.mark_done(FAN, at_ms)
+            record = self.fans.records[at_ms]
+            record.fan.done = True
+            save_fan(self, at_ms)
+            self.broadcast(record.fan, self.status())
         elif kind == "projector_done":
             self.projector_done = True
             self.broadcast(self.status())
@@ -229,6 +285,43 @@ class Run:
         self.dispatch(workers)
         self.broadcast(self.history.match(choice.knowledge), self.status())
 
+    def free_will(self, request: FreeWill, workers: WorkerPool) -> Fan | None:
+        """A viewer pressed FREE WILL: queue the fan at that moment (computed first).
+
+        Returns a fan marked `not_made` for the asking viewer alone if the moment is not
+        a decision moment or has no saved moment behind it; nothing is queued then.
+        """
+        at_ms = request.at_ms
+        record = self.fans.get(at_ms)
+        if record is None:
+            behind = max((ms for ms in self.jobs.checkpoints if ms <= at_ms), default=None)
+            decision = self.decision_log.at(at_ms)
+            fan = Fan(
+                at_ms=at_ms,
+                checkpoint_ms=behind if behind is not None else 0,
+                decision=decision or "",
+                horizon_ms=self.settings.horizon_ms,
+                wanted=BRANCHES,
+            )
+            if decision is None or behind is None:
+                fan.done = True
+                fan.not_made = (
+                    "free will is offered only at decision moments (on food or bitter, "
+                    "or a shadow approaching); elsewhere one spike almost never changes "
+                    "anything in this model"
+                    if decision is None
+                    else "no saved moment behind this one yet"
+                )
+                return fan
+            record = self.fans.add(fan)
+            record.score(self.history.live)
+            self.broadcast(fan)
+        if not record.fan.done:
+            self.jobs.want_fan(at_ms, self.jobs.checkpoints[record.fan.checkpoint_ms])
+            self.dispatch(workers)
+        self.broadcast(self.status())
+        return None
+
     def dispatch(self, workers: WorkerPool) -> None:
         """Send the ghost process its next job, if it is free and one is waiting."""
         while (job := self.jobs.next()) is not None:
@@ -239,6 +332,11 @@ class Run:
             # A cached run whose saved moments were deleted: say so, never fake a ghost.
             self.jobs.mark_done(knowledge, at_ms)
             reason = "this saved moment is missing; delete the cached run to recompute it"
+            if knowledge == FAN:
+                fan = self.fans.records[at_ms].fan
+                fan.done, fan.not_made = True, reason
+                self.broadcast(fan, self.status())
+                continue
             refused = self.history.refuse(at_ms, knowledge, reason)
             self.broadcast(refused, self.history.match(knowledge), self.status())
 
@@ -291,6 +389,38 @@ def _track_from_json(run: Run, knowledge: str, saved: dict[str, Any]) -> None:
         run.jobs.mark_done(knowledge, from_ms)
 
 
+def fan_path(settings: Settings, at_ms: int) -> Path:
+    """One file per fan, keyed by the run, the moment and the fan's own rules (ADR-XXXX)."""
+    return PROJECTIONS / f"{settings.key}_fan-t{at_ms:07d}-{fan_key()}.json"
+
+
+def save_fan(run: Run, at_ms: int) -> None:
+    """The fan's log: where each spike went, what was refused, and every branch."""
+    PROJECTIONS.mkdir(parents=True, exist_ok=True)
+    record = run.fans.records[at_ms]
+    fan = record.fan.model_dump(exclude={"base", "base_compared_ms", "base_matched_ms"})
+    saved = {
+        "fan": fan,
+        "base": record.base_full,
+        "branches": [b.model_dump() for b in record.messages()[1:]],
+    }
+    path = fan_path(run.settings, at_ms)
+    partial = path.with_suffix(".json.part")
+    partial.write_text(json.dumps(saved))
+    os.replace(partial, path)
+
+
+def load_fans(run: Run) -> None:
+    for path in sorted(PROJECTIONS.glob(f"{run.settings.key}_fan-t*-{fan_key()}.json")):
+        saved = json.loads(path.read_text())
+        record = run.fans.add(Fan(**saved["fan"]))
+        record.set_base([tuple(p) for p in saved["base"]])
+        for branch in saved["branches"]:
+            record.branches[branch["index"]] = FanBranch(**branch)
+        record.score(run.history.live)
+        run.jobs.mark_done(FAN, record.fan.at_ms)
+
+
 def load_cache(run: Run) -> bool:
     """Load the cached live run, then any setting already cached for it."""
     path = cache_path(run.settings)
@@ -299,6 +429,7 @@ def load_cache(run: Run) -> bool:
     saved = json.loads(path.read_text())
     for chunk in saved["chunks"]:
         run.history.add_chunk(Chunk(**chunk))
+        run.decision_log.add(run.history.chunks[-1].poses)
     for at_ms, in_flight in saved.get("checkpoints", []):
         run.history.add_checkpoint(Checkpoint(at_ms=at_ms, in_flight=in_flight))
         run.jobs.add_checkpoint(at_ms, checkpoint_path(run.settings.checkpoints, at_ms))
@@ -309,6 +440,7 @@ def load_cache(run: Run) -> bool:
         if other.exists():
             _track_from_json(run, setting.id, json.loads(other.read_text()))
             run.saved.add(setting.id)
+    load_fans(run)
     run.projector_done, run.cached = True, True
     return True
 
@@ -360,6 +492,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
 
 app = FastAPI(title="Tramlines", lifespan=lifespan)
+VIEWER_MESSAGE: TypeAdapter[Choose | FreeWill] = TypeAdapter(ViewerMessage)
 
 
 @app.websocket("/stream")
@@ -380,10 +513,13 @@ async def stream(ws: WebSocket) -> None:
         while True:
             text = await ws.receive_text()
             try:
-                choice = Choose.model_validate_json(text)
+                request = VIEWER_MESSAGE.validate_json(text)
             except ValidationError:
                 continue  # a malformed or unknown request changes nothing
-            run.choose(choice, workers)
+            if isinstance(request, Choose):
+                run.choose(request, workers)
+            elif (refusal := run.free_will(request, workers)) is not None:
+                outbox.put_nowait(refusal.model_dump_json())  # for the asking viewer only
 
     sender, listener = asyncio.create_task(send()), asyncio.create_task(listen())
     try:

@@ -1,10 +1,11 @@
 // The live wire from the server (ADR-0005): one WebSocket, JSON messages, reconnect on loss.
-// The viewer sends one kind of message back: which knowledge setting it wants (ADR-0042).
+// The viewer sends two kinds of message back: which knowledge setting it wants (ADR-0042),
+// and a request for the free-will fan at a moment (ADR-XXXX).
 
-import type { Choose, Message } from "./model";
+import type { Choose, FreeWill, Message } from "./model";
 
 export interface Wire {
-  send(message: Choose): void;
+  send(message: Choose | FreeWill): void;
 }
 
 export function connect(onMessage: (message: Message) => void, onState: (open: boolean) => void): Wire {
