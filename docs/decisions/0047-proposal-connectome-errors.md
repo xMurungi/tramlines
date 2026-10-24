@@ -42,7 +42,7 @@ Result 2 ([ADR-0039](0039-result-2-null-brain.md)) asked what the real wiring co
 
 ## Options considered
 1. **Do it as a pre-registered study: a pilot, then a full sweep** (recommended). Design below. About 5–8 hours of computing in total.
-   - Pros: answers a question modellers have and nobody (as far as I know; a literature check comes first) has answered for a closed-loop whole-brain model; reuses Result 2's probes and decoder-free test; the instruments are built and tested; turns the bitter-veto finding into a claim about realistic errors.
+   - Pros: answers a question modellers have and has not been answered, as far as the literature check found, in the whole-brain, published-rates, behaviour-level form (closest: Yad & Nabila 2026, arXiv preprint, nine real reconstructions of the compass circuit differ as much as flies do; Beiran & Litwin-Kumar 2025); reuses Result 2's probes and decoder-free test; the instruments are built and tested; turns the bitter-veto finding into a claim about realistic errors.
    - Cons: a fifth result to write up and show; the "measured" rates are partly from a relative dataset (hemibrain) and partly bounds; results depend on our senses and decoder (Result 2's yardstick caveat applies).
 2. **Pilot only, reported as an exploratory section of Result 2.** One seed, one draw per condition, about 15 minutes.
    - Pros: almost free; enough to say whether realistic errors look harmless or not.

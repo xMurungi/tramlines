@@ -175,6 +175,16 @@ The connectome's own papers (Dorkenwald et al. 2024; Schlegel et al. 2024), the 
 - Closed-loop connectome-based models with bodies in the worm: a connectome-derived klinotaxis circuit with parameters found by evolution (2013), and BAAIWorm, multicompartment neurons with a 3D body and environment, which also studies how changing the network's structure affects behaviour (2024).
 - *For our claims.* Brain + body + world from a connectome, and wiring changes judged by behaviour, have been done in the worm. What we add is the fly's whole brain at about 140,000 neurons with an untrained, published model.
 
+### Added by the main session's review (2026-10-24)
+Public code projects that already run the full FlyWire v783 LIF brain (138,639 neurons, Shiu et al.'s model) in a NeuroMechFly/FlyGym body, found in a web search; descriptions read from their repositories, not peer-reviewed:
+- [erojasoficial-byte/fly-brain](https://github.com/erojasoficial-byte/fly-brain): the whole v783 brain in NeuroMechFly v2 (MuJoCo), with vision, olfaction, taste and flight.
+- [omeruk/synaptera](https://github.com/omeruk/synaptera): "a pre-registered test of what a whole-brain *Drosophila* connectome model controls in closed-loop flight" (v1.0.0, 2026-10-07).
+- [vib2810/fly-brain-zero-shot](https://github.com/vib2810/fly-brain-zero-shot): FlyVis eyes and the whole-brain model steering a NeuroMechFly body; "scramble the wiring and it can't", a close neighbour of our Result 2.
+
+So "a closed-loop, embodied whole-brain fly" is established, even pre-registered elsewhere. As far as these descriptions go, none studies prediction under imperfect knowledge, single-spike effects on behaviour, or recovering the past.
+
+**Verified by the main session:** Monteforte & Wolf, "Dynamic flux tubes form reservoirs of stability in neuronal circuits", *Phys. Rev. X* 2, 041007 (2012): stability to infinitesimal perturbations coexists with exponential separation after single-spike perturbations in LIF networks (from the arXiv version, [1102.5428](https://www.arxiv.org/abs/1102.5428)). London et al., *Nature* 466, 123–127 (2010): about 28 extra spikes in the postsynaptic targets after one extra spike (from the abstract).
+
 ## 6. Forgetting, memory and irreversibility
 *For Result 4 (the backward horizon).*
 
