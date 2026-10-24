@@ -59,6 +59,15 @@ def behaviour_differs(
                for x, y in zip(a, b, strict=True))  # fmt: skip
 
 
+def choice(events: Sequence[Event]) -> tuple[int, int]:
+    """What the fly chose: how many times it started feeding, and how many times it jumped.
+
+    Timing is left out on purpose (atlas plan): arriving at the food 60 ms later is
+    the same choice.
+    """
+    return sum(e.kind == "feed" for e in events), sum(e.kind == "jump" for e in events)
+
+
 def spike_keys(record: SpikeRecord, n_neurons: int) -> set[int]:
     return set((record.steps * n_neurons + record.neurons).tolist())
 
@@ -95,7 +104,8 @@ class Outcome:
     made: bool
     why_not: str
     path_wrong_from_ms: int | None  # first ms the paths are more than 0.1 mm apart
-    behaviour_differs: bool
+    behaviour_differs: bool  # events differ in kind, order, or timing beyond 50 ms
+    choice_differs: bool  # the number of meals or jumps differs (the plan's main measure)
     events: tuple[Event, ...]
 
 
@@ -105,16 +115,18 @@ def outcome(base: Timeline, neuron: int, truth_poses: Sequence[Pose], horizon_ms
     try:
         branch.brain.inject_spike(neuron)
     except ValueError as reason:
-        return Outcome(False, str(reason), None, False, ())
+        return Outcome(False, str(reason), None, False, False, ())
     poses = branch.run(horizon_ms)
     events = behaviour_events(poses)
+    truth_events = behaviour_events(truth_poses)
     return Outcome(
         made=True,
         why_not="",
         path_wrong_from_ms=first_divergence_ms(
             path_distance_mm(poses, truth_poses), PATH_EPSILON_MM
         ),
-        behaviour_differs=behaviour_differs(events, behaviour_events(truth_poses)),
+        behaviour_differs=behaviour_differs(events, truth_events),
+        choice_differs=choice(events) != choice(truth_events),
         events=tuple(events),
     )
 

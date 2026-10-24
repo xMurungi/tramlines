@@ -1,0 +1,478 @@
+seed,moment_ms,variant,neuron,tipping_by_default,made,why_not,choice_differs,behaviour_differs,path_wrong_from_ms,events
+0,250,window 100 ms,53582,True,True,,False,False,162,
+0,250,window 100 ms,98215,True,True,,False,False,223,
+0,250,window 100 ms,104708,True,True,,False,False,213,
+0,250,window 100 ms,137697,True,True,,False,False,223,
+0,250,window 100 ms,15796,False,True,,False,False,,
+0,250,window 100 ms,47316,False,True,,False,False,,
+0,250,window 100 ms,102213,False,True,,False,False,,
+0,250,thresholds x1.2,53582,True,True,,True,True,58,feed 1184; stop 1234; feed 1628; stop 1687
+0,250,thresholds x1.2,98215,True,True,,True,True,66,
+0,250,thresholds x1.2,104708,True,True,,True,True,67,
+0,250,thresholds x1.2,137697,True,True,,True,True,68,
+0,250,thresholds x1.2,15796,False,True,,False,False,,feed 1552; stop 1602
+0,250,thresholds x1.2,47316,False,True,,False,False,,feed 1552; stop 1602
+0,250,thresholds x1.2,102213,False,True,,False,False,,feed 1552; stop 1602
+0,250,thresholds x0.8,53582,True,True,,True,True,58,feed 1184; stop 1234; feed 1628; stop 1687
+0,250,thresholds x0.8,98215,True,True,,True,True,66,
+0,250,thresholds x0.8,104708,True,True,,True,True,67,
+0,250,thresholds x0.8,137697,True,True,,True,True,68,
+0,250,thresholds x0.8,15796,False,True,,False,False,,feed 1552; stop 1602
+0,250,thresholds x0.8,47316,False,True,,False,False,,feed 1552; stop 1602
+0,250,thresholds x0.8,102213,False,True,,False,False,,feed 1552; stop 1602
+0,750,window 100 ms,28421,True,True,,False,False,152,
+0,750,window 100 ms,31988,True,True,,False,False,142,
+0,750,window 100 ms,36949,True,True,,False,False,116,
+0,750,window 100 ms,41848,True,True,,False,False,372,
+0,750,window 100 ms,53709,True,True,,False,False,142,
+0,750,window 100 ms,62956,True,True,,False,False,142,
+0,750,window 100 ms,72808,True,True,,False,False,152,
+0,750,window 100 ms,80463,True,True,,False,False,142,
+0,750,window 100 ms,104276,True,True,,False,False,154,
+0,750,window 100 ms,132055,True,True,,False,False,142,
+0,750,window 100 ms,78101,False,True,,False,False,,
+0,750,window 100 ms,117332,False,True,,False,False,,
+0,750,window 100 ms,134164,False,True,,False,False,,
+0,750,thresholds x1.2,28421,True,True,,True,True,137,
+0,750,thresholds x1.2,31988,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x1.2,36949,True,True,,True,True,72,
+0,750,thresholds x1.2,41848,True,True,,True,True,123,feed 1183; stop 1233; feed 1429; stop 1486
+0,750,thresholds x1.2,53709,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x1.2,62956,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x1.2,72808,True,True,,True,True,137,
+0,750,thresholds x1.2,80463,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x1.2,104276,True,True,,True,True,138,
+0,750,thresholds x1.2,132055,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x1.2,78101,False,True,,False,False,,feed 1552; stop 1602
+0,750,thresholds x1.2,117332,False,True,,False,False,,feed 1552; stop 1602
+0,750,thresholds x1.2,134164,False,True,,False,False,,feed 1552; stop 1602
+0,750,thresholds x0.8,28421,True,True,,True,True,137,jump 3426
+0,750,thresholds x0.8,31988,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x0.8,36949,True,True,,True,True,72,
+0,750,thresholds x0.8,41848,True,True,,True,True,123,feed 1183; stop 1233; feed 1429; stop 1486
+0,750,thresholds x0.8,53709,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x0.8,62956,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x0.8,72808,True,True,,True,True,137,jump 3426
+0,750,thresholds x0.8,80463,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x0.8,104276,True,True,,True,True,138,jump 3444
+0,750,thresholds x0.8,132055,True,True,,True,True,127,feed 1438; stop 1501; feed 1650; stop 1730
+0,750,thresholds x0.8,78101,False,True,,False,False,,feed 1552; stop 1602
+0,750,thresholds x0.8,117332,False,True,,False,False,,feed 1552; stop 1602
+0,750,thresholds x0.8,134164,False,True,,False,False,,feed 1552; stop 1602
+0,1250,window 100 ms,14211,True,True,,False,False,59,
+0,1250,window 100 ms,19845,True,True,,False,False,378,
+0,1250,window 100 ms,37134,True,True,,False,False,419,
+0,1250,window 100 ms,37721,True,True,,True,True,378,feed 1667; stop 1781
+0,1250,window 100 ms,59288,True,True,,False,False,378,
+0,1250,window 100 ms,64208,True,True,,True,True,404,feed 1661; stop 1749
+0,1250,window 100 ms,69565,True,True,,False,False,404,
+0,1250,window 100 ms,75269,True,True,,False,False,404,
+0,1250,window 100 ms,122795,True,True,,False,False,421,
+0,1250,window 100 ms,136294,True,True,,False,False,252,
+0,1250,window 100 ms,2619,False,True,,False,False,583,
+0,1250,window 100 ms,110582,False,True,,False,False,,
+0,1250,window 100 ms,125897,False,True,,False,False,,
+0,1250,thresholds x1.2,14211,True,True,,True,True,38,
+0,1250,thresholds x1.2,19845,True,True,,True,True,309,
+0,1250,thresholds x1.2,37134,True,True,,True,True,309,
+0,1250,thresholds x1.2,37721,True,True,,True,True,309,feed 1600; stop 1665; feed 1676; stop 1738
+0,1250,thresholds x1.2,59288,True,True,,False,True,177,feed 1424; stop 1489
+0,1250,thresholds x1.2,64208,True,True,,True,True,177,feed 1423; stop 1481; feed 1636; stop 1711; feed 1967; stop 2017
+0,1250,thresholds x1.2,69565,True,True,,True,True,309,feed 1662; stop 1714; feed 1796; stop 1846
+0,1250,thresholds x1.2,75269,True,True,,True,True,309,jump 3434
+0,1250,thresholds x1.2,122795,True,True,,True,True,309,
+0,1250,thresholds x1.2,136294,True,True,,True,True,210,
+0,1250,thresholds x1.2,2619,False,True,,False,True,188,feed 1434; stop 1490
+0,1250,thresholds x1.2,110582,False,True,,False,False,,feed 1552; stop 1602
+0,1250,thresholds x1.2,125897,False,True,,False,False,,feed 1552; stop 1602
+0,1250,thresholds x0.8,14211,True,True,,True,True,38,jump 3442
+0,1250,thresholds x0.8,19845,True,True,,True,True,309,jump 3433
+0,1250,thresholds x0.8,37134,True,True,,True,True,309,jump 3426
+0,1250,thresholds x0.8,37721,True,True,,True,True,309,feed 1600; stop 1665; feed 1676; stop 1738
+0,1250,thresholds x0.8,59288,True,True,,True,True,177,feed 1424; stop 1489; jump 3513
+0,1250,thresholds x0.8,64208,True,True,,True,True,177,feed 1423; stop 1481; feed 1636; stop 1711; feed 1967; stop 2017
+0,1250,thresholds x0.8,69565,True,True,,True,True,309,feed 1662; stop 1714; feed 1796; stop 1846
+0,1250,thresholds x0.8,75269,True,True,,True,True,309,jump 3424
+0,1250,thresholds x0.8,122795,True,True,,True,True,309,jump 3442
+0,1250,thresholds x0.8,136294,True,True,,True,True,210,jump 3426
+0,1250,thresholds x0.8,2619,False,True,,False,True,188,feed 1434; stop 1490
+0,1250,thresholds x0.8,110582,False,True,,False,False,,feed 1552; stop 1602
+0,1250,thresholds x0.8,125897,False,True,,False,False,,feed 1552; stop 1602
+0,1750,window 100 ms,55524,True,True,,False,False,483,
+0,1750,window 100 ms,81725,True,True,,False,False,,
+0,1750,window 100 ms,93170,True,True,,False,False,,
+0,1750,window 100 ms,93811,True,True,,False,False,85,
+0,1750,window 100 ms,111357,True,True,,False,False,,
+0,1750,window 100 ms,92115,False,True,,False,False,,
+0,1750,window 100 ms,102213,False,True,,False,False,,
+0,1750,window 100 ms,126366,False,True,,False,False,,
+0,1750,thresholds x1.2,55524,True,True,,True,True,474,jump 3511
+0,1750,thresholds x1.2,81725,True,True,,False,False,613,
+0,1750,thresholds x1.2,93170,True,True,,False,False,613,
+0,1750,thresholds x1.2,93811,True,True,,False,False,44,
+0,1750,thresholds x1.2,111357,True,True,,False,False,613,
+0,1750,thresholds x1.2,92115,False,True,,False,False,,
+0,1750,thresholds x1.2,102213,False,True,,False,False,,
+0,1750,thresholds x1.2,126366,False,True,,False,False,,
+0,1750,thresholds x0.8,55524,True,True,,True,True,474,jump 3435
+0,1750,thresholds x0.8,81725,True,True,,True,True,613,jump 3464
+0,1750,thresholds x0.8,93170,True,True,,True,True,613,jump 3464
+0,1750,thresholds x0.8,93811,True,True,,True,True,44,jump 3445
+0,1750,thresholds x0.8,111357,True,True,,True,True,613,jump 3464
+0,1750,thresholds x0.8,92115,False,True,,False,False,,
+0,1750,thresholds x0.8,102213,False,True,,False,False,,
+0,1750,thresholds x0.8,126366,False,True,,False,False,,
+0,2250,window 100 ms,29522,False,True,,False,False,,
+0,2250,window 100 ms,93709,False,True,,False,False,,
+0,2250,window 100 ms,134553,False,True,,False,False,,
+0,2250,thresholds x1.2,29522,False,True,,False,False,,
+0,2250,thresholds x1.2,93709,False,True,,False,False,,
+0,2250,thresholds x1.2,134553,False,True,,False,False,,
+0,2250,thresholds x0.8,29522,False,True,,False,False,,
+0,2250,thresholds x0.8,93709,False,True,,False,False,,
+0,2250,thresholds x0.8,134553,False,True,,False,False,,
+0,2750,window 100 ms,126712,True,True,,False,False,384,
+0,2750,window 100 ms,40962,False,True,,False,False,,
+0,2750,window 100 ms,107406,False,True,,False,False,135,
+0,2750,window 100 ms,129480,False,True,,False,False,,
+0,2750,thresholds x1.2,126712,True,True,,False,False,349,
+0,2750,thresholds x1.2,40962,False,True,,False,False,,
+0,2750,thresholds x1.2,107406,False,True,,False,False,108,
+0,2750,thresholds x1.2,129480,False,True,,False,False,,
+0,2750,thresholds x0.8,126712,True,True,,True,True,349,jump 3426
+0,2750,thresholds x0.8,40962,False,True,,False,False,,
+0,2750,thresholds x0.8,107406,False,True,,False,False,108,
+0,2750,thresholds x0.8,129480,False,True,,False,False,,
+0,3250,window 100 ms,8903,True,True,,False,False,,
+0,3250,window 100 ms,46316,True,True,,False,False,83,
+0,3250,window 100 ms,59739,True,True,,False,False,114,
+0,3250,window 100 ms,68909,True,True,,False,False,131,
+0,3250,window 100 ms,69313,True,True,,False,False,131,
+0,3250,window 100 ms,93265,True,True,,False,False,131,
+0,3250,window 100 ms,118375,True,True,,False,False,92,
+0,3250,window 100 ms,126237,True,True,,False,False,188,
+0,3250,window 100 ms,129480,True,True,,False,False,131,
+0,3250,window 100 ms,131328,True,True,,False,False,113,
+0,3250,window 100 ms,6128,False,True,,False,False,,
+0,3250,window 100 ms,66296,False,True,,False,False,157,
+0,3250,window 100 ms,93547,False,True,,False,False,,
+0,3250,thresholds x1.2,8903,True,True,,False,False,174,
+0,3250,thresholds x1.2,46316,True,True,,True,True,61,jump 3438
+0,3250,thresholds x1.2,59739,True,True,,False,False,92,
+0,3250,thresholds x1.2,68909,True,True,,True,True,183,jump 3434
+0,3250,thresholds x1.2,69313,True,True,,True,True,183,jump 3434
+0,3250,thresholds x1.2,93265,True,True,,True,True,183,jump 3434
+0,3250,thresholds x1.2,118375,True,True,,False,False,72,
+0,3250,thresholds x1.2,126237,True,True,,False,False,164,
+0,3250,thresholds x1.2,129480,True,True,,True,True,183,jump 3434
+0,3250,thresholds x1.2,131328,True,True,,False,False,73,
+0,3250,thresholds x1.2,6128,False,True,,False,False,,
+0,3250,thresholds x1.2,66296,False,True,,False,False,141,
+0,3250,thresholds x1.2,93547,False,True,,False,False,,
+0,3250,thresholds x0.8,8903,True,True,,True,True,174,jump 3441
+0,3250,thresholds x0.8,46316,True,True,,True,True,61,jump 3428
+0,3250,thresholds x0.8,59739,True,True,,True,True,92,jump 3443
+0,3250,thresholds x0.8,68909,True,True,,True,True,173,jump 3424
+0,3250,thresholds x0.8,69313,True,True,,True,True,173,jump 3424
+0,3250,thresholds x0.8,93265,True,True,,True,True,173,jump 3424
+0,3250,thresholds x0.8,118375,True,True,,True,True,72,jump 3440
+0,3250,thresholds x0.8,126237,True,True,,True,True,164,jump 3440
+0,3250,thresholds x0.8,129480,True,True,,True,True,173,jump 3424
+0,3250,thresholds x0.8,131328,True,True,,True,True,73,jump 3449
+0,3250,thresholds x0.8,6128,False,True,,False,False,,
+0,3250,thresholds x0.8,66296,False,True,,False,False,141,
+0,3250,thresholds x0.8,93547,False,True,,False,False,,
+0,3750,window 100 ms,20151,False,True,,False,False,,
+0,3750,window 100 ms,53573,False,True,,False,False,,
+0,3750,window 100 ms,91122,False,True,,False,False,,
+0,3750,thresholds x1.2,20151,False,True,,False,False,,
+0,3750,thresholds x1.2,53573,False,True,,False,False,,
+0,3750,thresholds x1.2,91122,False,True,,False,False,,
+0,3750,thresholds x0.8,20151,False,True,,False,False,,
+0,3750,thresholds x0.8,53573,False,True,,False,False,,
+0,3750,thresholds x0.8,91122,False,True,,False,False,,
+1,250,window 100 ms,54837,True,True,,True,True,103,feed 1366; stop 1458
+1,250,window 100 ms,84960,True,True,,True,True,161,feed 1424; stop 1565
+1,250,window 100 ms,34813,False,True,,False,False,,
+1,250,window 100 ms,80354,False,True,,False,False,,
+1,250,window 100 ms,98245,False,True,,False,False,,
+1,250,thresholds x1.2,54837,True,True,,True,True,58,
+1,250,thresholds x1.2,84960,True,True,,True,True,150,
+1,250,thresholds x1.2,34813,False,True,,False,False,,feed 1173; stop 1223
+1,250,thresholds x1.2,80354,False,True,,False,False,,feed 1173; stop 1223
+1,250,thresholds x1.2,98245,False,True,,False,False,,feed 1173; stop 1223
+1,250,thresholds x0.8,54837,True,True,,True,True,58,
+1,250,thresholds x0.8,84960,True,True,,True,True,150,
+1,250,thresholds x0.8,34813,False,True,,False,False,,feed 1173; stop 1223
+1,250,thresholds x0.8,80354,False,True,,False,False,,feed 1173; stop 1223
+1,250,thresholds x0.8,98245,False,True,,False,False,,feed 1173; stop 1223
+1,750,window 100 ms,15463,True,True,,True,True,301,feed 1359; stop 1459
+1,750,window 100 ms,16998,True,True,,True,True,301,feed 1359; stop 1459
+1,750,window 100 ms,61054,True,True,,True,True,301,feed 1359; stop 1459
+1,750,window 100 ms,74525,True,True,,False,False,300,
+1,750,window 100 ms,92908,True,True,,True,True,301,feed 1359; stop 1459
+1,750,window 100 ms,131024,True,True,,False,False,300,
+1,750,window 100 ms,135118,True,True,,True,True,301,feed 1359; stop 1459
+1,750,window 100 ms,75431,False,True,,False,False,,
+1,750,window 100 ms,99695,False,True,,False,False,,
+1,750,window 100 ms,119498,False,True,,False,False,,
+1,750,thresholds x1.2,15463,True,True,,True,True,278,
+1,750,thresholds x1.2,16998,True,True,,True,True,278,
+1,750,thresholds x1.2,61054,True,True,,True,True,278,
+1,750,thresholds x1.2,74525,True,True,,True,True,278,
+1,750,thresholds x1.2,92908,True,True,,True,True,278,
+1,750,thresholds x1.2,131024,True,True,,True,True,278,
+1,750,thresholds x1.2,135118,True,True,,True,True,278,
+1,750,thresholds x1.2,75431,False,True,,False,False,,feed 1173; stop 1223
+1,750,thresholds x1.2,99695,False,True,,False,False,,feed 1173; stop 1223
+1,750,thresholds x1.2,119498,False,True,,False,False,,feed 1173; stop 1223
+1,750,thresholds x0.8,15463,True,True,,True,True,278,
+1,750,thresholds x0.8,16998,True,True,,True,True,278,
+1,750,thresholds x0.8,61054,True,True,,True,True,278,
+1,750,thresholds x0.8,74525,True,True,,True,True,278,
+1,750,thresholds x0.8,92908,True,True,,True,True,278,
+1,750,thresholds x0.8,131024,True,True,,True,True,278,
+1,750,thresholds x0.8,135118,True,True,,True,True,278,
+1,750,thresholds x0.8,75431,False,True,,False,False,,feed 1173; stop 1223; jump 3502
+1,750,thresholds x0.8,99695,False,True,,False,False,,feed 1173; stop 1223; jump 3502
+1,750,thresholds x0.8,119498,False,True,,False,False,,feed 1173; stop 1223; jump 3502
+1,1250,window 100 ms,9864,True,True,,False,False,403,
+1,1250,window 100 ms,25327,True,True,,False,False,170,
+1,1250,window 100 ms,27479,True,True,,False,False,,
+1,1250,window 100 ms,37530,True,True,,False,False,172,
+1,1250,window 100 ms,53566,True,True,,False,False,476,
+1,1250,window 100 ms,53641,True,True,,False,False,476,
+1,1250,window 100 ms,75234,True,True,,False,False,344,
+1,1250,window 100 ms,93778,True,True,,False,False,471,
+1,1250,window 100 ms,123585,True,True,,False,False,,
+1,1250,window 100 ms,133571,True,True,,True,True,171,feed 1476; stop 1570
+1,1250,window 100 ms,9255,False,True,,False,False,172,
+1,1250,window 100 ms,50384,False,True,,False,False,,
+1,1250,window 100 ms,106563,False,True,,False,False,171,
+1,1250,thresholds x1.2,9864,True,True,,True,True,338,feed 1663; stop 1730
+1,1250,thresholds x1.2,25327,True,True,,True,True,127,feed 1452; stop 1521
+1,1250,thresholds x1.2,27479,True,True,,False,False,607,
+1,1250,thresholds x1.2,37530,True,True,,True,True,127,feed 1462; stop 1520
+1,1250,thresholds x1.2,53566,True,True,,True,True,116,feed 1361; stop 1411; feed 1451; stop 1511; feed 1686; stop 1745
+1,1250,thresholds x1.2,53641,True,True,,True,True,437,feed 1697; stop 1776
+1,1250,thresholds x1.2,75234,True,True,,False,False,318,
+1,1250,thresholds x1.2,93778,True,True,,True,True,241,feed 1471; stop 1531
+1,1250,thresholds x1.2,123585,True,True,,False,False,607,
+1,1250,thresholds x1.2,133571,True,True,,True,True,127,feed 1454; stop 1541
+1,1250,thresholds x1.2,9255,False,True,,False,False,127,
+1,1250,thresholds x1.2,50384,False,True,,False,False,,
+1,1250,thresholds x1.2,106563,False,True,,False,False,127,
+1,1250,thresholds x0.8,9864,True,True,,True,True,338,feed 1663; stop 1730; jump 3493
+1,1250,thresholds x0.8,25327,True,True,,True,True,127,feed 1452; stop 1521
+1,1250,thresholds x0.8,27479,True,True,,True,True,607,
+1,1250,thresholds x0.8,37530,True,True,,True,True,127,feed 1462; stop 1520
+1,1250,thresholds x0.8,53566,True,True,,True,True,116,feed 1361; stop 1411; feed 1451; stop 1511; feed 1686; stop 1745
+1,1250,thresholds x0.8,53641,True,True,,True,True,437,feed 1697; stop 1776
+1,1250,thresholds x0.8,75234,True,True,,True,True,318,
+1,1250,thresholds x0.8,93778,True,True,,True,True,241,feed 1471; stop 1531; jump 3502
+1,1250,thresholds x0.8,123585,True,True,,True,True,607,
+1,1250,thresholds x0.8,133571,True,True,,True,True,127,feed 1454; stop 1541
+1,1250,thresholds x0.8,9255,False,True,,False,False,127,jump 3498
+1,1250,thresholds x0.8,50384,False,True,,False,False,,jump 3502
+1,1250,thresholds x0.8,106563,False,True,,False,False,127,jump 3502
+1,1750,window 100 ms,25813,True,True,,False,False,85,
+1,1750,window 100 ms,49090,True,True,,False,False,140,
+1,1750,window 100 ms,73515,True,True,,False,False,85,
+1,1750,window 100 ms,108296,True,True,,False,False,116,
+1,1750,window 100 ms,117182,True,True,,False,False,89,
+1,1750,window 100 ms,2954,False,True,,False,False,,
+1,1750,window 100 ms,25423,False,True,,False,False,,
+1,1750,window 100 ms,99929,False,True,,False,False,,
+1,1750,thresholds x1.2,25813,True,True,,False,False,65,
+1,1750,thresholds x1.2,49090,True,True,,False,False,107,
+1,1750,thresholds x1.2,73515,True,True,,False,False,66,
+1,1750,thresholds x1.2,108296,True,True,,False,False,96,
+1,1750,thresholds x1.2,117182,True,True,,False,False,69,
+1,1750,thresholds x1.2,2954,False,True,,False,False,,
+1,1750,thresholds x1.2,25423,False,True,,False,False,,
+1,1750,thresholds x1.2,99929,False,True,,False,False,,
+1,1750,thresholds x0.8,25813,True,True,,True,True,65,
+1,1750,thresholds x0.8,49090,True,True,,True,True,107,
+1,1750,thresholds x0.8,73515,True,True,,True,True,66,
+1,1750,thresholds x0.8,108296,True,True,,True,True,96,
+1,1750,thresholds x0.8,117182,True,True,,True,True,69,
+1,1750,thresholds x0.8,2954,False,True,,False,False,,jump 3502
+1,1750,thresholds x0.8,25423,False,True,,False,False,,jump 3502
+1,1750,thresholds x0.8,99929,False,True,,False,False,,jump 3502
+1,2250,window 100 ms,5794,True,True,,False,False,110,
+1,2250,window 100 ms,40971,False,True,,False,False,,
+1,2250,window 100 ms,76164,False,True,,False,False,,
+1,2250,window 100 ms,100596,False,True,,False,False,,
+1,2250,thresholds x1.2,5794,True,True,,False,False,53,
+1,2250,thresholds x1.2,40971,False,True,,False,False,,
+1,2250,thresholds x1.2,76164,False,True,,False,False,,
+1,2250,thresholds x1.2,100596,False,True,,False,False,,
+1,2250,thresholds x0.8,5794,True,True,,True,True,53,
+1,2250,thresholds x0.8,40971,False,True,,False,False,,jump 3502
+1,2250,thresholds x0.8,76164,False,True,,False,False,,jump 3502
+1,2250,thresholds x0.8,100596,False,True,,False,False,,jump 3502
+1,2750,window 100 ms,38463,False,True,,False,False,,
+1,2750,window 100 ms,73889,False,True,,False,False,,
+1,2750,window 100 ms,90556,False,True,,False,False,,
+1,2750,thresholds x1.2,38463,False,True,,False,False,,
+1,2750,thresholds x1.2,73889,False,True,,False,False,,
+1,2750,thresholds x1.2,90556,False,True,,False,False,,
+1,2750,thresholds x0.8,38463,False,True,,False,False,,jump 3502
+1,2750,thresholds x0.8,73889,False,True,,False,False,,jump 3502
+1,2750,thresholds x0.8,90556,False,True,,False,False,,jump 3502
+1,3250,window 100 ms,17467,True,True,,False,False,231,
+1,3250,window 100 ms,54591,True,True,,False,False,306,
+1,3250,window 100 ms,59796,True,True,,False,False,120,
+1,3250,window 100 ms,72725,True,True,,False,False,263,
+1,3250,window 100 ms,98676,True,True,,False,False,276,
+1,3250,window 100 ms,100901,True,True,,False,False,270,
+1,3250,window 100 ms,121813,True,True,,False,False,293,
+1,3250,window 100 ms,137933,True,True,,False,False,278,
+1,3250,window 100 ms,35304,False,True,,False,False,470,
+1,3250,window 100 ms,45496,False,True,,False,False,316,
+1,3250,window 100 ms,73152,False,True,,False,False,316,
+1,3250,thresholds x1.2,17467,True,True,,False,False,237,
+1,3250,thresholds x1.2,54591,True,True,,False,False,,
+1,3250,thresholds x1.2,59796,True,True,,False,False,94,
+1,3250,thresholds x1.2,72725,True,True,,False,False,220,
+1,3250,thresholds x1.2,98676,True,True,,False,False,202,
+1,3250,thresholds x1.2,100901,True,True,,False,False,237,
+1,3250,thresholds x1.2,121813,True,True,,False,False,286,
+1,3250,thresholds x1.2,137933,True,True,,False,False,284,
+1,3250,thresholds x1.2,35304,False,True,,False,False,289,
+1,3250,thresholds x1.2,45496,False,True,,False,False,,
+1,3250,thresholds x1.2,73152,False,True,,False,False,,
+1,3250,thresholds x0.8,17467,True,True,,True,True,237,
+1,3250,thresholds x0.8,54591,True,True,,True,True,251,
+1,3250,thresholds x0.8,59796,True,True,,True,True,94,
+1,3250,thresholds x0.8,72725,True,True,,True,True,220,
+1,3250,thresholds x0.8,98676,True,True,,True,True,202,
+1,3250,thresholds x0.8,100901,True,True,,True,True,237,
+1,3250,thresholds x0.8,121813,True,True,,True,True,251,
+1,3250,thresholds x0.8,137933,True,True,,True,True,251,
+1,3250,thresholds x0.8,35304,False,True,,False,False,247,jump 3498
+1,3250,thresholds x0.8,45496,False,True,,False,False,,jump 3502
+1,3250,thresholds x0.8,73152,False,True,,False,False,,jump 3502
+1,3750,window 100 ms,27478,False,True,,False,False,,
+1,3750,window 100 ms,51423,False,True,,False,False,,
+1,3750,window 100 ms,78101,False,True,,False,False,,
+1,3750,thresholds x1.2,27478,False,True,,False,False,,
+1,3750,thresholds x1.2,51423,False,True,,False,False,,
+1,3750,thresholds x1.2,78101,False,True,,False,False,,
+1,3750,thresholds x0.8,27478,False,True,,False,False,,
+1,3750,thresholds x0.8,51423,False,True,,False,False,,
+1,3750,thresholds x0.8,78101,False,True,,False,False,,
+2,250,window 100 ms,100434,True,True,,False,False,139,
+2,250,window 100 ms,30270,False,True,,False,False,,
+2,250,window 100 ms,74950,False,True,,False,False,,
+2,250,window 100 ms,76378,False,True,,False,False,,
+2,250,thresholds x1.2,100434,True,True,,True,True,100,feed 1577; stop 1627
+2,250,thresholds x1.2,30270,False,True,,False,False,,
+2,250,thresholds x1.2,74950,False,True,,False,False,,
+2,250,thresholds x1.2,76378,False,True,,False,False,,
+2,250,thresholds x0.8,100434,True,True,,True,True,100,feed 1577; stop 1627
+2,250,thresholds x0.8,30270,False,True,,False,False,,
+2,250,thresholds x0.8,74950,False,True,,False,False,,
+2,250,thresholds x0.8,76378,False,True,,False,False,,
+2,750,window 100 ms,8045,False,True,,False,False,,
+2,750,window 100 ms,11861,False,True,,False,False,,
+2,750,window 100 ms,120524,False,True,,False,False,,
+2,750,thresholds x1.2,8045,False,True,,False,False,,
+2,750,thresholds x1.2,11861,False,True,,False,False,,
+2,750,thresholds x1.2,120524,False,True,,False,False,,
+2,750,thresholds x0.8,8045,False,True,,False,False,,jump 3483
+2,750,thresholds x0.8,11861,False,True,,False,False,,jump 3483
+2,750,thresholds x0.8,120524,False,True,,False,False,,jump 3483
+2,1250,window 100 ms,9033,True,True,,False,False,125,
+2,1250,window 100 ms,19250,True,True,,False,False,238,
+2,1250,window 100 ms,29490,True,True,,False,False,343,
+2,1250,window 100 ms,32527,True,True,,False,False,242,
+2,1250,window 100 ms,46787,True,True,,False,False,197,
+2,1250,window 100 ms,54142,True,True,,False,False,343,
+2,1250,window 100 ms,62536,True,True,,False,False,238,
+2,1250,window 100 ms,79959,True,True,,False,False,,
+2,1250,window 100 ms,83877,True,True,,False,False,240,
+2,1250,window 100 ms,137046,True,True,,True,True,243,feed 1757; stop 1850
+2,1250,window 100 ms,68629,False,True,,False,False,464,
+2,1250,window 100 ms,87668,False,True,,False,False,343,
+2,1250,window 100 ms,133395,False,True,,False,False,240,
+2,1250,thresholds x1.2,9033,True,True,,True,True,107,feed 1727; stop 1784
+2,1250,thresholds x1.2,19250,True,True,,True,True,200,feed 1721; stop 1777
+2,1250,thresholds x1.2,29490,True,True,,False,False,297,
+2,1250,thresholds x1.2,32527,True,True,,False,False,199,
+2,1250,thresholds x1.2,46787,True,True,,False,False,183,
+2,1250,thresholds x1.2,54142,True,True,,True,True,297,feed 1566; stop 1621
+2,1250,thresholds x1.2,62536,True,True,,True,True,200,feed 1721; stop 1777
+2,1250,thresholds x1.2,79959,True,True,,True,True,489,feed 1734; stop 1784
+2,1250,thresholds x1.2,83877,True,True,,True,True,200,feed 1735; stop 1785
+2,1250,thresholds x1.2,137046,True,True,,True,True,200,feed 1743; stop 1807
+2,1250,thresholds x1.2,68629,False,True,,False,False,416,
+2,1250,thresholds x1.2,87668,False,True,,False,False,297,
+2,1250,thresholds x1.2,133395,False,True,,True,True,200,jump 3513
+2,1250,thresholds x0.8,9033,True,True,,True,True,107,feed 1727; stop 1784; jump 3501
+2,1250,thresholds x0.8,19250,True,True,,True,True,200,feed 1721; stop 1777
+2,1250,thresholds x0.8,29490,True,True,,True,True,297,
+2,1250,thresholds x0.8,32527,True,True,,True,True,199,
+2,1250,thresholds x0.8,46787,True,True,,True,True,183,
+2,1250,thresholds x0.8,54142,True,True,,True,True,297,feed 1566; stop 1621
+2,1250,thresholds x0.8,62536,True,True,,True,True,200,feed 1721; stop 1777
+2,1250,thresholds x0.8,79959,True,True,,True,True,489,feed 1734; stop 1784
+2,1250,thresholds x0.8,83877,True,True,,True,True,200,feed 1735; stop 1785; jump 3516
+2,1250,thresholds x0.8,137046,True,True,,True,True,200,feed 1743; stop 1807
+2,1250,thresholds x0.8,68629,False,True,,False,False,416,jump 3483
+2,1250,thresholds x0.8,87668,False,True,,False,False,297,jump 3503
+2,1250,thresholds x0.8,133395,False,True,,False,False,200,jump 3499
+2,1750,window 100 ms,9864,False,True,,False,False,,
+2,1750,window 100 ms,46191,False,True,,False,False,,
+2,1750,window 100 ms,88175,False,True,,False,False,,
+2,1750,thresholds x1.2,9864,False,True,,False,False,,
+2,1750,thresholds x1.2,46191,False,True,,False,False,,
+2,1750,thresholds x1.2,88175,False,True,,False,False,,
+2,1750,thresholds x0.8,9864,False,True,,False,False,,jump 3483
+2,1750,thresholds x0.8,46191,False,True,,False,False,,jump 3483
+2,1750,thresholds x0.8,88175,False,True,,False,False,,jump 3483
+2,2250,window 100 ms,27224,False,True,,False,False,,
+2,2250,window 100 ms,63686,False,True,,False,False,,
+2,2250,window 100 ms,99759,False,True,,False,False,,
+2,2250,thresholds x1.2,27224,False,True,,False,False,,
+2,2250,thresholds x1.2,63686,False,True,,False,False,,
+2,2250,thresholds x1.2,99759,False,True,,False,False,,
+2,2250,thresholds x0.8,27224,False,True,,False,False,,jump 3483
+2,2250,thresholds x0.8,63686,False,True,,False,False,,jump 3483
+2,2250,thresholds x0.8,99759,False,True,,False,False,,jump 3483
+2,2750,window 100 ms,119328,True,True,,False,False,102,
+2,2750,window 100 ms,23391,False,True,,False,False,,
+2,2750,window 100 ms,131024,False,True,,False,False,133,
+2,2750,window 100 ms,138168,False,True,,False,False,,
+2,2750,thresholds x1.2,119328,True,True,,False,False,88,
+2,2750,thresholds x1.2,23391,False,True,,False,False,,
+2,2750,thresholds x1.2,131024,False,True,,False,False,99,
+2,2750,thresholds x1.2,138168,False,True,,False,False,,
+2,2750,thresholds x0.8,119328,True,True,,True,True,88,
+2,2750,thresholds x0.8,23391,False,True,,False,False,,jump 3483
+2,2750,thresholds x0.8,131024,False,True,,False,False,99,jump 3498
+2,2750,thresholds x0.8,138168,False,True,,False,False,,jump 3483
+2,3250,window 100 ms,77965,True,True,,False,False,303,
+2,3250,window 100 ms,133956,True,True,,False,False,303,
+2,3250,window 100 ms,2955,False,True,,False,False,312,
+2,3250,window 100 ms,9222,False,True,,False,False,276,
+2,3250,window 100 ms,130297,False,True,,False,False,,
+2,3250,thresholds x1.2,77965,True,True,,False,False,235,
+2,3250,thresholds x1.2,133956,True,True,,False,False,235,
+2,3250,thresholds x1.2,2955,False,True,,False,False,221,
+2,3250,thresholds x1.2,9222,False,True,,False,False,330,
+2,3250,thresholds x1.2,130297,False,True,,False,False,,
+2,3250,thresholds x0.8,77965,True,True,,True,True,232,
+2,3250,thresholds x0.8,133956,True,True,,True,True,232,
+2,3250,thresholds x0.8,2955,False,True,,False,False,221,jump 3483
+2,3250,thresholds x0.8,9222,False,True,,False,False,232,jump 3488
+2,3250,thresholds x0.8,130297,False,True,,False,False,,jump 3483
+2,3750,window 100 ms,35983,False,True,,False,False,,
+2,3750,window 100 ms,122995,False,True,,False,False,,
+2,3750,window 100 ms,128102,False,True,,False,False,110,
+2,3750,thresholds x1.2,35983,False,True,,False,False,,
+2,3750,thresholds x1.2,122995,False,True,,False,False,,
+2,3750,thresholds x1.2,128102,False,True,,False,False,67,
+2,3750,thresholds x0.8,35983,False,True,,False,False,,
+2,3750,thresholds x0.8,122995,False,True,,False,False,,
+2,3750,thresholds x0.8,128102,False,True,,False,False,67,

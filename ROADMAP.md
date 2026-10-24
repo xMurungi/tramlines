@@ -56,7 +56,7 @@ Everything waiting on the owner: [`docs/owner-decisions.md`](docs/owner-decision
 - [x] Result 1, first pass: predictability horizon (ADR-0037)
 - [x] Result 1, second pass: 3 seeds × 3 draws; what the ghost must know depends on when it looks (ADR-0038)
 - [x] Result 2: null brain (degree-preserving shuffle), partial rewiring and a decoder-free check (ADR-0039)
-- [ ] Result 3: perturbation atlas + decoder robustness
+- [x] Result 3: perturbation atlas + decoder robustness, pre-registered (ADR-0048)
 - [x] Result 4: the backward horizon, pre-registered (ADR-0040, ADR-0041)
 - [x] Viewer: knowledge slider and control ghost labelled (ADR-0042); the aimed free-will fan (ADR-0046)
 - [ ] **Gate:** a stranger understands it in 30 s

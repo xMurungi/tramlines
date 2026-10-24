@@ -8,7 +8,7 @@ calibrated from the port survey; they are not measured from flies (honesty page)
 from __future__ import annotations
 
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import torch
 
@@ -47,6 +47,12 @@ class FlyDecoder:
 
     readout_neurons: torch.Tensor
     window_ms: int = WINDOW_MS
+    # The thresholds, as fields so Result 3 can test whether tipping points survive a
+    # different decoder (thresholds times 1.2 and 0.8, CLAUDE.md Phase 5). The defaults are
+    # the constants above; nothing changes unless a variant is asked for.
+    gf_jump_hz: float = GIANT_FIBER_JUMP_HZ
+    mn9_feed_start_hz: float = MN9_FEED_START_HZ
+    mn9_feed_stop_hz: float = MN9_FEED_STOP_HZ
 
     @classmethod
     def from_catalog(cls, catalog: NeuronCatalog) -> FlyDecoder:
@@ -67,15 +73,24 @@ class FlyDecoder:
             raise ValueError(f"expected 14 readout neurons, found {len(readouts)}")
         return cls(readout_neurons=catalog.index_of(readouts))
 
+    def scaled(self, factor: float) -> FlyDecoder:
+        """Every threshold multiplied by `factor` (Result 3's decoder robustness check)."""
+        return replace(
+            self,
+            gf_jump_hz=self.gf_jump_hz * factor,
+            mn9_feed_start_hz=self.mn9_feed_start_hz * factor,
+            mn9_feed_stop_hz=self.mn9_feed_stop_hz * factor,
+        )
+
     def command(self, rates_hz: torch.Tensor, fly: FlyState) -> MotorCommand:
         r = rates_hz.tolist()
         p9, dna02_left, dna02_right = sum(r[0:4]) / 4, r[4], r[5]
         mdn, gf, mn9 = sum(r[6:10]) / 4, max(r[10], r[11]), max(r[12], r[13])
-        if gf > GIANT_FIBER_JUMP_HZ and fly.jump_cooldown_ms == 0:
+        if gf > self.gf_jump_hz and fly.jump_cooldown_ms == 0:
             return MotorCommand(forward_mm_s=0.0, jump_mm=JUMP_MM)
         # While the body recovers from a jump, a still-high Giant Fiber does not freeze
         # the fly: it walks on as normal (issue #14, B6).
-        if mn9 > (MN9_FEED_STOP_HZ if fly.feeding else MN9_FEED_START_HZ):
+        if mn9 > (self.mn9_feed_stop_hz if fly.feeding else self.mn9_feed_start_hz):
             return MotorCommand(feed=True)
         low, high = SPEED_LIMITS_MM_S
         speed = FORWARD_MM_S_PER_HZ * p9 - BACKWARD_MM_S_PER_HZ * mdn

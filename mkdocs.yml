@@ -99,6 +99,7 @@ nav:
       - decisions/0045-automated-checks.md
       - decisions/0046-free-will-fan.md
       - decisions/0047-proposal-connectome-errors.md
+      - decisions/0048-result-3-perturbation-atlas.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
