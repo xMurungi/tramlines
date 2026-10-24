@@ -58,3 +58,9 @@ As before, the viewer counts only seconds already watched (issue #14, B7).
 
 ## For learners
 A machine that copies a deterministic brain exactly will always "predict" it: that is the control, and the screen says so. The real question is what happens when the copy is a little wrong, the way any measurement is. The slider lets you choose how wrong, from "rounded to single precision" to "missed one spike", and the ghost restarts from the blurred brain every second. Where it leaves the fly's path is where knowing less stopped being good enough. See [Chapter 22](../book/ch22-the-ghost.md).
+
+## Addendum (2026-10-24, owner decisions 23–25)
+- **23, wording:** kept as written.
+- **24, the rate beside the example:** each slider stop carries Result 1's counts (`Setting.evidence`, read from `docs/assets/horizon_v2.csv`; sent in `hello` as `result1`). Under the slider the viewer says, for example, "Result 1, this dish, 3 seeds × 3 draws: right for all 3 s in walking 9/9 · laced food 5/9 · shadow 9/9. The ghost on screen is one draw." Tested against the data.
+- **25, precompute:** `tramlines/server/precompute.py` computes every setting for the server's run and caches it (tested with a fake worker pool). It is meant to run once the code is frozen for the demo; a cached run is keyed by all of the package's code, so running it earlier wastes 4–5 hours.
+

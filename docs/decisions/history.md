@@ -94,3 +94,6 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 86 | 2026-10-24 | Imperfect ghosts scored bit-exact, on path (0.1 mm) and right-for | Delegated | [0042](0042-knowledge-slider.md) |
 | 87 | 2026-10-24 | "One missed spike" offered only with a spike in transit; the worker refuses otherwise | Delegated | [0042](0042-knowledge-slider.md) |
 | 88 | 2026-10-24 | First parallel agent: worked in its own git worktree, opened a PR without merging; the main session reviewed, numbered and merged it | Owner (tried at owner's request) | PR #24 |
+| 89 | 2026-10-24 | Owner: keep the slider's wording (decision 23) | Owner | [0042](0042-knowledge-slider.md) |
+| 90 | 2026-10-24 | Owner: show Result 1's counts beside the slider; built and tested (decision 24) | Owner | [0042](0042-knowledge-slider.md) |
+| 91 | 2026-10-24 | Owner: precompute the demo's settings; command built, to run once the code is frozen (decision 25) | Owner; timing delegated | [0042](0042-knowledge-slider.md) |

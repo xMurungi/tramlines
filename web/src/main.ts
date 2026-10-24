@@ -74,6 +74,19 @@ function updateStops(options: KnowledgeOption[]): boolean {
   return quiet;
 }
 
+/**
+ * Result 1's counts for this stop, so one example on screen is not taken for the rule
+ * (owner decision 24; ADR-0038): the same error can succeed or fail by chance.
+ */
+function evidence(setting: KnowledgeOption | undefined): string {
+  const counts = setting?.result1 ?? [];
+  if (!counts.length) return "";
+  const parts = counts.map((c) => `${c.moment} ${c.right}/${c.total}`).join(" · ");
+  return setting?.id === CONTROL
+    ? `Result 1: right every time (${parts}), as a copy must be.`
+    : `Result 1, this dish, 3 seeds × 3 draws: right for all 3 s in ${parts}. The ghost on screen is one draw.`;
+}
+
 function clock(ms: number): string {
   const s = Math.max(0, ms) / 1000;
   return `${String(Math.floor(s / 60)).padStart(2, "0")}:${(s % 60).toFixed(3).padStart(6, "0")}`;
@@ -119,6 +132,7 @@ function frame(now: number): void {
   $("knowledge-note").textContent = isControl
     ? "Everything: the ghost is a bit-exact copy of the live brain."
     : `${setting?.description ?? ""}. The body and the senses are known exactly; only the brain is measured.`;
+  $("knowledge-evidence").textContent = evidence(setting);
   const within = hello?.right_within_mm ?? 0.1;
   $("ghost-note").textContent = isControl
     ? "A separate process restarts the brain from a saved moment with the same code and the same random numbers. It is always right because the simulation is deterministic: that is copying, not predicting. It is here as the control."

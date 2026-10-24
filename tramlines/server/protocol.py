@@ -51,6 +51,14 @@ class LoomInfo(BaseModel):
     strength: float
 
 
+class Result1Count(BaseModel):
+    """Result 1's evidence for one stop (owner decision 24): right for 3 s, of all made."""
+
+    moment: str
+    right: int
+    total: int
+
+
 class KnowledgeOption(BaseModel):
     """One stop of the knowledge slider, in slider order."""
 
@@ -58,6 +66,7 @@ class KnowledgeOption(BaseModel):
     label: str
     description: str
     needs_spike_in_transit: bool
+    result1: list[Result1Count] = Field(default_factory=list)
 
 
 def knowledge_options() -> list[KnowledgeOption]:
@@ -67,6 +76,9 @@ def knowledge_options() -> list[KnowledgeOption]:
             label=s.label,
             description=s.description,
             needs_spike_in_transit=s.needs_spike_in_transit,
+            result1=[
+                Result1Count(moment=e.moment, right=e.right, total=e.total) for e in s.evidence
+            ],
         )
         for s in SETTINGS
     ]

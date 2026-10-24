@@ -368,3 +368,54 @@ def test_a_viewer_can_choose_over_the_websocket(
         reply = json.loads(ws.receive_text())
     assert (reply["type"], reply["knowledge"], reply["from_ms"]) == ("refused", "voltage-0.1", 0)
     assert "missing" in reply["reason"]
+
+
+# --- Owner decisions 24 and 25 -------------------------------------------------------
+
+
+def test_each_stop_carries_result_1s_counts_from_the_data() -> None:
+    from tramlines.server.knowledge import Evidence
+
+    assert BY_ID["voltage-0.001"].evidence == (
+        Evidence("walking", 9, 9),
+        Evidence("laced food", 5, 9),
+        Evidence("shadow", 9, 9),
+    )
+    assert BY_ID[CONTROL].evidence == tuple(
+        Evidence(m, 3, 3) for m in ("walking", "laced food", "shadow")
+    )
+    # Seed 0 had no spike in transit while walking: those ghosts were never made.
+    assert BY_ID["drop-spike"].evidence[0] == Evidence("walking", 6, 6)
+    from tramlines.server.protocol import knowledge_options
+
+    sent = {o.id: o for o in knowledge_options()}
+    assert [c.model_dump() for c in sent["voltage-0.001"].result1][1] == {
+        "moment": "laced food",
+        "right": 5,
+        "total": 9,
+    }
+
+
+class AnsweringWorkers(FakeWorkers):
+    """Answers every job at once with a ghost that stays on the live path."""
+
+    def send(self, job: Job) -> None:
+        super().send(job)
+        knowledge, at_ms, _ = job
+        self.out.put(("ghost", knowledge, at_ms, rows(at_ms + 1, at_ms + 101)))
+
+
+def test_precompute_caches_every_setting(run: server.Run) -> None:
+    from tramlines.server import precompute
+
+    fake = AnsweringWorkers()
+    touch_checkpoint(run, 0)
+    for message in (("checkpoint", 0, 5), ("chunk", 0, rows(1, 101), np.array([1]), 1),
+                    ("projector_done",)):  # fmt: skip
+        fake.out.put(message)
+    precompute.choose_all(run, fake)
+    precompute.drain(run, fake, poll_s=0.01, report=lambda _: None)
+    assert precompute.finished(run)
+    assert fake.sent[0][0] == CONTROL  # the control first
+    for setting in SETTINGS:
+        assert server.cache_path(run.settings, setting).exists()
