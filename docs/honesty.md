@@ -43,6 +43,8 @@ The **FREE WILL** button forks the moment on screen into 8 futures, each given e
 
 The ghost is always right because the simulation is deterministic: the same starting state, with the same random seed, always produces the same result, bit for bit. That is a property of this computer program. It is **not** a claim about real flies, and it is not evidence for or against free will. Tramlines is a thought experiment you can touch, not an argument.
 
+**What about quantum mechanics?** In the real universe, Heisenberg's uncertainty principle means a particle's exact position and velocity cannot both be known, which is why Laplace's perfect demon is widely thought impossible in reality. This simulation is a classical computer program, so inside it perfect knowledge is possible, and that is exactly why the perfect ghost is always right (the control). It also explains why the project asks about *imperfect* knowledge: any real predictor would have some, so the meaningful question is how much imprecision a prediction survives (Results 1 and 3). Whether quantum effects matter directly in brains is contested; at the scale of neurons, ordinary thermal noise is usually thought to dominate.
+
 The same goes for the past. In this model, small differences in the brain fade within about a second, and a perfect observer of the brain can no longer tell which past happened, unless the difference moved the fly somewhere that feels different ([ADR-0041](decisions/0041-result-4-backward-horizon.md)). This model has no learning or memory, so it is built to forget; real brains store memories in their wiring. Whether the faintest differences vanish or freeze is decided by the computer's rounding, not by the model.
 
 ## Credit

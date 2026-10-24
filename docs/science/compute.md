@@ -35,3 +35,21 @@ Every result here was computed on one laptop, using **two CPU cores** at a time.
 - `scripts/monitor_system.py --label <name>` samples CPU, memory, memory pressure, swap and the thermal state every few seconds during a run and writes a summary (kept locally, not committed).
 - Optionally, CPU power and frequency: `sudo powermetrics --samplers cpu_power,thermal -i 15000 -o <file>`. On Apple-chip Macs this reports power, frequency and thermal pressure, not temperatures or fan speed.
 - What it showed across all the studies above: the thermal state stayed "nominal" (once "fair"), cores held full frequency (no throttling), CPU power about 15 W during a two-worker run, and memory pressure normal or briefly "warning" when other apps were busy.
+
+## How long the project took (with an estimate for one person)
+*The first two lines are measured from the repository's history; the per-part times are an estimate, not a measurement.*
+
+- **Elapsed:** about two days of calendar time (first commit 22 October 2026, results merged 24 October 2026), over nine working sessions between one person (the owner, deciding direction) and an AI assistant (Claude, building), with breaks for sleep, usage limits and long runs. About 15 of those hours were the computer simply running the studies.
+- **Output at that point:** about 12,000 lines of Python and TypeScript, 48 decision records, 127 commits, 35 merged pull requests, four controlled or pre-registered studies, a viewer, and this documentation.
+- **Estimate for one skilled person working alone** (already fluent in Python, PyTorch, spiking neuron models and web development):
+
+| Part | Estimated time |
+|---|---|
+| Engine matched spike for spike to the reference, plus determinism tests | 3–6 weeks |
+| Body, world, senses and decoder, calibrated | 2–4 weeks |
+| Server and viewer (ghost, knowledge slider, free-will fan) | 4–8 weeks |
+| Four studies: design, debugging, analysis, write-ups | 2–4 months |
+| Documentation, decision records, literature check, automated checks, reviews | 1–2 months |
+| **Total** | **roughly 6–12 months** full time (less for a small team; much longer for a newcomer) |
+
+Caveats: the direction and key judgements came from a person, and that part is not sped up; speed brought its own risks (two silent bugs and several overclaims were found and corrected, ADR-0038, 0041, 0039); and the write-up, release and expert review still take human time.
