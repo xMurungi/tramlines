@@ -77,6 +77,12 @@ The connectome's own papers (Dorkenwald et al. 2024; Schlegel et al. 2024), the 
 - Large sparse networks with strong excitatory and inhibitory synapses settle into a *balanced state*: irregular firing, linear population response, and microscopic dynamics "extremely sensitive to small deviations in its initial conditions" (1998, with binary units).
 - *For our claims.* The classic reason to expect a brain model to be unpredictable. Our model is not in a balanced state: it is silent without input and runs about 1,200 active neurons on the dish (ADR-0039). Result 2's partly rewired brains that tip into runaway activity (about 10,000 neurons) show that the real wiring keeps activity contained and random wiring does not. Whether those runaway brains are chaotic in this sense was not measured. Calling our model "not chaotic" needs this context, and a Lyapunov measurement if the write-up wants the word.
 
+- *Read (main session, 2026-10-24).* 1996 (*Science*, full text): the balanced state "is characterized by strongly chaotic dynamics, even when the external inputs to the network are constant in time". 1998 (*Neural Comput.* 10, 1321–1371, abstract): the network is "extremely sensitive to small deviations in its initial conditions".
+
+**Politi, A. & Torcini, A. 2009.** "Stable chaos." arXiv:0902.2545 (review; [html](https://arxiv.org/html/0902.2545v1)). [read, main session]
+- A review of *stable chaos*: irregular dynamics that is nonetheless linearly stable, its characterization (indeterminacy, front velocities), the transition to it, and an application to networks of neurons, where discontinuities from δ-like events (spikes) generate it.
+- *For our claims.* The general reference for Result 1's wording ("stable to small perturbations, yet a spike can switch the trajectory"), alongside Monteforte & Wolf 2012; it also covers the original Politi et al. 1993 paper we could not read.
+
 **Jahnke, S., Memmesheimer, R.-M. & Timme, M. 2008.** "Stable irregular dynamics in complex neural networks." *Phys. Rev. Lett.* 100, 048102. [doi:10.1103/PhysRevLett.100.048102](https://doi.org/10.1103/PhysRevLett.100.048102). [abstract]
 **Zillmer, R., Livi, R., Politi, A. & Torcini, A. 2006.** "Desynchronization in diluted neural networks." *Phys. Rev. E* 74, 036203. [doi:10.1103/PhysRevE.74.036203](https://doi.org/10.1103/PhysRevE.74.036203). [abstract]
 - Irregular spiking need not be chaotic. With delayed inhibitory coupling, the irregular dynamics are "stable and convergent towards periodic orbits", so "chaotic and stable dynamics may be equally irregular" (Jahnke et al.). Zillmer et al. find irregular activity with a negative largest Lyapunov exponent, which they explain as *stable chaos*: an irregular transient whose length grows exponentially with network size. (The term comes from Politi, Livi, Oppo & Kapral, *Europhys. Lett.* 22, 571–576, 1993, [doi:10.1209/0295-5075/22/8/003](https://doi.org/10.1209/0295-5075/22/8/003) [not read].)
@@ -188,11 +194,13 @@ So "a closed-loop, embodied whole-brain fly" is established, even pre-registered
 ## 6. Forgetting, memory and irreversibility
 *For Result 4 (the backward horizon).*
 
-**Landauer, R. 1961.** "Irreversibility and heat generation in the computing process." *IBM J. Res. Dev.* 5, 183–191. [doi:10.1147/rd.53.0183](https://doi.org/10.1147/rd.53.0183). [not read]
-**Bennett, C. H. 1973.** "Logical reversibility of computation." *IBM J. Res. Dev.* 17, 525–532. [doi:10.1147/rd.176.0525](https://doi.org/10.1147/rd.176.0525). [not read]
+**Landauer, R. 1961.** "Irreversibility and heat generation in the computing process." *IBM J. Res. Dev.* 5, 183–191. [doi:10.1147/rd.53.0183](https://doi.org/10.1147/rd.53.0183). [read 2026-10-24, main session]
+**Bennett, C. H. 1973.** "Logical reversibility of computation." *IBM J. Res. Dev.* 17, 525–532. [doi:10.1147/rd.176.0525](https://doi.org/10.1147/rd.176.0525). [read 2026-10-24, main session]
 **Bérut, A. et al. 2012.** "Experimental verification of Landauer's principle linking information and thermodynamics." *Nature* 483, 187–189. [doi:10.1038/nature10872](https://doi.org/10.1038/nature10872). [abstract]
 - Landauer: erasing information (a logically irreversible, many-to-one step) costs a minimum of heat. Bennett: computation can in principle be made logically reversible. Bérut et al. measured the Landauer bound with a colloidal particle in a double-well trap.
 - *For our claims.* These are about the *thermodynamics* of erasure. Result 4 is not; it measures how a dissipative model loses the information that would tell two pasts apart. The link is narrower, and worth stating precisely: the computer's rounding, which ADR-0041 found decides whether the tiniest differences are erased or frozen, is a many-to-one map, logically irreversible in Landauer's sense. The model's equations, run in exact arithmetic, only shrink differences and never erase them. The write-up should not suggest that Result 4 says anything about heat or physical entropy.
+
+- *Read (main session, 2026-10-24).* Landauer: logically irreversible functions require "a minimal heat generation … of the order of kT", and this dissipation "serves the purpose of standardizing signals and making them independent of their exact logical history". Bennett: a computer "may be made logically reversible at every step" by saving intermediate results instead of erasing them. The phrase "independent of their exact logical history" is the precise bridge to Result 4: the computer's rounding makes the faintest differences vanish or freeze (ADR-0041), while the model's own equations only fade them. The heat cost itself plays no part in our results.
 
 **Maass, W., Natschläger, T. & Markram, H. 2002.** "Real-time computing without stable states: a new framework for neural computation based on perturbations." *Neural Comput.* 14, 2531–2560. [doi:10.1162/089976602760407955](https://doi.org/10.1162/089976602760407955). [abstract]
 - The liquid state machine: a recurrent circuit of integrate-and-fire neurons acts as a "universal analog fading memory", from which readouts recover recent inputs.
@@ -206,9 +214,11 @@ So "a closed-loop, embodied whole-brain fly" is established, even pre-registered
 - IEEE floating point systematically distorts the statistics of a simple chaotic map (the generalised Bernoulli map), in ways more precision does not cure.
 - *For our claims.* Prior work for the general point of ADR-0041's exact-arithmetic check: the computer's number system can change a simulation's long-run answer. Their system is chaotic and expanding; ours contracts, where rounding freezes or erases differences instead. Cite as related, not as the same effect.
 
-**Clark, A. & Chalmers, D. 1998.** "The extended mind." *Analysis* 58, 7–19. [doi:10.1093/analys/58.1.7](https://doi.org/10.1093/analys/58.1.7). [not read]
+**Clark, A. & Chalmers, D. 1998.** "The extended mind." *Analysis* 58(1), 7–19. [doi:10.1093/analys/58.1.7](https://doi.org/10.1093/analys/58.1.7). [read 2026-10-24, main session]
 - Philosophy: cognitive processes, and memory, can extend into the body and environment.
 - *For our claims.* The conceptual precedent for Result 4's "the body remembers": a past kept in where the body is and what it senses rather than in the brain. If the write-up uses that framing, it should cite this, after reading it, and say that the idea is old and only the measurement is ours.
+
+- *Read (main session).* The paper's example is Otto, who has Alzheimer's and keeps what he learns in a notebook he carries everywhere: the notebook plays the role memory plays for others. Our "the body remembers" is a physical, not a philosophical, version (a past kept in where the body is and what it senses), so cite it as a conceptual precedent and say the analogy is loose.
 
 ## 7. Framing: free will in flies
 **Brembs, B. 2011.** "Towards a scientific concept of free will as a biological trait: spontaneous actions and decision-making in invertebrates." *Proc. R. Soc. B* 278, 930–939 (published online 2010). [doi:10.1098/rspb.2010.2325](https://doi.org/10.1098/rspb.2010.2325). [abstract]
