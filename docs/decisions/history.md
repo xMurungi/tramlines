@@ -100,3 +100,4 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 92 | 2026-10-24 | Licence: MIT (code), CC BY 4.0 (docs, figures, result data); copyright "xMurungi and Tramlines contributors" | Owner delegated | [0043](0043-licence.md) |
 | 93 | 2026-10-24 | **The Book retired** (L11 superseded); chapters kept as learning notes; a rebuild-with-AI guide added | Owner | [0044](0044-book-retired.md) |
 | 94 | 2026-10-24 | Automated checks on GitHub: every PR (lint, types, full tests with data, docs, viewer build), the determinism gate weekly | Owner | [0045](0045-automated-checks.md) |
+| 95 | 2026-10-24 | Result 3 pilot run (seed 0, 4 moments); atlas instruments added with tests; analysis plan pre-registered with a choice measure that ignores timing alone | Delegated | [plan](../science/atlas-plan.md) |

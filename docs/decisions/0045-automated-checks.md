@@ -23,3 +23,8 @@ Option 1: `.github/workflows/checks.yml`, three jobs: `python` (ruff, mypy, pyte
 
 ## For learners
 Continuous integration means a robot runs your tests every time anyone proposes a change. It never forgets, never skips the slow test, and checks on a computer that is not yours, so "it works on my machine" stops being enough.
+
+## Addendum (2026-10-24): CODEOWNERS and the branch rule
+- `.github/CODEOWNERS` names xMurungi as owner of everything (owner's request). GitHub then requests the owner's review on pull requests opened by anyone else.
+- A rule on `develop` that *requires* an approving review (or a code-owner review) cannot be met in a one-account repository, because nobody can approve their own pull request; every PR here is opened from the owner's account. The recommended rule for now: require the status checks "lint, types, tests, docs" and "viewer build (TypeScript strict)", with no required approvals. Turn approvals on once there are other contributors.
+
