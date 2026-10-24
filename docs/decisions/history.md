@@ -79,3 +79,4 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 71 | 2026-10-24 | Owner asked whether the experiment fits our expectations: predictions now written before results, and a decoder-free test added | Owner question; test delegated | [predictions](../science/null-brain-predictions.md) |
 | 72 | 2026-10-24 | ADR-0036 corrected: brain "re-convergence" at the shadow was measured on spikes only, not the full state | Delegated (honesty, L10) | [0036](0036-walking-drive-upstream-of-p9.md) |
 | 73 | 2026-10-24 | Proposed to the owner: a "backward horizon" (can a demon recover the past?), not yet drafted | Awaiting owner | [owner decisions](../owner-decisions.md) |
+| 74 | 2026-10-24 | Bug: "one missed spike" silently did nothing when no spike was in transit (seed 0, walking). `blur` now refuses; void runs removed; ADR-0037/0038 corrected (walking: 6/6, not 9/9) | Delegated (honesty, L10) | [0038](0038-result-1-second-pass.md) |

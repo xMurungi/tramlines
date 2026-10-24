@@ -18,7 +18,7 @@ Option 1. `scripts/horizon_study.py` gains `--seeds`, `--draws`, `--set v2` and 
 
 **Self-check:** seed 0 with draw 0 uses exactly the first pass's errors. All 27 cases the two passes share came out identical, field for field.
 
-![Three panels (walking, laced food, shadow), one dot per ghost, with the count of ghosts right for all 3 s. Walking: nearly every ghost stays right except voltage error of 1 mV (2/9). Laced food: most kinds fail; even 0.001 mV fails 4 of 9 times; one missed spike fails 9 of 9. Shadow: 0.001 mV and 99.9% observation stay right 9 of 9; 0.03 mV and above, and one missed spike, mostly fail within 50–330 ms.](../assets/horizon_v2.png)
+![Three panels (walking, laced food, shadow), one dot per ghost, with the count of ghosts right for all 3 s. Walking: nearly every ghost stays right except voltage error of 1 mV (2/9). Laced food: most kinds fail; even 0.001 mV fails 4 of 9 times; one missed spike fails 9 of 9; while walking it stays right 6 of 6 (3 not made: no spike in transit). Shadow: 0.001 mV and 99.9% observation stay right 9 of 9; 0.03 mV and above, and one missed spike, mostly fail within 50–330 ms.](../assets/horizon_v2.png)
 
 ## Findings (second pass: 3 seeds; 9 ghosts per random error, 3 per fixed one)
 
@@ -31,17 +31,19 @@ Option 1. `scripts/horizon_study.py` gains `--seeds`, `--draws`, `--set v2` and 
 | voltage to 0.03 mV | 8/9 | 1/9 | 3/9 |
 | voltage to 0.1 mV | 7/9 | 0/9 | 1/9 |
 | voltage to 1 mV | 2/9 | 0/9 | 0/9 |
-| one in-flight spike missed | **9/9** | **0/9** | **1/9** |
+| one in-flight spike missed | **6/6**† | **0/9** | **1/9** |
 | 99.9% of neurons | 9/9 | 6/9 | 9/9 |
 | 99.5% of neurons | 8/9 | 4/9 | 6/9 |
 | 99.0% of neurons | 6/9 | 2/9 | 4/9 |
 
-Ghosts right for all 3 s (paths within 0.1 mm). When a ghost fails, it fails fast: median 78–347 ms, range 36–537 ms.
+Ghosts right for all 3 s (paths within 0.1 mm).
 
-1. **The missed spike holds up, and is the sharpest result.** Missing one spike in transit never matters while the fly walks (9/9 right) and almost always matters at a decision point (laced food 0/9, shadow 1/9, wrong within 52–359 ms).
+† Corrected 2026-10-24 (was 9/9): at the walking moment of seed 0 no spike was in transit, so `blur` silently made a perfect copy; those 3 runs are removed from the data and `blur` now refuses (`tramlines/timeline/perturb.py`, found by the backward-horizon pilot). Seeds 1 and 2 had 2–3 spikes in transit; all 6 of their ghosts stayed right. When a ghost fails, it fails fast: median 78–347 ms, range 36–537 ms.
+
+1. **The missed spike holds up, and is the sharpest result.** Missing one spike in transit never mattered while the fly walked (6/6 right; 3 more runs had no spike in transit and were void) and almost always matters at a decision point (laced food 0/9, shadow 1/9, wrong within 52–359 ms).
 2. **The first pass was too kind to small voltage errors.** At the laced food, voltages known to a thousandth of a millivolt still failed in 4 of 9 ghosts (within 177–347 ms), and 0.01 mV failed in all 9. Seed 0, the only seed of the first pass, happened to be one where 0.001 mV survived. At this decision there is no "good enough" voltage precision within the range tested.
 3. **Float32 is always enough** (9/9 runs across moments). Its error is far smaller than 0.001 mV (about 10⁻⁶ mV at these voltages).
-4. **Timing matters more than precision.** The "walking" ghosts start at 0.5 s and run 3 s, so they pass through the same laced food and the same shadow as the others, yet with 0.01 mV error they stay right 9/9 and with a missed spike 9/9. The same errors made *at* the decision fail almost every time. A difference made while the brain is not deciding fades within the ~0.7 s before the fly reaches the food; a difference made on the edge does not. This matches the divergence studies ([ADR-0036](0036-walking-drive-upstream-of-p9.md)): the brain forgets small differences unless they land on a threshold.
+4. **Timing matters more than precision.** The "walking" ghosts start at 0.5 s and run 3 s, so they pass through the same laced food and the same shadow as the others, yet with 0.01 mV error they stay right 9/9 and with a missed spike 6/6. The same errors made *at* the decision fail almost every time. A difference made while the brain is not deciding fades within the ~0.7 s before the fly reaches the food; a difference made on the edge does not. This matches the divergence studies ([ADR-0036](0036-walking-drive-upstream-of-p9.md)): the brain forgets small differences unless they land on a threshold.
 5. **Seeing 99.9% of neurons is not quite enough at the laced food** (6/9; about 140 neurons unseen). Elsewhere it is.
 
 **In one sentence:** what a demon must know depends on when it looks; while the fly walks, rough knowledge foresees it for seconds, but at a decision even a thousandth of a millivolt or one spike in flight can be the difference.

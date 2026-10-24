@@ -22,6 +22,10 @@ from tramlines.brain.state import BrainState
 Kind = Literal["voltage", "drop_spike", "float32", "partial"]
 
 
+class NoSpikeInTransit(ValueError):
+    """A quiet brain can have no spike travelling at a given moment: nothing to miss."""
+
+
 @dataclass(frozen=True)
 class Knowledge:
     """How the ghost's knowledge differs from the truth.
@@ -56,9 +60,11 @@ def blur(state: BrainState, knowledge: Knowledge) -> None:
         )
     elif knowledge.kind == "drop_spike":
         in_flight = torch.nonzero(state.in_flight)
-        if len(in_flight):
-            slot, neuron = in_flight[int(torch.randint(len(in_flight), (1,), generator=noise))]
-            state.in_flight[int(slot), int(neuron)] = False
+        if not len(in_flight):
+            # Doing nothing here would silently make this ghost a perfect copy (ADR-0038).
+            raise NoSpikeInTransit("no spike in transit to miss at this moment")
+        slot, neuron = in_flight[int(torch.randint(len(in_flight), (1,), generator=noise))]
+        state.in_flight[int(slot), int(neuron)] = False
     elif knowledge.kind == "float32":
         state.v_mV.copy_(state.v_mV.to(torch.float32).to(torch.float64))
         state.g_mV.copy_(state.g_mV.to(torch.float32).to(torch.float64))
