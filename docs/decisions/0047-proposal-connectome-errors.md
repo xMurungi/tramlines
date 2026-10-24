@@ -1,10 +1,10 @@
-# XXXX — Proposal: how accurate must a connectome be? (realistic connectome errors)
+# 0047 — Proposal: how accurate must a connectome be? (realistic connectome errors)
 
 - Status: **Proposed — awaiting owner** (owner decision 22)
 - Date: 2026-10-24
 - Phase: 5
 - Decider: Owner
-- Number: assigned by the main session when merged (written as XXXX here)
+- Number: 0047 (assigned by the main session on merge)
 
 ## Context
 Result 2 ([ADR-0039](0039-result-2-null-brain.md)) asked what the real wiring contributes, by scrambling it at random. The fly survived a quarter of its connections rewired, and the first thing to break was its judgement: refusing bitter-laced food broke from 5%. But nobody's connectome is wrong *at random*. Real reconstructions are wrong in specific, measurable ways: synapses missed, false synapses added, transmitters (and so excitation or inhibition) predicted wrongly for whole neurons, and pieces of neurons cut off or wrongly attached.
@@ -111,3 +111,10 @@ From Result 2's timings on this machine (ADR-0039): about 1–1.3 minutes of wal
 
 ## For learners
 A map is never the territory. A connectome is a map of a brain made by microscopes and software, and both make mistakes: they miss some connections, invent a few, and sometimes mistake a "go" signal for a "stop" signal. Result 2 asked what happens if the map is scrambled at random. This asks a sharper question: if the map has exactly the kinds of mistakes real maps have, in the amounts they really have them, does the simulated fly still do the same things? If yes, models built from connectomes are on firmer ground. If not, we learn which mistakes matter most, and which behaviour is the first to go.
+
+## Review (main session, 2026-10-24)
+- **Numbers checked against the papers' full text** (Europe PMC): Dorkenwald et al. 2024: 93.7% of presynapses and 44.7% of postsynapses attached, "false negative synapses are the dominant type of error but false positives also exist", 99.2% F1 by volume on 826 neurons: all verbatim. Eckstein et al. 2024: 87% and 94%, glutamate/GABA "our network's most common confusion": verbatim; note that the Methods call the 87% the *average per-transmitter* accuracy, while the abstract calls it accuracy "for individual synapses". Buhmann et al. 2021's F-scores could not be re-read here (no open full text); they stand as read by the author.
+- **Shiu et al. 2024 (full text read, see [literature notes](../science/literature-notes.md))** tested shuffled weights, w_syn ±30%, inhibition ±50% and glutamate as excitatory, but not missed or false synapses or wrong transmitters at measured rates. This study would not repeat their work; their glutamate test predicts that sign errors involving glutamate neurons matter most for the bitter veto.
+- **Instruments** reviewed (new files only; nothing existing changed): rate 0 returns the real wiring bit for bit; the data's guarantees are kept; inputs the instruments cannot handle are refused.
+- **Recommendation to the owner:** adopt (option 1), after Result 3 finishes, with the pilot then a pre-registered plan, as for Results 3 and 4. It is the result a connectome-modelling lab would most likely read.
+

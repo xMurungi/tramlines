@@ -1,6 +1,6 @@
 """Realistic connectome errors: the kinds of mistakes a reconstruction actually makes.
 
-Owner decision 22, proposal ADR (number assigned by the main session). Result 2
+Owner decision 22, proposal ADR-0047. Result 2
 (ADR-0039) scrambled the wiring at random. A real connectome is wrong in specific
 ways, each with a published (or unpublished) rate, collected in
 `docs/science/connectome-error-rates.md`:
