@@ -27,15 +27,23 @@
           <p class="note" id="brain-note">waiting for the first spikes</p>
         </section>
         <section class="panel">
+          <h2 id="knowledge-title">How much does the ghost know?</h2>
+          <div class="stops" id="knowledge" role="radiogroup" aria-labelledby="knowledge-title"></div>
+          <p class="note" id="knowledge-note">—</p>
+        </section>
+        <section class="panel">
           <h2>Prediction</h2>
+          <p class="kind" id="ghost-kind">—</p>
           <dl class="readout">
             <dt>horizon</dt><dd id="horizon">—</dd>
-            <dt>match</dt><dd id="match" class="match">—</dd>
+            <dt>bit-exact</dt><dd id="match" class="match">—</dd>
+            <dt>on path</dt><dd id="on-path">—</dd>
+            <dt>this ghost</dt><dd id="this-ghost">—</dd>
             <dt>checked</dt><dd id="checked">—</dd>
             <dt>ghost from</dt><dd id="ghost-from">—</dd>
             <dt>computed lead</dt><dd id="lead">—</dd>
           </dl>
-          <p class="note">The control: a separate process restarts the brain from a saved moment with the same code and the same random numbers, so it must match the live fly bit for bit. Match counts the watched milliseconds where it does.</p>
+          <p class="note" id="ghost-note">—</p>
         </section>
       </aside>
     </main>

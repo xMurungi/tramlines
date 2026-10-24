@@ -1,6 +1,8 @@
 // The arena seen from above: the dish, food and bitter, a looming shadow, the fly and its ghost.
 
-import type { Ghost, PoseRow, Run } from "./model";
+import { CONTROL, type Ghost, type PoseRow, type Run } from "./model";
+
+type Project = (v: number) => number;
 
 function css(name: string): string {
   return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
@@ -15,7 +17,8 @@ export class ArenaView {
     this.ctx = ctx;
   }
 
-  draw(run: Run, playhead: number): void {
+  /** `knowledge` is the setting being watched; `label` names its ghost on the canvas. */
+  draw(run: Run, playhead: number, knowledge: string, label: string): void {
     const hello = run.hello;
     if (!hello) return;
     const { canvas, ctx } = this;
@@ -68,9 +71,11 @@ export class ArenaView {
       ctx.globalAlpha = 1;
     }
 
-    // The ghost: the independent prediction, drawn ahead of the fly.
-    const ghost = run.ghostFor(playhead);
-    if (ghost) this.drawGhost(ghost, playhead, toX, toY);
+    // The ghost: the independent prediction, drawn ahead of the fly. An imperfect one is
+    // also drawn where it says the fly is now, so it can be seen peeling away (ADR-XXXX).
+    const ghost = run.refusalFor(playhead, knowledge) ? undefined : run.ghostFor(playhead, knowledge);
+    if (ghost && knowledge !== CONTROL) this.drawPeel(run, ghost, playhead, hello.right_within_mm, toX, toY);
+    if (ghost) this.drawGhost(ghost, playhead, label, toX, toY);
 
     // The live fly and its recent trail.
     const now = run.poseAt(playhead);
@@ -92,7 +97,50 @@ export class ArenaView {
     this.drawFly(now, toX, toY, css("--gold"), 1);
   }
 
-  private drawGhost(ghost: Ghost, playhead: number, toX: (x: number) => number, toY: (y: number) => number): void {
+  /**
+   * The imperfect ghost's past, from its checkpoint to now, against the live fly: on the
+   * path in ghost gold, off it (further than Result 1's 0.1 mm) in the "off" colour. Only
+   * moments already played are compared, so the screen never reveals the live future.
+   */
+  private drawPeel(run: Run, ghost: Ghost, playhead: number, within: number, toX: Project, toY: Project): void {
+    const { ctx } = this;
+    const past = ghost.poses.filter((p) => p[0] <= playhead);
+    if (!past.length) return;
+    const off = (p: PoseRow) => {
+      const live = run.poses[p[0]];
+      return live !== undefined && Math.hypot(p[1] - live[1], p[2] - live[2]) > within;
+    };
+    ctx.save();
+    ctx.setLineDash([2, 5]);
+    ctx.lineWidth = 1.5;
+    let peeled: PoseRow | undefined;
+    for (let i = 1; i < past.length; i++) {
+      const [a, b] = [past[i - 1], past[i]];
+      const isOff = off(b);
+      if (isOff && !peeled) peeled = b;
+      ctx.strokeStyle = isOff ? css("--ghost-off") : css("--ghost");
+      ctx.beginPath();
+      ctx.moveTo(toX(a[1]), toY(a[2]));
+      ctx.lineTo(toX(b[1]), toY(b[2]));
+      ctx.stroke();
+    }
+    if (peeled) {
+      // Where it left the fly's path.
+      ctx.setLineDash([]);
+      ctx.strokeStyle = css("--ghost-off");
+      ctx.beginPath();
+      ctx.arc(toX(peeled[1]), toY(peeled[2]), 4, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+    ctx.restore();
+    const now = past[past.length - 1];
+    ctx.save();
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) ctx.filter = "blur(1px)";
+    this.drawFly(now, toX, toY, off(now) ? css("--ghost-off") : css("--ghost-fly"), 1);
+    ctx.restore();
+  }
+
+  private drawGhost(ghost: Ghost, playhead: number, label: string, toX: Project, toY: Project): void {
     const { ctx } = this;
     const ahead = ghost.poses.filter((p) => p[0] > playhead);
     if (!ahead.length) return;
@@ -105,12 +153,19 @@ export class ArenaView {
     ctx.stroke();
     ctx.restore();
     ctx.save();
+    const end = ahead[ahead.length - 1];
     if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) ctx.filter = "blur(1.5px)";
-    this.drawFly(ahead[ahead.length - 1], toX, toY, css("--ghost-fly"), 1);
+    this.drawFly(end, toX, toY, css("--ghost-fly"), 1);
+    ctx.restore();
+    // Name the ghost where it ends, so the control is never mistaken for a prediction.
+    ctx.save();
+    ctx.font = `10px ${css("--font-mono")}`;
+    ctx.fillStyle = css("--text-muted");
+    ctx.fillText(label, toX(end[1]) + 10, toY(end[2]) - 8);
     ctx.restore();
   }
 
-  private drawFly(p: PoseRow, toX: (x: number) => number, toY: (y: number) => number, color: string, alpha: number): void {
+  private drawFly(p: PoseRow, toX: Project, toY: Project, color: string, alpha: number): void {
     const { ctx } = this;
     const [, x, y, heading, feeding] = p;
     ctx.save();
