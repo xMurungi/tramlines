@@ -42,6 +42,7 @@ All entries below were added on 2026-10-24 and checked against Crossref, DataCit
 | Jahnke, S., Memmesheimer, R.-M. & Timme, M. "Stable irregular dynamics in complex neural networks." *Phys. Rev. Lett.* 100, 048102 (2008). [doi:10.1103/PhysRevLett.100.048102](https://doi.org/10.1103/PhysRevLett.100.048102) | **verified** |
 | Zillmer, R., Livi, R., Politi, A. & Torcini, A. "Desynchronization in diluted neural networks." *Phys. Rev. E* 74, 036203 (2006). [doi:10.1103/PhysRevE.74.036203](https://doi.org/10.1103/PhysRevE.74.036203) | **verified** |
 | Politi, A., Livi, R., Oppo, G.-L. & Kapral, R. "Unpredictable behaviour in stable systems." *Europhys. Lett.* 22, 571–576 (1993). [doi:10.1209/0295-5075/22/8/003](https://doi.org/10.1209/0295-5075/22/8/003) | **verified** (not read) |
+| Politi, A. & Torcini, A. "Stable chaos." arXiv:0902.2545 (2009), review. [arXiv](https://arxiv.org/abs/0902.2545) | **verified, read** (2026-10-24; preprint/review) |
 | Lajoie, G., Lin, K. K. & Shea-Brown, E. "Chaos and reliability in balanced spiking networks with temporal drive." *Phys. Rev. E* 87, 052901 (2013). [doi:10.1103/PhysRevE.87.052901](https://doi.org/10.1103/PhysRevE.87.052901) | **verified** |
 | Houweling, A. R. & Brecht, M. "Behavioural report of single neuron stimulation in somatosensory cortex." *Nature* 451, 65–68 (2008; online 19 Dec 2007). [doi:10.1038/nature06447](https://doi.org/10.1038/nature06447) | **verified** |
 | Dalgleish, H. W. P., Russell, L. E., Packer, A. M., Roth, A. et al. (8 authors). "How many neurons are sufficient for perception of cortical activity?" *eLife* 9, e58889 (2020). [doi:10.7554/eLife.58889](https://doi.org/10.7554/eLife.58889) | **verified** |
@@ -85,13 +86,13 @@ All entries below were added on 2026-10-24 and checked against Crossref, DataCit
 ### Memory, forgetting and irreversibility
 | Citation | Verified |
 |---|---|
-| Landauer, R. "Irreversibility and heat generation in the computing process." *IBM J. Res. Dev.* 5, 183–191 (1961). [doi:10.1147/rd.53.0183](https://doi.org/10.1147/rd.53.0183) | **verified** (not read) |
-| Bennett, C. H. "Logical reversibility of computation." *IBM J. Res. Dev.* 17, 525–532 (1973). [doi:10.1147/rd.176.0525](https://doi.org/10.1147/rd.176.0525) | **verified** (not read) |
+| Landauer, R. "Irreversibility and heat generation in the computing process." *IBM J. Res. Dev.* 5, 183–191 (1961). [doi:10.1147/rd.53.0183](https://doi.org/10.1147/rd.53.0183) | **verified, read** (2026-10-24) |
+| Bennett, C. H. "Logical reversibility of computation." *IBM J. Res. Dev.* 17, 525–532 (1973). [doi:10.1147/rd.176.0525](https://doi.org/10.1147/rd.176.0525) | **verified, read** (2026-10-24) |
 | Bérut, A., Arakelyan, A., Petrosyan, A., Ciliberto, S., Dillenschneider, R. & Lutz, E. "Experimental verification of Landauer's principle linking information and thermodynamics." *Nature* 483, 187–189 (2012). [doi:10.1038/nature10872](https://doi.org/10.1038/nature10872) | **verified** |
 | Maass, W., Natschläger, T. & Markram, H. "Real-time computing without stable states: a new framework for neural computation based on perturbations." *Neural Comput.* 14, 2531–2560 (2002). [doi:10.1162/089976602760407955](https://doi.org/10.1162/089976602760407955) | **verified** |
 | Ganguli, S., Huh, D. & Sompolinsky, H. "Memory traces in dynamical systems." *Proc. Natl Acad. Sci. USA* 105, 18970–18975 (2008). [doi:10.1073/pnas.0804451105](https://doi.org/10.1073/pnas.0804451105) | **verified** |
 | Boghosian, B. M., Coveney, P. V. & Wang, H. "A new pathology in the simulation of chaotic dynamical systems on digital computers." *Adv. Theory Simul.* 2, 1900125 (2019). [doi:10.1002/adts.201900125](https://doi.org/10.1002/adts.201900125) | **verified** |
-| Clark, A. & Chalmers, D. "The extended mind." *Analysis* 58, 7–19 (1998). [doi:10.1093/analys/58.1.7](https://doi.org/10.1093/analys/58.1.7) | **verified** (not read) |
+| Clark, A. & Chalmers, D. "The extended mind." *Analysis* 58, 7–19 (1998). [doi:10.1093/analys/58.1.7](https://doi.org/10.1093/analys/58.1.7) | **verified, read** (2026-10-24) |
 
 ### Framing
 | Citation | Verified |
