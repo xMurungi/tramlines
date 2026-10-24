@@ -27,7 +27,7 @@ from tramlines.brain.connectome import Connectome, load_connectome
 from tramlines.brain.engine import enable_determinism
 from tramlines.brain.neurons import load_catalog
 from tramlines.timeline.divergence import first_divergence_ms, path_distance_mm
-from tramlines.timeline.perturb import Knowledge, blur
+from tramlines.timeline.perturb import Knowledge, NoSpikeInTransit, blur
 from tramlines.timeline.timeline import Pose, Timeline
 from tramlines.world.arena import DECISION_ARENA
 from tramlines.world.decoder import FlyDecoder
@@ -95,7 +95,10 @@ def run_one(job: Job) -> tuple[int, str, Knowledge | None, bool, list[Pose], lis
     connectome, senses, decoder = parts()
     timeline = Timeline.load(path, connectome, DECISION_ARENA, senses, decoder)
     if knowledge is not None:
-        blur(timeline.brain.state, knowledge)
+        try:
+            blur(timeline.brain.state, knowledge)
+        except NoSpikeInTransit:
+            return seed, moment, knowledge, truth, [], []  # reported as "nothing to miss"
     poses, spikes = timeline.run_recording(HORIZON_MS)
     keys = (spikes.steps * connectome.n_neurons + spikes.neurons).tolist()
     return seed, moment, knowledge, truth, poses, keys
@@ -162,14 +165,11 @@ def main() -> None:
                   flush=True)  # fmt: skip
 
     truth = {(s, m): (poses, keys) for s, m, _, is_truth, poses, keys in results if is_truth}
-    rows = []
+    rows, skipped = [], []
     for seed, moment, knowledge, is_truth, poses, keys in results:
         if is_truth:
             continue
         true_poses, true_keys = truth[seed, moment]
-        distances = path_distance_mm(poses, true_poses)
-        first_path = first_divergence_ms(distances, EPSILON_MM)
-        start_step = MOMENTS_MS[moment] * 10
         row: dict[str, object] = {"moment": moment}
         if args.tag:
             row |= {
@@ -178,8 +178,15 @@ def main() -> None:
                 else knowledge.seed,
                 "fly_at_moment": where[seed, moment],
             }  # fmt: skip
+        described = "everything (control)" if knowledge is None else knowledge.describe()
+        if not poses:  # nothing in transit to miss: no ghost was made (ADR-0038)
+            skipped.append(f"{moment}, seed {seed}: {described}: none in transit")
+            continue
+        distances = path_distance_mm(poses, true_poses)
+        first_path = first_divergence_ms(distances, EPSILON_MM)
+        start_step = MOMENTS_MS[moment] * 10
         row |= {
-            "ghost_knows": "everything (control)" if knowledge is None else knowledge.describe(),
+            "ghost_knows": described,
             "first_spike_difference_ms": first_spike_difference_ms(
                 keys, true_keys, connectome.n_neurons, start_step
             ),
@@ -196,6 +203,8 @@ def main() -> None:
         writer.writeheader()
         writer.writerows(rows)
     print(f"wrote {out.name}")
+    for line in skipped:
+        print(f"skipped ({line})")
     summarize(rows)
 
 

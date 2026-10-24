@@ -51,6 +51,13 @@ def plot_distributions(tag: str) -> None:
                        linewidths=0)  # fmt: skip
             right = sum(v >= 3 for v in values)
             ax.annotate(f"{right}/{len(values)}", (3.08, i), va="center", color=INK, fontsize=7)
+            expected = max(
+                sum(r["ghost_knows"] == label for r in rows if r["moment"] == m) for m in moments
+            )
+            if len(values) < expected:  # some ghosts could not be made (ADR-0038)
+                missing = expected - len(values)
+                ax.annotate(f"({missing} not made: none in transit)", (1.2, i), va="center",
+                            color=MUTED, fontsize=6)  # fmt: skip
         ax.set_title(moment, color=INK, fontsize=10, loc="left")
         ax.set_xlim(-0.05, 3.5)
         ax.set_xticks([0, 1, 2, 3])
@@ -88,11 +95,14 @@ def plot_first_pass() -> None:
     for ax, moment in zip(axes, moments, strict=True):
         ax.set_facecolor(surface)
         mine = {r["ghost_knows"]: r for r in rows if r["moment"] == moment}
-        values = [int(mine[label]["path_stays_right_ms"]) / 1000 for label in labels]
+        # A case can be missing: no spike in transit to miss at that moment (ADR-0038).
+        values = [int(mine[label]["path_stays_right_ms"]) / 1000 if label in mine else 0.0
+                  for label in labels]  # fmt: skip
         y = range(len(labels))
         ax.barh(list(y), values, color=gold, height=0.6)
         for i, v in zip(y, values, strict=True):
-            text = "all 3 s" if v >= 3 else f"{v * 1000:.0f} ms"
+            text = ("n/a: no spike in transit" if labels[i] not in mine
+                    else "all 3 s" if v >= 3 else f"{v * 1000:.0f} ms")  # fmt: skip
             ax.annotate(text, (v, i), xytext=(4, 0), textcoords="offset points", va="center",
                         color=ink, fontsize=7)  # fmt: skip
         ax.set_title(moment, color=ink, fontsize=10, loc="left")

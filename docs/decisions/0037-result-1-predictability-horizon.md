@@ -5,7 +5,7 @@
 - Phase: 5
 - Decider: Claude (delegated)
 
-> **Second pass:** [ADR-0038](0038-result-1-second-pass.md) repeats this on 3 seeds with 3 draws each. Finding 1 below does not hold at the laced food, where even 0.001 mV fails about half the time.
+> **Second pass:** [ADR-0038](0038-result-1-second-pass.md) repeats this on 3 seeds with 3 draws each. Finding 1 below does not hold at the laced food, where even 0.001 mV fails about half the time. Finding 3's walking case is void: no spike was in transit (correction, 2026-10-24).
 
 ## Context
 ADR-0035 asks how much you must know about a brain to predict it. The perfect ghost (a bit-exact copy) is the control and is always right. Here the ghost is given *imperfect* knowledge of the brain at a chosen moment, and we measure how long its predicted path stays right.
@@ -23,7 +23,7 @@ ADR-0035 asks how much you must know about a brain to predict it. The perfect gh
 ## Findings (first pass)
 1. **Continuous error barely matters.** Voltages known to within 10⁻¹² … 10⁻³ mV, or the whole state in float32: the ghost's path is right for all 3 s at every moment. At 0.001 mV on the laced food some spikes differ at once, yet the behaviour never does. Errors this small decay; this model is stable, not chaotic.
 2. **The edge for continuous error sits between 0.01 and 0.1 mV.** At 0.01 mV the ghost still walks right (except on laced food: 361 ms); at 0.1–1 mV it is wrong within 46–359 ms, predicting jumps and meals that never happen.
-3. **A single missed spike is decisive at decision points and harmless elsewhere.** Missing one spike in transit: right for all 3 s while walking, wrong within **242 ms** on laced food and **52 ms** under the shadow (it predicts an escape that never comes).
+3. **A single missed spike is decisive at decision points and harmless elsewhere.** Missing one spike in transit: ~~right for all 3 s while walking~~ (**correction, 2026-10-24:** at that moment of seed 0 no spike was in transit, so this ghost was a perfect copy and the walking result is void; [ADR-0038](0038-result-1-second-pass.md) has the corrected count from other seeds), wrong within **242 ms** on laced food and **52 ms** under the shadow (it predicts an escape that never comes).
 4. **You must see almost everything.** Observing 99.9% of neurons (about 140 unseen): right for all 3 s. Observing 99% (about 1,400 unseen): wrong within 52–387 ms everywhere.
 
 **In one sentence:** to foresee this brain you need to know nearly every neuron and every spike in flight; you do not need its voltages to more than about a hundredth of a millivolt.

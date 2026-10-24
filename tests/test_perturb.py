@@ -1,11 +1,12 @@
 """Imperfect knowledge for the ghost (ADR-0035, Result 1)."""
 
+import pytest
 import torch
 from _scenarios import small
 
 from tramlines.brain.engine import Brain
 from tramlines.brain.params import PARAMS
-from tramlines.timeline.perturb import Knowledge, blur
+from tramlines.timeline.perturb import Knowledge, NoSpikeInTransit, blur
 
 
 def moment() -> Brain:
@@ -53,3 +54,10 @@ def test_same_seed_same_error() -> None:
     blur(a.state, Knowledge("voltage", 1e-3, seed=7))
     blur(b.state, Knowledge("voltage", 1e-3, seed=7))
     assert a.state.fingerprint() == b.state.fingerprint()
+
+
+def test_missing_a_spike_refuses_when_none_is_in_transit() -> None:
+    brain = moment()
+    brain.state.in_flight.zero_()
+    with pytest.raises(NoSpikeInTransit):
+        blur(brain.state, Knowledge("drop_spike"))
