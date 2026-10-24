@@ -1,17 +1,78 @@
 """Figure for Result 1: how long a ghost with imperfect knowledge stays right (ADR-0037).
 
-uv run python scripts/plot_horizon.py      # reads docs/assets/horizon.csv
+uv run python scripts/plot_horizon.py           # reads docs/assets/horizon.csv
+uv run python scripts/plot_horizon.py --tag v2  # second pass: one dot per run (ADR-0038)
 """
 
 from __future__ import annotations
 
+import argparse
 import csv
 from pathlib import Path
 
 ASSETS = Path(__file__).resolve().parent.parent / "docs" / "assets"
 
 
+SURFACE, INK, MUTED, GRID, GOLD = "#07070a", "#e9e3d6", "#8a8478", "#24222a", "#bb861f"
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--tag", default="")
+    tag = parser.parse_args().tag
+    if tag:
+        plot_distributions(tag)
+    else:
+        plot_first_pass()
+
+
+def plot_distributions(tag: str) -> None:
+    """Every ghost as one dot: seeds and draws spread a case into a distribution."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    rows = list(csv.DictReader((ASSETS / f"horizon_{tag}.csv").open()))
+    moments = list(dict.fromkeys(r["moment"] for r in rows))
+    labels = list(dict.fromkeys(r["ghost_knows"] for r in rows))
+    seeds = sorted({r["seed"] for r in rows})
+    fig, axes = plt.subplots(
+        1, len(moments), figsize=(11, 5.2), dpi=160, sharey=True, facecolor=SURFACE
+    )
+    for ax, moment in zip(axes, moments, strict=True):
+        ax.set_facecolor(SURFACE)
+        for i, label in enumerate(labels):
+            mine = [r for r in rows if r["moment"] == moment and r["ghost_knows"] == label]
+            values = [int(r["path_stays_right_ms"]) / 1000 for r in mine]
+            # Spread the dots of one case vertically by seed so overlaps stay visible.
+            offsets = [(seeds.index(r["seed"]) - (len(seeds) - 1) / 2) * 0.18 for r in mine]
+            ax.scatter(values, [i + o for o in offsets], s=10, color=GOLD, alpha=0.8,
+                       linewidths=0)  # fmt: skip
+            right = sum(v >= 3 for v in values)
+            ax.annotate(f"{right}/{len(values)}", (3.08, i), va="center", color=INK, fontsize=7)
+        ax.set_title(moment, color=INK, fontsize=10, loc="left")
+        ax.set_xlim(-0.05, 3.5)
+        ax.set_xticks([0, 1, 2, 3])
+        ax.set_xlabel("ghost's path stays right (s)", color=MUTED, fontsize=8)
+        ax.tick_params(colors=MUTED, labelsize=8)
+        ax.grid(axis="x", color=GRID, linewidth=0.6)
+        ax.set_axisbelow(True)
+        for spine in ax.spines.values():
+            spine.set_visible(False)
+    axes[0].set_yticks(list(range(len(labels))))
+    axes[0].set_yticklabels(labels, color=INK, fontsize=8)
+    axes[0].invert_yaxis()
+    fig.suptitle(
+        f"How long an imperfect ghost stays right: {len(seeds)} seeds, one dot per ghost;"
+        " n/N = ghosts right for all 3 s",
+        color=INK, fontsize=10, x=0.01, ha="left",
+    )  # fmt: skip
+    fig.tight_layout()
+    fig.savefig(ASSETS / f"horizon_{tag}.png", facecolor=SURFACE)
+
+
+def plot_first_pass() -> None:
     import matplotlib
 
     matplotlib.use("Agg")
@@ -20,7 +81,7 @@ def main() -> None:
     rows = list(csv.DictReader((ASSETS / "horizon.csv").open()))
     moments = list(dict.fromkeys(r["moment"] for r in rows))
     labels = list(dict.fromkeys(r["ghost_knows"] for r in rows))
-    surface, ink, muted, grid, gold = "#07070a", "#e9e3d6", "#8a8478", "#24222a", "#bb861f"
+    surface, ink, muted, grid, gold = SURFACE, INK, MUTED, GRID, GOLD
     fig, axes = plt.subplots(
         1, len(moments), figsize=(11, 5.2), dpi=160, sharey=True, facecolor=surface
     )

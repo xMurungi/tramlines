@@ -85,11 +85,13 @@ nav:
       - decisions/0035-proposal-honest-laplaces-demon.md
       - decisions/0036-walking-drive-upstream-of-p9.md
       - decisions/0037-result-1-predictability-horizon.md
+      - decisions/0038-result-1-second-pass.md
   - Science:
       - science/reference-model-notes.md
       - science/citations.md
   - Architecture: architecture/index.md
   - Journal:
+      - journal/2026-10-24-session-9.md
       - journal/2026-10-23-session-8.md
       - journal/2026-10-23-session-7.md
       - journal/2026-10-22-session-6.md

@@ -108,6 +108,7 @@ This is the machine at the heart of the project, and it is worth sitting with ho
 
 - [ADR-0030: projection, not live](../decisions/0030-projection-not-live.md)
 - [ADR-0033: the projector, the independent ghost and the viewer](../decisions/0033-phase-4-architecture.md)
+- [ADR-0037](../decisions/0037-result-1-predictability-horizon.md) and [ADR-0038](../decisions/0038-result-1-second-pass.md): ghosts that know the brain imperfectly, and how long they stay right
 
 ## Next
 The ghost is always right; in Chapter 23 you will add one spike and break it.

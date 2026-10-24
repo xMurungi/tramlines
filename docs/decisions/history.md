@@ -72,3 +72,5 @@ Every choice, in the order it was made, with who made it. The ADRs hold the reas
 | 64 | 2026-10-23 | Faint shadow recalibrated 0.04 → 0.055; laced food stays 0.72 | Delegated | [0036](0036-walking-drive-upstream-of-p9.md) |
 | 65 | 2026-10-23 | Result 1 instruments (perturb.py, horizon study) and first-pass findings recorded | Delegated | [0037](0037-result-1-predictability-horizon.md) |
 | 66 | 2026-10-23 | Heavy runs drop to 1 worker when other apps keep memory pressure at "warning" (swap grew to 2.56 GB) | Delegated | [journal 8](../journal/2026-10-23-session-8.md) |
+| 67 | 2026-10-24 | Result 1 second pass: 3 seeds × 3 draws, finer edge (0.03 mV, 99.5%); the missed-spike finding holds, small voltage errors are not harmless at the laced food, and timing matters more than precision | Delegated | [0038](0038-result-1-second-pass.md) |
+| 68 | 2026-10-24 | Horizon study prints progress per run; first-pass CSV labels aligned with the current code ("99.0%") | Delegated | [0038](0038-result-1-second-pass.md) |

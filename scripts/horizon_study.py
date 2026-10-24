@@ -1,19 +1,26 @@
 """Result 1: how long does a ghost stay right when it knows the brain imperfectly? (ADR-0035)
 
-At three moments of the seed-0 run on the decision dish (walking, on laced food, under
-the faint shadow) the true fly is saved. Ghosts start from that save with imperfect
+At three moments of a run on the decision dish (walking, on laced food, under the
+faint shadow) the true fly is saved. Ghosts start from that save with imperfect
 knowledge (perturb.py) and run 3 s ahead next to the truth. The perfect ghost is the
 control. For each ghost: when the first spike differs, when the paths separate by
 more than 0.1 mm, and what the fly does differently.
 
-    uv run python scripts/horizon_study.py
+    uv run python scripts/horizon_study.py                 # first pass: seed 0, one draw
+    uv run python scripts/horizon_study.py --seeds 0 1 2 --draws 3 --set v2 --tag v2
+
+The second pass (ADR-0038) repeats every random error with several draws, on several
+runs of the brain (seeds), so each case gives a distribution rather than one number.
 """
 
 from __future__ import annotations
 
+import argparse
 import csv
 import tempfile
+import time
 from concurrent.futures import ProcessPoolExecutor
+from dataclasses import replace
 from pathlib import Path
 
 from tramlines.brain.connectome import Connectome, load_connectome
@@ -31,6 +38,7 @@ ASSETS = Path(__file__).resolve().parent.parent / "docs" / "assets"
 MOMENTS_MS = {"walking": 500, "laced food": 1200, "shadow": 3350}
 HORIZON_MS = 3000
 EPSILON_MM = 0.1
+# First pass (ADR-0037): one value per decade.
 KNOWLEDGE: list[Knowledge | None] = [
     None,  # the perfect ghost: the control
     Knowledge("voltage", 1e-12),
@@ -47,6 +55,23 @@ KNOWLEDGE: list[Knowledge | None] = [
     Knowledge("partial", 0.9),
     Knowledge("partial", 0.5),
 ]
+# Second pass (ADR-0038): finer around the edge the first pass found (0.01-0.1 mV, 99-99.9%).
+KNOWLEDGE_V2: list[Knowledge | None] = [
+    None,
+    Knowledge("voltage", 1e-3),
+    Knowledge("voltage", 1e-2),
+    Knowledge("voltage", 3e-2),
+    Knowledge("voltage", 1e-1),
+    Knowledge("voltage", 1.0),
+    Knowledge("float32"),
+    Knowledge("drop_spike"),
+    Knowledge("partial", 0.999),
+    Knowledge("partial", 0.995),
+    Knowledge("partial", 0.99),
+]
+SETS = {"v1": KNOWLEDGE, "v2": KNOWLEDGE_V2}
+RANDOM_KINDS = {"voltage", "drop_spike", "partial"}  # the others are the same on every draw
+Job = tuple[int, str, Path, Knowledge | None, bool]
 
 _parts: tuple[Connectome, FlySenses, FlyDecoder] | None = None
 
@@ -64,18 +89,16 @@ def parts() -> tuple[Connectome, FlySenses, FlyDecoder]:
     return _parts
 
 
-def run_one(
-    job: tuple[str, Path, Knowledge | None, bool],
-) -> tuple[str, Knowledge | None, bool, list[Pose], list[int]]:
+def run_one(job: Job) -> tuple[int, str, Knowledge | None, bool, list[Pose], list[int]]:
     """Load the saved moment, optionally blur it, run ahead. `truth` marks the reference run."""
-    moment, path, knowledge, truth = job
+    seed, moment, path, knowledge, truth = job
     connectome, senses, decoder = parts()
     timeline = Timeline.load(path, connectome, DECISION_ARENA, senses, decoder)
     if knowledge is not None:
         blur(timeline.brain.state, knowledge)
     poses, spikes = timeline.run_recording(HORIZON_MS)
     keys = (spikes.steps * connectome.n_neurons + spikes.neurons).tolist()
-    return moment, knowledge, truth, poses, keys
+    return seed, moment, knowledge, truth, poses, keys
 
 
 def events(poses: list[Pose]) -> list[str]:
@@ -94,61 +117,101 @@ def first_spike_difference_ms(a: list[int], b: list[int], n: int, start_step: in
     return (min(k // n for k in only) - start_step) // 10 if only else None
 
 
+def draws_of(knowledge: Knowledge | None, draws: int) -> list[Knowledge | None]:
+    if knowledge is None or knowledge.kind not in RANDOM_KINDS:
+        return [knowledge]
+    return [replace(knowledge, seed=d) for d in range(draws)]
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--seeds", type=int, nargs="+", default=[0])
+    parser.add_argument("--draws", type=int, default=1, help="random draws per random error")
+    parser.add_argument("--set", choices=sorted(SETS), default="v1")
+    parser.add_argument("--tag", default="", help="output horizon_<tag>.csv")
+    parser.add_argument("--workers", type=int, default=2)  # memory rule (ADR-0029, ADR-0032)
+    args = parser.parse_args()
+
     connectome, senses, decoder = parts()
     workdir = Path(tempfile.mkdtemp())
-    jobs: list[tuple[str, Path, Knowledge | None, bool]] = []
-    timeline = Timeline(connectome, DECISION_ARENA, senses, decoder, seed=0, start=DEFAULT_START)
-    for moment, at_ms in MOMENTS_MS.items():
-        timeline.run(at_ms - timeline.fly.time_ms)
-        path = workdir / f"{moment}.pt"
-        timeline.save(path)
-        jobs.append((moment, path, None, True))
-        jobs += [(moment, path, k, False) for k in KNOWLEDGE]
+    jobs: list[Job] = []
+    where: dict[tuple[int, str], str] = {}
+    for seed in args.seeds:
+        timeline = Timeline(
+            connectome, DECISION_ARENA, senses, decoder, seed=seed, start=DEFAULT_START
+        )
+        for moment, at_ms in MOMENTS_MS.items():
+            timeline.run(at_ms - timeline.fly.time_ms)
+            fly = timeline.fly
+            where[seed, moment] = f"({fly.x_mm:.1f}, {fly.y_mm:.1f}) feeding={fly.feeding}"
+            path = workdir / f"{seed}-{moment}.pt"
+            timeline.save(path)
+            jobs.append((seed, moment, path, None, True))
+            for k in SETS[args.set]:
+                jobs += [(seed, moment, path, d, False) for d in draws_of(k, args.draws)]
+    print(f"{len(jobs)} runs of {HORIZON_MS} ms on {args.workers} workers", flush=True)
 
-    with ProcessPoolExecutor(max_workers=2) as pool:  # memory rule (ADR-0029, ADR-0032)
-        results = list(pool.map(run_one, jobs))
+    results = []
+    started = time.monotonic()
+    with ProcessPoolExecutor(max_workers=args.workers) as pool:
+        for done, result in enumerate(pool.map(run_one, jobs), start=1):
+            results.append(result)
+            elapsed = time.monotonic() - started
+            left = elapsed / done * (len(jobs) - done)
+            print(f"  {done}/{len(jobs)} done, {elapsed / 60:.1f} min, ~{left / 60:.0f} min left",
+                  flush=True)  # fmt: skip
 
-    truth = {m: (poses, keys) for m, _, is_truth, poses, keys in results if is_truth}
+    truth = {(s, m): (poses, keys) for s, m, _, is_truth, poses, keys in results if is_truth}
     rows = []
-    for moment, knowledge, is_truth, poses, keys in results:
+    for seed, moment, knowledge, is_truth, poses, keys in results:
         if is_truth:
             continue
-        true_poses, true_keys = truth[moment]
+        true_poses, true_keys = truth[seed, moment]
         distances = path_distance_mm(poses, true_poses)
         first_path = first_divergence_ms(distances, EPSILON_MM)
         start_step = MOMENTS_MS[moment] * 10
-        rows.append(
-            {
-                "moment": moment,
-                "ghost_knows": "everything (control)"
-                if knowledge is None
-                else knowledge.describe(),
-                "first_spike_difference_ms": first_spike_difference_ms(
-                    keys, true_keys, connectome.n_neurons, start_step
-                ),
-                "path_stays_right_ms": HORIZON_MS if first_path is None else first_path,
-                "distance_at_3s_mm": round(distances[-1], 3),
-                "ghost_events": "; ".join(events(poses)),
-                "true_events": "; ".join(events(true_poses)),
-            }
-        )
+        row: dict[str, object] = {"moment": moment}
+        if args.tag:
+            row |= {
+                "seed": seed,
+                "draw": "-" if knowledge is None or knowledge.kind not in RANDOM_KINDS
+                else knowledge.seed,
+                "fly_at_moment": where[seed, moment],
+            }  # fmt: skip
+        row |= {
+            "ghost_knows": "everything (control)" if knowledge is None else knowledge.describe(),
+            "first_spike_difference_ms": first_spike_difference_ms(
+                keys, true_keys, connectome.n_neurons, start_step
+            ),
+            "path_stays_right_ms": HORIZON_MS if first_path is None else first_path,
+            "distance_at_3s_mm": round(distances[-1], 3),
+            "ghost_events": "; ".join(events(poses)),
+            "true_events": "; ".join(events(true_poses)),
+        }
+        rows.append(row)
     ASSETS.mkdir(parents=True, exist_ok=True)
-    out = ASSETS / "horizon.csv"
+    out = ASSETS / (f"horizon_{args.tag}.csv" if args.tag else "horizon.csv")
     with out.open("w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
+    print(f"wrote {out.name}")
+    summarize(rows)
+
+
+def summarize(rows: list[dict[str, object]]) -> None:
+    """Per moment and kind of knowledge: how many ghosts stayed right, and the spread."""
     for moment in MOMENTS_MS:
+        print(f"== {moment}")
         mine = [r for r in rows if r["moment"] == moment]
-        print(f"== {moment} (truth: {mine[0]['true_events'] or 'no events'})")
-        for r in mine:
-            stays = r["path_stays_right_ms"]
-            right = "all 3 s" if stays == HORIZON_MS else f"{stays} ms"
+        for label in dict.fromkeys(str(r["ghost_knows"]) for r in mine):
+            stays = sorted(int(str(r["path_stays_right_ms"])) for r in mine
+                           if r["ghost_knows"] == label)  # fmt: skip
+            right = sum(v == HORIZON_MS for v in stays)
+            median = stays[len(stays) // 2]
             print(
-                f"   {r['ghost_knows']:28} first spike off {r['first_spike_difference_ms']!s:>5} ms"
-                f" | path right for {right:>8} | end {r['distance_at_3s_mm']:7.3f} mm"
-                f" | {r['ghost_events'] or '-'}"
+                f"   {label:28} right all 3 s: {right:>2}/{len(stays):<2}"
+                f" | median {median:>5} ms | range {stays[0]}-{stays[-1]} ms"
             )
 
 
