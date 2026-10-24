@@ -1,9 +1,9 @@
 # 0040 — Proposal: the backward horizon (can the demon recover the past?)
 
-- Status: **Proposed — awaiting owner** (owner decision 21). Adding a fourth result changes what the project claims, which is Reserved (CLAUDE.md 2.2).
+- Status: **Accepted: adopted by the owner on 2026-10-24**, option 1 ("do 1 and change claude.md"). CLAUDE.md 1.1, 1.3 and Phase 5 amended. Results: ADR-0041.
 - Date: 2026-10-24
 - Phase: 5
-- Decider: Owner
+- Decider: Owner (adopted 2026-10-24)
 
 ## Context
 Laplace's demon, as he described it, would see the past as clearly as the future. His demon could, because Newton's laws run equally well backwards: from the present you can compute the past as surely as the future.

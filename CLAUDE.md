@@ -40,7 +40,7 @@ That is the whole product in one screen:
 3. **The fan.** On "free will", N branched futures drawn as diverging paths, with divergence measures.
 4. **The brain.** Which neurons are firing, in the live fly and in each future.
 
-Behind the screen, three measured results are the project's substance: the **predictability horizon** against measurement precision; the **brain's contribution** (real wiring against a shuffled "null brain"); and a **perturbation atlas** (how often, and where, one spike changes behaviour).
+Behind the screen, four measured results are the project's substance: the **predictability horizon** against measurement precision; the **brain's contribution** (real wiring against a shuffled "null brain"); a **perturbation atlas** (how often, and where, one spike changes behaviour); and the **backward horizon** (how long the demon can still recover the past, added by ADR-0040, owner-adopted 2026-10-24).
 
 ### 1.2 Why it matters (the North Star)
 
@@ -59,6 +59,7 @@ Reframed by ADR-0035 (owner-adopted 2026-10-23). The original list is preserved 
 - [ ] **Result 1, predictability horizon:** how long an imperfect ghost stays right, against how precisely it knows the brain.
 - [ ] **Result 2, the brain's contribution:** behaviour on the real connectome against a degree-preserving shuffled null brain.
 - [ ] **Result 3, perturbation atlas:** the fraction of single spikes that change behaviour, where and when, and whether the tipping points survive changes to the decoder.
+- [ ] **Result 4, backward horizon (ADR-0040):** how long after a small difference in the past a demon that sees the present, to precision ε, can still tell which past happened, for the brain alone and for brain plus body; with an exact-arithmetic check that separates the model from the computer's rounding. Analysis plan committed before the data.
 - [ ] Free will produces a fan of ≥ 8 aimed futures with divergence measures.
 - [ ] A web viewer with the control ghost, the knowledge slider, the fan and the aesthetic in section 9.
 - [ ] A long-form write-up (or preprint) with the data and scripts, after a literature check.
@@ -391,6 +392,7 @@ Never start phase N+1 until phase N's gate passes and the owner has said "go" in
 - **Result 1, predictability horizon:** a state-perturbation function (voltage error 10⁻¹²…10⁻³ mV, a dropped in-flight spike, float32 rounding, partial observation) and a sweep measuring how long the imperfect ghost stays right.
 - **Result 2, null brain:** a degree-preserving shuffle of the connectome under the same senses, decoder and arena; report the behavioural difference.
 - **Result 3, perturbation atlas:** single-spike sweeps across neurons and moments (screened cheaply at spike level, behaviour only for cascades), plus a decoder robustness check (100 ms window, thresholds ±20%).
+- **Result 4, backward horizon (ADR-0040, owner-adopted 2026-10-24):** the mirror of Result 1. Small differences made in the past (voltage, a missed or extra spike) at Result 1's moments, several seeds; the time B(ε) after which the present no longer reveals the past to precision ε, brain alone and brain plus body; an exact-arithmetic check on a small network. Pre-registered: the analysis plan is merged before the study runs.
 - **Viewer:** the knowledge slider, and the perfect ghost labelled as the control.
 - Button: fork N branches (default 8); each gets one extra spike, a different neuron per branch, logged and shown on screen; run all ahead H seconds. **Aimed (ADR-0031, owner-approved 2026-10-23):** the spike goes into a neuron currently receiving input, and the button is offered at decision moments; a uniformly random neuron almost never changes the future in this model (ADR-0029).
 - Divergence metrics: (a) arena path distance over time; (b) spike-raster Hamming distance over time; (c) "time to divergence" (first step where behavior differs by > ε).
@@ -705,4 +707,4 @@ Verify each citation's exact authors, title, venue and year before publishing:
 
 ---
 
-*Last edited by: Claude, at the owner's request. Changes to this file are Reserved: propose them as an ADR.*
+*Last edited by: Claude, at the owner's request (2026-10-24: Result 4 added, ADR-0040). Changes to this file are Reserved: propose them as an ADR.*
