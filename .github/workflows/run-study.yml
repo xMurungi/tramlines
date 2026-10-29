@@ -1,0 +1,71 @@
+# Run a study on GitHub's machines instead of the owner's laptop (ADR-0045, addendum).
+# Start it by hand: Actions tab -> "run study" -> Run workflow. Results come back as a
+# downloadable artifact. Private repositories have a monthly allowance of free minutes;
+# a job may run at most 6 hours. Standard runners have little memory, so keep workers at 1
+# unless the study is light (each brain process needs about 1.5-4.5 GB).
+name: run study
+
+on:
+  workflow_dispatch:
+    inputs:
+      study:
+        description: "Which study"
+        type: choice
+        options:
+          - horizon_study
+          - null_brain_study
+          - decoder_free_study
+          - backward_horizon_study
+          - atlas_study
+          - server_precompute
+      args:
+        description: "Extra arguments (e.g. --pipeline-test, --seeds 0 1 --tag v3)"
+        required: false
+        default: ""
+      workers:
+        description: "Brain processes in parallel"
+        required: false
+        default: "1"
+
+permissions:
+  contents: read
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    env:
+      STUDY: ${{ inputs.study }}
+      ARGS: ${{ inputs.args }}
+      WORKERS: ${{ inputs.workers }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv python install 3.12
+      - run: uv sync --locked
+      - uses: actions/cache@v4
+        with:
+          path: |
+            data/Completeness_783.csv
+            data/Connectivity_783.parquet
+            data/neuron_annotations_v2.1.0.tsv
+          key: flywire-v783-${{ hashFiles('scripts/fetch_data.py') }}
+      - run: uv run python scripts/fetch_data.py
+      - name: Run the study
+        run: |
+          [[ "$WORKERS" =~ ^[0-9]+$ ]] || { echo "workers must be a number"; exit 1; }
+          if [ "$STUDY" = "server_precompute" ]; then
+            uv run python -m tramlines.server.precompute
+          else
+            # shellcheck disable=SC2086
+            uv run python "scripts/$STUDY.py" --workers "$WORKERS" $ARGS
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.study }}-results
+          path: |
+            docs/assets/
+            data/projections/
+          if-no-files-found: warn
