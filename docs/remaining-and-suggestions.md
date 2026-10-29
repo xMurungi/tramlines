@@ -1,19 +1,34 @@
 # What remains, and suggestions
 
-Written 2026-10-24 (session 9), while Result 4's study was running. Sizes are in working sessions like session 9 and are estimates, not promises. The live checklist is [`ROADMAP.md`](https://github.com/xMurungi/tramlines/blob/develop/ROADMAP.md); decisions only the owner can make are on the [owner decisions](owner-decisions.md) page.
+*Updated 2026-10-29. Sizes are estimates in working sessions. Decisions only the owner can make are on the [owner decisions](owner-decisions.md) page.*
 
-## Where the project stands
+## Where the project stands (2026-10-29)
 
 | | Status |
 |---|---|
-| Phases 0–3 (data, engine, determinism, body and world) | Done, gates passed |
-| Phase 4 (ghost and viewer) | Built and watched; formal sign-off is owner decision 15 |
-| Result 1, predictability horizon | Done: two passes, corrected once ([ADR-0037](decisions/0037-result-1-predictability-horizon.md), [ADR-0038](decisions/0038-result-1-second-pass.md)) |
-| Result 2, null brain | Done: full and partial rewiring, decoder-free check ([ADR-0039](decisions/0039-result-2-null-brain.md)) |
-| Result 4, backward horizon | Done, pre-registered: the brain forgets, the body remembers ([ADR-0041](decisions/0041-result-4-backward-horizon.md)) |
-| Result 3, perturbation atlas | Not started |
+| Phases 0–3 (data, engine, determinism, body and world) | Done |
+| Phase 4 (ghost and viewer) | Built; formal sign-off is owner decision 15 |
+| Result 1, predictability horizon | Done, with uncertainty ([ADR-0037](decisions/0037-result-1-predictability-horizon.md), [0038](decisions/0038-result-1-second-pass.md)) |
+| Result 2, null brain | Done, with uncertainty ([ADR-0039](decisions/0039-result-2-null-brain.md)) |
+| Result 3, perturbation atlas | Done, pre-registered ([ADR-0048](decisions/0048-result-3-perturbation-atlas.md)) |
+| Result 4, backward horizon | Done, pre-registered ([ADR-0041](decisions/0041-result-4-backward-horizon.md)) |
+| Viewer | Knowledge slider ([ADR-0042](decisions/0042-knowledge-slider.md)) and free-will fan ([ADR-0046](decisions/0046-free-will-fan.md)) built |
+| Docs | README, overview, write-up draft, literature notes, compute page, thought experiments |
 
-The science is about half done; presenting it and writing it up are mostly still ahead.
+## Remaining, in order
+1. **Watch the viewer and one real free-will fan** on the full brain (a fan is estimated at 5–6 minutes to compute; not yet measured).
+2. **Phase 5 gate (owner):** a stranger understands it in 30 seconds.
+3. **Phase 6** (2–3 sessions): finish the write-up (the draft exists); clip script; aesthetic pass; then freeze the code and run the slider precompute (about 4–5 h, now possible in the cloud: Actions → "run study" → `server_precompute`).
+4. **Phase 7** (1–2 sessions, if decision 19 is approved): precomputed runs plus a browser player.
+5. **Launch (owner):** name (decision 6), channels (10), make the repository public; consider a timestamp first (Zenodo or OSF).
+
+**Owner decisions open:** 15, 19, 22 (fifth result: connectome errors), 26–31 (wording, framing, Brembs, BANC, contacting authors), 6, 10.
+
+**Optional science (each a proposal first):** realistic connectome errors (decision 22, ~5–8 h of computing, best on a rented cloud machine); continuous background noise; the "implant" thought experiment (predict with only the neurons an implant would see); validating against a known experiment; memory and learning (a later season).
+
+## Computing in the cloud
+- **GitHub Actions, on demand:** Actions → "run study" → choose a study, arguments and workers → results as a downloadable artifact. Free within the private repository's monthly allowance; at most 6 hours per job; keep workers at 1 on standard runners (little memory).
+- **A rented large machine** (16–32 cores, 32–64 GB RAM): the biggest studies in minutes instead of hours (about $1–5 each); needs the owner's own cloud account. See [compute](science/compute.md).
 
 ## Remaining work
 
